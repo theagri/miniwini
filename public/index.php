@@ -8,6 +8,8 @@
  * @link     http://laravel.com
  */
 
+$_SERVER['LARAVEL_ENV'] = 'development';
+
 // --------------------------------------------------------------
 // The path to the application directory.
 // --------------------------------------------------------------
