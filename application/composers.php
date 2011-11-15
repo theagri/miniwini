@@ -39,9 +39,12 @@ return array(
 	|
 	*/
 
-	'home.index' => array('name' => 'home', function($view)
+	'layouts.front' => array('name' => 'front', function($view)
 	{
-		//
+		Asset::add('css', 'css/miniwini.css');
+		Asset::add('jquery', 'javascripts/jquery.js');
+		Asset::add('miniwini', 'javascripts/miniwini.js');
+		return $view;
 	}),
 
 );
