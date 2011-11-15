@@ -41,9 +41,14 @@ $storage     = '../storage';
 $public      = __DIR__;
 
 // --------------------------------------------------------------
-// The path to the shared directory.
+// The shared libraries path
 // --------------------------------------------------------------
-$shared		= '../../laravel-shared';
+$shared_libraries = '../../laravel-shared/libraries';
+
+// --------------------------------------------------------------
+// The shared packages path
+// --------------------------------------------------------------
+$shared_packages = '../../laravel-shared/packages';
 
 // --------------------------------------------------------------
 // Launch Laravel.
