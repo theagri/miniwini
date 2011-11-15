@@ -1,1 +1,3 @@
 storage/cache/*
+application/config/development/db.php
+application/config/production/db.php
