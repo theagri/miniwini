@@ -16,7 +16,7 @@ $application = '../application';
 // --------------------------------------------------------------
 // The path to the system directory.
 // --------------------------------------------------------------
-$system      = '../system';
+$system      = '../laravel/system';
 
 // --------------------------------------------------------------
 // The path to the packages directory.
