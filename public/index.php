@@ -8,7 +8,7 @@
  * @link     http://laravel.com
  */
 
-$_SERVER['LARAVEL_ENV'] = 'development';
+$_SERVER['LARAVEL_ENV'] = 'production';
 
 // --------------------------------------------------------------
 // The path to the application directory.
@@ -18,7 +18,7 @@ $application = '../application';
 // --------------------------------------------------------------
 // The path to the system directory.
 // --------------------------------------------------------------
-$system      = '../laravel/system';
+$system      = '../../laravel-mywizz/system';
 
 // --------------------------------------------------------------
 // The path to the packages directory.
