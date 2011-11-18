@@ -1,0 +1,7 @@
+@font-face{font-family:'NanumGothic';font-style:normal;font-weight:normal;src:local('NanumGothic'),local('나눔고딕'),url('/fonts/NanumGothic.woff') format('woff');}*{color:black;}
+a{text-decoration:none;}a:hover{color:blue;text-decoration:underline;}
+figure{margin:0;padding:0;}
+section[data-form=general] .actions{text-align:center;}
+section[data-form=general] label{display:block;font-size:0.9em;padding:3px;margin-top:10px;}
+section[data-form=general] input[type=text]{width:690px;font-size:1.3em;}
+section[data-form=general] textarea{width:690px;min-height:200px;-webkit-appearance:textfield;}

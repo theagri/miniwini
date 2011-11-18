@@ -1,0 +1,105 @@
+html, body
+{
+	height:100%;
+}
+
+body
+{
+	font-size:12pt;
+	font-family:NanumGothic;
+	background:url(/img/layout/background.png);
+	margin:0;
+	padding:0;
+	
+	> header
+	{
+		position:absolute;
+		z-index:100;
+		
+
+		
+		figure
+		{
+			margin:0;
+			padding:0;
+			width:105px;
+			height:37px;
+			position:relative;
+			top:32px;
+			left:30px;
+			
+		}
+		
+		nav
+		{
+			position:absolute;
+			left:140px;
+			top:28px;
+			background-color:rgba(255,0,0,0.5);
+			min-width:700px;
+			
+			ul
+			{
+				list-style:none;
+				padding:0;
+				margin:0;
+				height:40px;
+				li
+				{
+					display:inline-block;
+				}
+			}
+		}
+	}
+	
+	> footer
+	{
+		position:fixed;
+		bottom:0;
+	}
+}
+
+
+
+#wrapper
+{
+	position:absolute;
+	height:100%;
+	display:table;
+	table-layout:fixed;
+	> div
+	{
+		display:table-cell;
+		vertical-align:top;
+	}
+
+	#pane-left
+	{
+		min-width:140px;
+		background:url(/img/layout/roof_left.png) right top no-repeat;
+		position:relative;
+		padding-top:100px;
+	}
+	
+	#pane-right
+	{
+		background:url(/img/layout/roof_right.png) left top no-repeat;
+		padding-top:40px;
+	}
+	
+	#content
+	{
+		width:700px;
+		padding:0 20px 0;
+		min-width:700px;
+		overflow:hidden;
+		height:100%;
+		padding-top:100px;
+		background-color:#fff;
+		box-shadow:0 0 4px rgba(0,0,0,0.6), 1px 1px 3px rgba(0,0,0,0.4);
+		background:#fff url(/img/layout/roof_bg.png) repeat-x;
+		
+	}
+	
+	
+}
