@@ -4,7 +4,8 @@ return array(
 	// ---------------------------------------------------------------------
 	
 	'GET /auth/login' => array('name' => 'login', function(){
-		return Response::error(404);
+		if ( ! Config::get('authly.register_enabled')) return Response::error(500);
+		
 		Title::put('로그인');
 		return View::of_front()->partial('content', 'auth/login', array(
 			'error' => Session::get('login_error'),
@@ -16,7 +17,8 @@ return array(
 	// ---------------------------------------------------------------------
 	
 	'POST /auth/login' => array('before' => 'csrf', function(){
-
+		if ( ! Config::get('authly.register_enabled')) return Response::error(500);
+		
 		$field = Config::get('authly.uniq_field');
 		$res = Authly::sign_in(Input::get($field), Input::get('password'));
 		if ($res)
@@ -90,7 +92,8 @@ return array(
 	// ---------------------------------------------------------------------
 	
 	'GET /auth/register' => array('name' => 'register', 'do' => function(){
-		return Response::error(404);
+		if ( ! Config::get('authly.register_enabled')) return Response::error(500);
+		
 		Title::put('가입');
 		return View::of_front()->partial('content', 'auth/register', array(
 			'error' => Session::get('error')
@@ -100,6 +103,8 @@ return array(
 	// ---------------------------------------------------------------------
 
 	'POST /auth/register' => function(){
+		if ( ! Config::get('authly.register_enabled')) return Response::error(500);
+		
 		$uniq_val = Input::get(Config::get('authly.uniq_field'));
 		
 		$input = array(
