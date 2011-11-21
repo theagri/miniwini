@@ -30,6 +30,9 @@ class Visitor extends Blaze {
 			);
 		}
 		
-		return array();
+		return array(
+			'users' => array(),
+			'guest_count' => $guest_count
+		);
 	}
 }

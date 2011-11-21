@@ -108,11 +108,13 @@
 					
 				</ul>
 				
-				<div>guest : <?=$visitors['guest_count']?></div>
+				
 				
 				<? endif; ?>
 				
 			</div>
+			
+			<div>guest : <?=$visitors['guest_count']?></div>
 			
 			<? endif; ?>
 			
