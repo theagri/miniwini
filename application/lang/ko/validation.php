@@ -24,7 +24,7 @@ return array(
 	"min"        => "The :attribute must be at least :min.",
 	"not_in"     => "The selected :attribute is invalid.",
 	"numeric"    => "The :attribute must be a number.",
-	"required"   => "The :attribute field is required.",
+	"required"   => "<strong>:attribute</strong> 항목은 필수 입력 항목입니다.",
 	"size"       => "The :attribute must be :size.",
 	"unique"     => "The :attribute has already been taken.",
 	"url"        => "The :attribute format is invalid.",	
