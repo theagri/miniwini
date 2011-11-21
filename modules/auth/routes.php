@@ -4,6 +4,7 @@ return array(
 	// ---------------------------------------------------------------------
 	
 	'GET /auth/login' => array('name' => 'login', function(){
+		return Response::error(404);
 		Title::put('로그인');
 		return View::of_front()->partial('content', 'auth/login', array(
 			'error' => Session::get('login_error'),
@@ -89,6 +90,7 @@ return array(
 	// ---------------------------------------------------------------------
 	
 	'GET /auth/register' => array('name' => 'register', 'do' => function(){
+		return Response::error(404);
 		Title::put('가입');
 		return View::of_front()->partial('content', 'auth/register', array(
 			'error' => Session::get('error')
