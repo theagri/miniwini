@@ -29,7 +29,6 @@ class User extends Blaze {
 	{
 		if ($this->avatar_url)
 		{
-			$size = Config::get('miniwini.avatar.sizes.' . $class);
 			$tooltip = $this->name;
 			return '<figure data-type="avatar-' . $class. '"><a href="'. $this->link .'" title="' . $tooltip . '"><img alt="' . $this->name . '" src="' . $this->avatar_url . '"></a></figure>';
 		}
