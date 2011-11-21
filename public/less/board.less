@@ -1,3 +1,5 @@
+@import "include.less";
+
 @text-shadow:1px 1px 0 rgba(0,0,0,0.07);
 @color-series:#d8737c;
 
@@ -6,13 +8,13 @@
 	height:34px;
 	li
 	{
+		.gradient();
 		border:1px solid #ccc;
 		border-bottom:0;
 		padding:3px 10px 5px 10px;
 		display:inline-block;
 		border-top-left-radius:4px;
 		border-top-right-radius:4px;
-		background: -webkit-gradient(linear, left top, left bottom, to(#eee), from(#fff));
 		box-shadow:0 0 1px rgba(0,0,0,0.1), inset 0 -1px 1px rgba(0,0,0,0.15), inset 0 2px 1px rgba(255,255,255,0.5);
 
 		&:first-child
@@ -39,7 +41,7 @@
 	
 	> div
 	{
-		background: -webkit-gradient(linear, left top, left bottom, to(#eee), from(#fff));
+		.gradient();
 		height:5px;
 		box-shadow:0 0 2px rgba(0,0,0,0.4), 0 1px 1px rgba(0,0,0,0.15);
 	}
