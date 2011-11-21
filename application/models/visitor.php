@@ -7,19 +7,27 @@ class Visitor extends Blaze {
 	public static function all()
 	{
 		$sessions = self::get();
-		$ids = array();
+		$users = array();
+		$guest_count = 0;
 		foreach ($sessions as $sess)
 		{
 			$data = unserialize($sess->data);
 			if ( ! empty($data['authly_key']))
 			{
-				$ids[] = $data['authly_key'];
+				$users[] = $data['authly_key'];
+			}
+			else
+			{
+				$guest_count += 1;
 			}
 		}
 		
-		if (count($ids))
+		if (count($users))
 		{
-			return User::where_in('id', array_unique($ids))->get();
+			return array(
+				'users' => User::where_in('id', array_unique($users))->get(),
+				'guest_count' => $guest_count
+			);
 		}
 		
 		return array();

@@ -87,23 +87,34 @@
 			
 		
 
+			<? $visitors = Visitor::all(); ?>
 			
+			<? if ( ! empty($visitors)): ?>
 			
 			<div id="visitors">
 				
+				<? if ( ! empty($visitors['users'])): ?>
+				
 				<ul>
 					
-					<? foreach (Visitor::all() as $visitor): ?>
-				
+					<? foreach ($visitors['users'] as $visitor): ?>
+
 					<li>
 						<?=$visitor->avatar('small')?>
 						<strong><?=$visitor->name?></strong>
 					</li>
-			
+					
 					<? endforeach; ?>
 					
 				</ul>
+				
+				<div>guest : <?=$visitors['guest_count']?></div>
+				
+				<? endif; ?>
+				
 			</div>
+			
+			<? endif; ?>
 			
 		</div>
 	</div>
