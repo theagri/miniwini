@@ -41,7 +41,19 @@ return array(
 
 	'layouts.front' => array('name' => 'front', function($view)
 	{
-		Asset::add('css', 'css/miniwini.css');
+		if ($_SERVER['LARAVEL_ENV'] == 'production')
+		{
+			Asset::add('css1', 'css/reset.css');
+			Asset::add('css2', 'css/base.css');
+			Asset::add('css3', 'css/layout.css');
+			Asset::add('css4', 'css/commently.css');
+			Asset::add('css5', 'css/board.css');
+		}
+		else
+		{
+			Asset::add('css', 'css/miniwini.css');
+		}
+		
 		Asset::add('jquery', 'javascripts/jquery.js');
 		Asset::add('miniwini', 'javascripts/miniwini.js');
 		Asset::add('commently', 'javascripts/commently.js');
