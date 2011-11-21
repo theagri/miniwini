@@ -1,0 +1,151 @@
+
+[data-group=commently]
+{
+	&[data-type=comments]
+	{
+		margin-bottom:50px;
+	}
+	
+	[data-type=comment]
+	{
+		margin-bottom:15px;
+		&[class^=depth]
+		{
+			//
+		}
+		
+		&.depth-1 {margin-left:30px;}
+		&.depth-2 {margin-left:60px;}
+		&.depth-3 {margin-left:90px;}
+		&.depth-4 {margin-left:120px;}
+		&.depth-5 {padding-left:150px;}
+		&.depth-6 {padding-left:180px;}
+		
+		header
+		{
+			display:table;
+			background-color:#eaeaea;
+			background:url(/img/layout/white_texture.png);
+			border:1px solid #e1e1e1;
+			height:24px;
+			font-size:0.95em;
+			width:100%;
+			text-shadow:1px 1px 0 rgba(255,255,255,0.8);
+			figure
+			{
+				display:table-cell;
+				width:20px;
+				img
+				{
+					border-radius:0;
+					border:1px solid #d3d3d3;
+				}
+			}
+			
+			[data-type=user]
+			{
+				border-left:1px solid rgba(255,255,255,0.8);
+				padding-left:6px;
+				display:table-cell;
+				vertical-align:middle;
+				padding-right:10px;
+			}
+			
+			time
+			{
+				text-align:right;
+				display:table-cell;
+				vertical-align:middle;
+				font-size:0.8em;
+				color:#999;
+				padding-right:8px;
+			}
+			
+			[data-type=reply-button]
+			{
+				display:table-cell;
+				width:50px;
+				vertical-align:middle;
+				font-size:0.8em;
+				text-align:center;
+				
+				a
+				{
+					color:#555;
+				}
+			}
+		}
+		
+		[data-type=body]
+		{
+			padding:5px 3px 5px 3px;
+			font-size:0.95em;
+			line-height:1.4em;
+			text-shadow:1px 1px 0 rgba(255,255,255,0.8);
+
+		}
+		
+		[data-type=user]
+		{
+			font-weight:bold;
+		}
+		
+		footer
+		{
+			time
+			{
+				padding-left:37px !important;
+			}
+		}
+	}
+	
+	[data-type=form-container]
+	{
+		padding-top:10px;
+		
+		[data-type=accounts]
+		{
+			display:table-cell;
+			vertical-align:top;
+		}
+		
+		[data-type=controls]
+		{
+			display:table-cell;
+			vertical-align:top;
+			width:99%;
+			textarea
+			{
+				width:100%;
+				-webkit-appearance:textfield;
+				-webkit-transition-property:height;
+				-webkit-transition-duration:0.3s;
+				height:28px;
+				resize:vertical;
+				font-size:0.9em;
+				overflow:visible;
+				float:left;
+				
+				&.active
+				{
+					height:150px;
+				}
+			}
+			
+		}
+		
+		[data-type=button]
+		{
+			display:table-cell;
+			width:60px;
+			max-width:60px;
+			min-width:60px;
+			padding-left:10px;
+			
+			input
+			{
+				float:right;
+			}
+		}
+	}
+}

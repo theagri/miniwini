@@ -5,7 +5,7 @@ html, body
 
 body
 {
-	font-size:12pt;
+	font-size:11pt;
 	font-family:NanumGothic;
 	background:url(/img/layout/background.png);
 	margin:0;
@@ -15,9 +15,6 @@ body
 	{
 		position:absolute;
 		z-index:100;
-		
-
-		
 		figure
 		{
 			margin:0;
@@ -27,7 +24,6 @@ body
 			position:relative;
 			top:32px;
 			left:30px;
-			
 		}
 		
 		nav
@@ -35,7 +31,6 @@ body
 			position:absolute;
 			left:140px;
 			top:28px;
-			background-color:rgba(255,0,0,0.5);
 			min-width:700px;
 			
 			ul
@@ -46,6 +41,7 @@ body
 				height:40px;
 				li
 				{
+					padding:3px;
 					display:inline-block;
 				}
 			}
@@ -56,6 +52,18 @@ body
 	{
 		position:fixed;
 		bottom:0;
+		right:0;
+		background-color:rgba(0,0,0,0.3);
+		color:#fff;
+		padding:5px 20px 5px 5px;
+		font-size:0.8em;
+		border-radius:6px;
+		text-shadow:1px 1px 0 rgb(0,0,0,0.5);
+		
+		a
+		{
+			color:#fff;
+		}
 	}
 }
 
@@ -71,6 +79,21 @@ body
 	{
 		display:table-cell;
 		vertical-align:top;
+	}
+	
+	#loginbox
+	{
+		text-align:center;
+		
+		figure
+		{
+			display:inline-block;
+			img
+			{
+				border:1px solid rgba(255,255,255,0.8);
+				box-shadow:1px 1px 2px rgba(0,0,0,0.5);
+			}
+		}
 	}
 
 	#pane-left
@@ -90,16 +113,81 @@ body
 	#content
 	{
 		width:700px;
-		padding:0 20px 0;
+		padding:80px 20px 100px;
 		min-width:700px;
 		overflow:hidden;
 		height:100%;
-		padding-top:100px;
 		background-color:#fff;
 		box-shadow:0 0 4px rgba(0,0,0,0.6), 1px 1px 3px rgba(0,0,0,0.4);
 		background:#fff url(/img/layout/roof_bg.png) repeat-x;
-		
 	}
-	
-	
+}
+
+
+[data-type=twitter-icon]
+{
+	text-indent:-1000px !important;
+	color:#429CC4;
+	font-family:WebSymbols;
+	font-size:1.5em;
+	&:before
+	{
+		content:'t'
+	}
+	&:hover
+	{
+		color:#429CC4;
+	}
+	span
+	{
+		display:none;
+	}
+}
+
+[data-type=facebook-icon]
+{
+	text-indent:-1000px !important;
+	color:#557B9F;
+	font-family:WebSymbols;
+	font-size:1.5em;
+	&:before
+	{
+		content:'f'
+	}
+	&:hover
+	{
+		color:#557B9F;
+	}
+	span
+	{
+		display:none;
+	}
+}
+
+
+#visitors
+{
+	margin-left:10px;
+	margin-top:10px;
+	li
+	{
+		figure
+		{
+			display:table-cell;
+			img
+			{
+				box-shadow:0 0 2px rgba(0,0,0,0.7), 1px 1px 2px rgba(0,0,0,0.3);
+			}
+		}
+		
+		strong
+		{
+			font-weight:normal;
+			vertical-align:middle;
+			color:#fff;
+			font-size:0.9em;
+			text-shadow:1px 1px 0 rgba(0,0,0,0.6);
+			display:table-cell;
+		}
+	}
 }
