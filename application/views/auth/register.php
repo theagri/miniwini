@@ -21,41 +21,26 @@
 
 			<? endif; ?>
 			
-			
-			<section id="page-register">
+			<section data-group="form" data-form="general">
 	
-				<h1>회원 가입</h1>
-
 				<?=Form::open('auth/register', 'POST')?>
 
-				<fieldset>
-
-					<div>
-						<label for="userid">아이디</label>
-						<input type="text" name="userid" id="userid" value="<?=Input::old('userid')?>" required autofocus>
-					</div>
-
-					<div>
-						<label for="email">이메일</label>
-						<input type="text" name="email" id="email" value="<?=Input::old('email')?>" required>
-					</div>
-			
-					<div>
-						<label for="name">이름</label>
-						<input type="text" name="name" id="name" value="<?=Input::old('name')?>" required>
-					</div>
+	
+				<label for="userid">아이디</label>
+				<input type="text" name="userid" id="userid" value="<?=Input::old('userid')?>" required autofocus>
 		
-					<div>
-						<label for="password">비밀번호</label>
-						<input type="password" name="password" id="password" required>
-					</div>
-			
-			
-					<div class="action">
-						<input type="submit" class="button" value="가입하기">
-					</div>
+				<label for="email">이메일</label>
+				<input type="email" name="email" id="email" value="<?=Input::old('email')?>" required>
 
-				</fieldset>
+				<label for="name">이름</label>
+				<input type="text" name="name" id="name" value="<?=Input::old('name')?>" required>
+	
+				<label for="password">비밀번호</label>
+				<input type="password" name="password" id="password" required>
+		
+				<div class="actions">
+					<input type="submit" class="button" value="가입하기">
+				</div>
 
 				<?=Form::close()?>
 

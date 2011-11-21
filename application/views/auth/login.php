@@ -1,11 +1,25 @@
 			
 			
 			<? if (Notification::exists()): ?>
-			
+
 			<div data-group="notification">
 				<?=Notification::get()?>
 			</div>
+
+			<? endif; ?>
 			
+			<? if (Form::has_errors()): ?>
+
+			<div data-group="error">
+
+				<? foreach (Form::all_errors() as $err): ?>
+
+				<p><?=$err?></p>
+
+				<? endforeach; ?>
+
+			</div>
+
 			<? endif; ?>
 			
 			

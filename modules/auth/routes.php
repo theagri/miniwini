@@ -32,7 +32,7 @@ return array(
 			return Redirect::to_home();
 		}
 		
-		return Redirect::to_login()->with('login_error', 'Failed');
+		return Redirect::to_login()->with('errors', 'Failed');
 	}),
 		
 	// ---------------------------------------------------------------------
@@ -116,17 +116,17 @@ return array(
 
 		if (Authly::exists($uniq_val))
 		{
-			return Redirect::to_register()->with('error', 'Already taken');
+			return Redirect::to_register()->with('errors', 'Already taken');
 		}
 		
 		if (Authly::is_reserved($uniq_val))
 		{
-			return Redirect::to_register()->with('error', 'Reserved');
+			return Redirect::to_register()->with('errors', 'Reserved');
 		}
 		
 		if (($val = Authly::validate($input)) !== TRUE)
 		{
-			return Redirect::to_register()->with('error', 'Invalid');
+			return Redirect::to_register()->with('errors', 'Invalid');
 		}
 		
 		$res = Authly::register($input);
@@ -147,7 +147,7 @@ return array(
 			}
 		}
 		
-		return Redirect::to_register()->with('error', 'Unknown error');
+		return Redirect::to_register()->with('errors', 'Unknown error');
 	},
 	
 	// ---------------------------------------------------------------------
