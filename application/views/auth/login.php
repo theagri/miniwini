@@ -23,10 +23,8 @@
 			<? endif; ?>
 			
 			
-			<section>
+			<section data-group="form" data-form="general">
 				
-				<h1>로그인</h1>
-	
 				<?=Form::open('auth/login')?>
 				
 				<?=Form::token()?>
@@ -37,23 +35,17 @@
 				
 				<? endif; ?>
 
-				<fieldset>
-		
-					<div>
-						<label for="userid">아이디</label>
-						<input type="text" id="userid" name="userid" value="<?=Input::old('userid')?>" required autofocus>
-					</div>
-		
-					<div>
-						<label for="password">비밀번호</label>
-						<input id="password" type="password" name="password" required>
-					</div>
 
-					<div class="action">
-						<input type="submit" class="button" value="로그인">
-					</div>
+				<label for="userid">아이디</label>
+				<input type="text" id="userid" name="userid" value="<?=Input::old('userid')?>" required autofocus>
 
-				</fieldset>
+				<label for="password">비밀번호</label>
+				<input id="password" type="password" name="password" required>
+
+				<div class="actions">
+					<input type="submit" class="button" value="로그인">
+				</div>
+
 
 				<?=Form::close()?>
 	
