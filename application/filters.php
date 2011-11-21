@@ -1,46 +1,5 @@
 <?php
-
 return array(
-
-	/*
-	|--------------------------------------------------------------------------
-	| Filters
-	|--------------------------------------------------------------------------
-	|
-	| Filters provide a convenient method for attaching functionality to your
-	| routes. Filters can run either before or after a route is exectued.
-	|
-	| The built-in "before" and "after" filters are called before and after
-	| every request to your application; however, you may create other filters
-	| that can be attached to individual routes.
-	|
-	| Filters also make common tasks such as authentication and CSRF protection
-	| a breeze. If a filter that runs before a route returns a response, that
-	| response will override the route action.
-	|
-	| Let's walk through an example...
-	|
-	| First, define a filter:
-	|
-	|		'simple_filter' => function()
-	|		{
-	|			return 'Filtered!';
-	|		}
-	|
-	| Next, attach the filter to a route:
-	|
-	|		'GET /' => array('before' => 'simple_filter', function()
-	|		{
-	|			return 'Hello World!';
-	|		})
-	|
-	| Now every requests to http://example.com will return "Filtered!", since
-	| the filter is overriding the route action by returning a value.
-	|
-	| To make your life easier, we have built authentication and CSRF filters
-	| that are ready to attach to your routes. Enjoy.
-	|
-	*/
 
 	'before' => function($method, $uri)
 	{
@@ -50,7 +9,23 @@ return array(
 
 	'after' => function($response, $method, $uri)
 	{
-		// Do stuff after every request to your application.
+		if ($response and $response->status === 200)
+		{
+			$result = array();
+			$lines = explode("\n", $response);
+
+			foreach ($lines as $line)
+			{
+				if ( ! trim($line) OR preg_match('/^\s*$/', $line))
+				{
+					continue;
+				}
+
+				$result[] = $line;
+			}
+
+			die (implode("\n", $result));
+		}
 	},
 
 
@@ -63,6 +38,18 @@ return array(
 	'csrf' => function()
 	{
 		return (Input::get('csrf_token') !== Form::raw_token()) ? Response::error('500') : null;
+	},
+	
+	
+	'signed' => function()
+	{
+		if ( ! Authly::signed())
+		{
+			return Redirect::to_login()->with(array(
+				'message' => 'login required',
+				'back_to' => Request::absolute_uri()
+			));
+		}
 	},
 
 );
