@@ -80,7 +80,7 @@ return array(
 	|
 	*/
 
-	'packages' => array('authly'),
+	'packages' => array('authly', 'commently'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -97,7 +97,7 @@ return array(
 	|
 	*/
 
-	'modules' => array('admin', 'auth', 'dashboard', 'board', 'home'),
+	'modules' => array('admin', 'auth', 'dashboard', 'board', 'home', 'commently'),
 
 	/*
 	|--------------------------------------------------------------------------
