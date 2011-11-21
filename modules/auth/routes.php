@@ -62,18 +62,33 @@ return array(
 	
 	'PUT /auth/edit' => array('before' => 'csrf, signed', function(){
 		
+
+		
+	
 		$input = array(
 			'name' => Input::get('name'),
-			'avatar_url' => Input::get('avatar_url')
+			'avatar_url' => Input::get('avatar_url'),
+			'avatar' => Input::file('avatar')
 		);
 		
 		$val = Validator::make($input, array(
 			'name' => 'required',
-			'avatar_url' => 'url'
+			'avatar_url' => 'url',
+			'avatar' => 'image|max:100'
 		));
 		
 		if ($val->valid())
 		{
+			$file = Input::file('avatar');
+			$filename = 'avatar_' . Authly::get_userid() . '.' . File::extension($file['name']);
+			$path = PUBLIC_PATH . 'assets/avatars/' . $filename;
+			if (File::upload('avatar', $path))
+			{
+				$input['avatar_url'] = Config::get('application.url') . '/assets/avatars/' . $filename;
+			}
+			
+			unset($input['avatar']);
+			
 			Authly::update($input);
 			return Redirect::to('auth/edit')->with('notification', 'Updated!');
 		}

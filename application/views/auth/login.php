@@ -1,5 +1,4 @@
 			
-			
 			<? if (Notification::exists()): ?>
 
 			<div data-group="notification">
@@ -21,7 +20,6 @@
 			</div>
 
 			<? endif; ?>
-			
 			
 			<section data-group="form" data-form="general">
 				
@@ -46,9 +44,7 @@
 					<input type="submit" class="button" value="로그인">
 				</div>
 
-
 				<?=Form::close()?>
-	
 	
 				<? if (Config::get('authly.connections.enabled')): ?>
 	

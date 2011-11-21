@@ -27,7 +27,7 @@
 
 				<? endif; ?>
 				
-				<?=Form::open('auth/edit', 'PUT')?>
+				<?=Form::open_for_files('auth/edit', 'PUT')?>
 				
 				<?=Form::token()?>
 				
@@ -38,6 +38,9 @@
 				<label>아바타</label>
 				<input type="text" name="avatar_url" value="<?=Input::old('avatar_url', Authly::get_avatar_url())?>" required>
 				<?=Form::error('avatar_url')?>
+				
+				<label>파일</label>
+				<input type="file" name="avatar">
 				
 				
 				<br><img src="<?=Authly::get_avatar_url()?>">
