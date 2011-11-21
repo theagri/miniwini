@@ -17,6 +17,11 @@
 	<?=Asset::styles()?>
 	<?=Asset::scripts()?>
 
+	<!--[if (gte IE 6)&(lte IE 8)]>
+	<script src="/javascripts/html5shiv.js"></script>
+	<script src="/javascripts/selectivizr.js"></script>
+	<![endif]-->
+	
 </head>
 
 <body>
