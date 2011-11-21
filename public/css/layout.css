@@ -5,7 +5,7 @@ body>footer{position:fixed;bottom:0;right:0;background-color:rgba(0, 0, 0, 0.3);
 #wrapper{position:absolute;height:100%;display:table;table-layout:fixed;}#wrapper>div{display:table-cell;vertical-align:top;}
 #wrapper #loginbox{text-align:center;}#wrapper #loginbox figure{display:inline-block;}#wrapper #loginbox figure img{border:1px solid rgba(255, 255, 255, 0.8);box-shadow:1px 1px 2px rgba(0, 0, 0, 0.5);}
 #wrapper #pane-left{min-width:140px;background:url(/img/layout/roof_left.png) right top no-repeat;position:relative;padding-top:100px;}
-#wrapper #pane-right{background:url(/img/layout/roof_right.png) left top no-repeat;padding-top:40px;}
+#wrapper #pane-right{background:url(/img/layout/roof_right.png) left top no-repeat;padding-top:40px;min-width:100px;}
 #wrapper #content{width:700px;padding:80px 20px 100px;min-width:700px;overflow:hidden;height:100%;background-color:#fff;box-shadow:0 0 4px rgba(0, 0, 0, 0.6),1px 1px 3px rgba(0, 0, 0, 0.4);background:#ffffff url(/img/layout/roof_bg.png) repeat-x;}
 [data-type=twitter-icon]{text-indent:-1000px !important;color:#429CC4;font-family:WebSymbols;font-size:1.5em;}[data-type=twitter-icon]:before{content:'t';}
 [data-type=twitter-icon]:hover{color:#429CC4;}
