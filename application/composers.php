@@ -44,6 +44,9 @@ return array(
 		Asset::add('css', 'css/miniwini.css');
 		Asset::add('jquery', 'javascripts/jquery.js');
 		Asset::add('miniwini', 'javascripts/miniwini.js');
+		Asset::add('commently', 'javascripts/commently.js');
+
+		
 		return $view;
 	}),
 
