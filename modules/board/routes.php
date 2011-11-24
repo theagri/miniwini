@@ -219,7 +219,7 @@ return array(
 			if ($series AND ($series->user_id == Authly::get_id()))
 			{
 				$post->series_id = $series->id;
-				$post->series_sequence = 1;
+				$post->series_sequence = Series::where_id($series->id)->count() + 1;
 				$post->save();
 			}	
 		}
@@ -236,7 +236,7 @@ return array(
 			if ($new_series->save())
 			{
 				$post->series_id = $new_series->id;
-				$post->series_sequence = Series::where_id($new_series->id)->count() + 1;
+				$post->series_sequence =  1;
 				$post->save();
 			}
 		}
