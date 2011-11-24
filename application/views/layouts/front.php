@@ -10,24 +10,47 @@
 <html lang="ko">
 <head>
 	<meta charset="utf-8">
+	
 	<title><?=Title::get()?></title>
-
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="mywizz">
+	<meta name="description" content="">
+	
 	<link href="/favicon.png" rel="shortcut icon" type="image/png">
 	
-	<?=Asset::styles()?>
-	<?=Asset::scripts()?>
+	<? if (Session::get('mobile')): ?>
+	
+	<link href="/css/mobile.css" media="screen" rel="stylesheet">
+	
+	<? else: ?>
+	
+	<link href="/css/miniwini.css" media="screen and (min-device-width:768px)" rel="stylesheet">
+	
+	<? endif; ?>
 
+	
+	<script src="/javascripts/jquery.js"></script>
+	<script src="/javascripts/miniwini.js"></script>
+	<script src="/javascripts/commently.js"></script>
+	
+	
 	<!--[if (gte IE 6)&(lte IE 8)]>
 	<script src="/javascripts/html5shiv.js"></script>
 	<script src="/javascripts/selectivizr.js"></script>
 	<![endif]-->
+	
+	
 	
 </head>
 
 <body>
 	
 	<header>
-		<figure><a href="/"><img src="/img/layout/logo.png" alt="<?=Config::get('miniwini.title')?>"></a></figure>
+		<figure>
+			<a href="/"><img src="/img/layout/miniwini_logo.png" alt="<?=Config::get('miniwini.title')?>"></a>
+			<figcaption><?=Config::get('miniwini.description')?></figcaption>
+		</figure>
 		
 		<nav>
 			<ul>
@@ -38,8 +61,8 @@
 
 				<? if (Authly::signed()): ?>
 
-				<li><a href="<?=URL::to('dashboard')?>"><?=Authly::get_name()?></a></li>
-				<li><a href="<?=URL::to('auth/logout')?>">logout</a></li>
+				<li><a href="<?=URL::to('dashboard')?>">Dashboard</a></li>
+				<li data-align="right"><a href="<?=URL::to('auth/logout')?>">logout</a></li>
 
 				<? else: ?>
 
@@ -58,35 +81,54 @@
 	
 	<div id="wrapper">
 		
-		<div id="pane-left">
+		<aside id="pane-left">
 			
 			<? if (Authly::signed()): ?>
 			
 			<div id="loginbox">
-				<a href="<?=URL::to('dashboard')?>"><figure data-type="avatar-big"><img alt="<?=Authly::get_name()?>" src="<?=Authly::get_avatar_url()?>"></figure>
-				<br><?=Authly::get_name()?></a>
+				<figure data-type="avatar-medium"><a href="<?=URL::to('dashboard')?>"><img alt="<?=Authly::get_name()?>" src="<?=Authly::get_avatar_url()?>"></a></figure>
+	
 			</div>
 			
 			<? endif; ?>
 			
-		</div>
+		</aside>
 		<div id="content">
 			
-			<!--...................................................
-				start of content
-			....................................................-->
+			
+			<? if (Form::has_errors()): ?>
+
+			<div data-group="error">
+				
+				<? foreach (Form::all_errors() as $err): ?>
+				
+				<p><?=$err?></p>
+				
+				<? endforeach; ?>
+				
+			</div>
+
+			<? endif; ?>
+			
+			<? if (Notification::exists()): ?>
+
+			<div data-group="notification">
+				
+				<?=Notification::get()?>
+				
+			</div>
+
+			<? endif; ?>
+			
+			<!--== Content ==-->
 	
 			<?=$content?>
 
-			<!--...................................................
-				end of content
-			....................................................-->
+			<!--== Content ==-->
 			
 		</div>
-		<div id="pane-right">
+		<aside id="pane-right">
 			
-		
-
 			<? $visitors = Visitor::all(); ?>
 			
 			<? if ( ! empty($visitors)): ?>
@@ -108,8 +150,6 @@
 					
 				</ul>
 				
-				
-				
 				<? endif; ?>
 				
 			</div>
@@ -118,13 +158,17 @@
 			
 			<? endif; ?>
 			
-		</div>
+		</aside>
 	</div>
 	
 	
 	
 	<footer>
-		(c) miniwini / <?=$_SERVER['LARAVEL_ENV']?> / <a href="http://twitter.com/mywizz" data-type="twitter-icon" target="_blank"><span>mywizz on Twitter</span></a> / <a href="http://facebook.com/mywizz" data-type="facebook-icon" target="_blank"><span>mywizz on Facebook</a></span>
+		(c) miniwini / <?=$_SERVER['LARAVEL_ENV']?> / 
+		<a href="http://twitter.com/mywizz" data-type="twitter-icon" target="_blank"><span>mywizz on Twitter</span></a> / 
+		<a href="http://facebook.com/mywizz" data-type="facebook-icon" target="_blank"><span>mywizz on Facebook</span></a>
+
+		
 	</footer>
 	
 	<div id="fb-root"></div>

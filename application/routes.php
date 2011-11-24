@@ -1,15 +1,17 @@
 <?php
-
 return array(
+	
+	// ---------------------------------------------------------------------
 
 	'GET /' => array('name' => 'home', function(){
 		return View::of_front()->partial('content', 'home/index');
 	}),
 	
+	// ---------------------------------------------------------------------
 	
 	'GET /(:any)' => array('name' => 'user', function($segment){
 
-		if (in_array($segment, array('roadmap', 'commently', 'board', 'admin', 'dashboard', 'auth', 'home')))
+		if (in_array($segment, array('mobile', 'roadmap', 'commently', 'board', 'admin', 'dashboard', 'auth', 'home')))
 		{
 			return Redirect::to($segment);
 		}
@@ -21,9 +23,18 @@ return array(
 		));
 	}),
 	
-	'GET /roadmap' => function()
-	{
+	// ---------------------------------------------------------------------
+	
+	'GET /roadmap' => function(){
 		return View::of_front()->partial('content', 'home/roadmap');
 	},
+	
+	// ---------------------------------------------------------------------
+	
+	'GET /mobile' => function(){
+		$mobile = Session::get('mobile');
+		Session::put('mobile', ! $mobile);
+		return Redirect::to_home();
+	}
 	
 );
