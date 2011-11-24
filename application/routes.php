@@ -4,7 +4,16 @@ return array(
 	// ---------------------------------------------------------------------
 
 	'GET /' => array('name' => 'home', function(){
-		return View::of_front()->partial('content', 'home/index');
+
+		foreach (array('talk', 'share', 'qna') as $alias)
+		{
+			$board = Board::aliased($alias);
+			$posts[$alias] = $board->posts()->with('user')->order_by('id', 'desc')->take(10)->get();
+		}
+		
+		return View::of_front()->partial('content', 'home/index', array(
+			'posts' => $posts
+		));
 	}),
 	
 	// ---------------------------------------------------------------------

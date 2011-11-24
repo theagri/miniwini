@@ -1,8 +1,10 @@
-section[data-group=board]>article{clear:both;width:100%;padding:5px 0;}section[data-group=board]>article[data-mode=listing]{border-bottom:1px dashed #ddd;}section[data-group=board]>article[data-mode=listing].today{background-color:#fffeeb;}
+section[data-group=board]>article{clear:both;width:100%;padding:5px 0;}section[data-group=board]>article [data-type=comments-count]{font-family:WebSymbols;display:inline-block;color:#ccc;font-size:0.9em;}section[data-group=board]>article [data-type=comments-count]:before{content:'c';}
+section[data-group=board]>article [data-type=comments-count] span{color:#ef5900;padding-left:2px;font-size:0.9em;font-family:NanumGothic;}
+section[data-group=board]>article[data-mode=home]{border-bottom:1px dashed #ddd;height:24px;}section[data-group=board]>article[data-mode=home]>figure{float:left;padding-right:8px;width:32px;min-width:32px;}
+section[data-group=board]>article[data-mode=home] h1{max-width:630px;line-height:24px;overflow:hidden;padding-right:30px;}section[data-group=board]>article[data-mode=home] h1 a{font-size:0.9em;font-weight:bold;text-shadow:1px 1px 0 rgba(0, 0, 0, 0.07);}
+section[data-group=board]>article[data-mode=listing]{border-bottom:1px dashed #ddd;}section[data-group=board]>article[data-mode=listing].today{background-color:#fffeeb;}
 section[data-group=board]>article[data-mode=listing]>figure{float:left;padding-right:8px;width:32px;min-width:32px;}
 section[data-group=board]>article[data-mode=listing] h1{max-width:630px;overflow:hidden;padding-bottom:5px;padding-right:30px;}section[data-group=board]>article[data-mode=listing] h1 a{font-size:0.95em;font-weight:bold;text-shadow:1px 1px 0 rgba(0, 0, 0, 0.07);}
-section[data-group=board]>article[data-mode=listing] h1 [data-type=comments-count]{font-family:WebSymbols;display:inline-block;color:#ccc;font-size:0.9em;}section[data-group=board]>article[data-mode=listing] h1 [data-type=comments-count]:before{content:'c';}
-section[data-group=board]>article[data-mode=listing] h1 [data-type=comments-count] span{color:#ef5900;padding-left:2px;font-size:0.9em;font-family:NanumGothic;}
 section[data-group=board]>article[data-mode=listing] [data-type=summary]{font-size:0.85em;color:#aaa;line-height:1.4em;}
 section[data-group=board]>article[data-mode=listing]>footer{clear:both;line-height:24px;text-align:right;font-size:0.85em;height:24px;width:100%;color:#999;}section[data-group=board]>article[data-mode=listing]>footer [data-type=user]{text-shadow:1px 1px 0 rgba(0, 0, 0, 0.07);}
 section[data-group=board]>article[data-mode=listing]>footer figure{float:right;}
