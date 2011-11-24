@@ -36,4 +36,31 @@ class Board extends Blaze {
 	{
 		return self::where_alias($alias)->first();
 	}
+	
+	// ---------------------------------------------------------------------
+	
+	public function open()
+	{
+		return $this->state === 'open';
+		
+	}
+	
+	public function closed()
+	{
+		return $this->state === 'closed';
+	}
+	
+	// ---------------------------------------------------------------------
+	
+	public function locked()
+	{
+		return $this->state === 'locked';
+	}
+	
+	// ---------------------------------------------------------------------
+	
+	public function series_enabled()
+	{
+		return $this->enable_series == 1;
+	}
 }

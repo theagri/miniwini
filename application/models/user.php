@@ -30,9 +30,14 @@ class User extends Blaze {
 		if ($this->avatar_url)
 		{
 			$tooltip = $this->name;
-			return '<figure data-type="avatar-' . $class. '"><a href="'. $this->link .'" title="' . $tooltip . '"><img alt="' . $this->name . '" src="' . $this->avatar_url . '"></a></figure>';
+			return '<figure data-type="avatar-' . $class. '"><a href="'. $this->link .'" title="' . $tooltip . '"><img alt="' . $this->name . '" src="' . $this->avatar_link($class) . '"></a></figure>';
 		}
 		
 		return '';
+	}
+	
+	public function avatar_link($class)
+	{
+		return $this->avatar_url;
 	}
 }

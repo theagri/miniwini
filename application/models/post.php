@@ -2,6 +2,20 @@
 class Post extends Blaze {
 	public static $table = 'board_posts';
 	public static $timestamps = TRUE;
+	public static $validations = array(
+		'board_id' => 'required|integer',
+		'user_id' => 'required|integer',
+		'title' => 'required',
+		'body' => 'required',
+		'state' => 'in:open,closed,draft',
+	);
+	
+	// ---------------------------------------------------------------------
+	
+	public function before()
+	{
+		$this->ip = Request::ip();
+	}
 	
 	// ---------------------------------------------------------------------
 	
@@ -76,7 +90,7 @@ class Post extends Blaze {
 	
 	public function summary()
 	{
-		$summary = mb_substr($this->body, 0, 80, 'UTF-8');
+		$summary = mb_substr($this->body, 0, 120, 'UTF-8');
 		return e(strip_tags($summary));
 	}
 	
