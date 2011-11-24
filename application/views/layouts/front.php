@@ -25,7 +25,7 @@
 	
 	<? else: ?>
 	
-	<link href="/css/miniwini.css" media="screen and (min-device-width:768px)" rel="stylesheet">
+	<link href="/css/miniwini.css" media="screen" rel="stylesheet">
 	
 	<? endif; ?>
 
@@ -110,11 +110,11 @@
 
 			<? endif; ?>
 			
-			<? if (Notification::exists()): ?>
+			<? if (Session::has('notification')): ?>
 
 			<div data-group="notification">
 				
-				<?=Notification::get()?>
+				<?=Session::get('notification')?>
 				
 			</div>
 
