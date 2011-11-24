@@ -9,11 +9,17 @@
 			
 			<section data-group="board" data-type="post">
 				
-				<h1><?=$series->title?></h1>
+				<h1 data-type="series-title"><?=$series->title?></h1>
+				
+				<p data-type="series-description">
+					
+					<?=HTML::safe_text($series->description)?>
+					
+				</p>
 
 				<? foreach (array_reverse($series->posts) as $p): ?>
 				
-				<article data-type="post" data-mode="listing"<?=(Time::is_today($p->created_at) ? ' class="today"':'')?>>
+				<article data-type="post" data-mode="listing">
 					<?=$p->user->avatar('medium')?>
 		
 					<h1>

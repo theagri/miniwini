@@ -28,6 +28,12 @@
 						<a data-type="user" href="<?=$s->user->link?>"><?=$s->user->name?></a>
 					</header>
 					
+					<p data-type="description">
+						
+						<?=$s->description?>
+						
+					</p>
+					
 					<? if (count($s->posts)): ?>
 					
 					<ol>

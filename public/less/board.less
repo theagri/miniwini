@@ -6,11 +6,33 @@
 
 section[data-group=board]
 {
+	h1[data-type=series-title]
+	{
+		font-size:1.3em;
+		padding:5px;
+		text-shadow:@text-shadow;
+	}
+	
+	p[data-type=series-description]
+	{
+		background-color:#f3f3f3;
+		color:#333;
+		text-shadow:@text-shadow;
+		line-height:1.3em;
+		padding:10px;
+		border-radius:6px;
+		border:1px dashed rgba(0,0,0,0.1);
+		margin-bottom:10px;
+	}
+	
 	> article
 	{
 		clear:both;
 		width:100%;
 		padding:5px 0;
+		
+
+		
 		[data-type=comments-count]
 		{
 			font-family:WebSymbols;
@@ -217,9 +239,18 @@ section[data-group=board]
 			
 			[data-type=user]
 			{
+				font-size:0.9em;
+				font-weight:bold;
 				text-shadow:@text-shadow;
 				padding-left:3px;
 			}
+		}
+		
+		[data-type=description]
+		{
+			font-size:0.85em;
+			padding:5px 10px 5px 40px;
+			color:#555;
 		}
 		
 		ol

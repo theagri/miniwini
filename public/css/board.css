@@ -1,3 +1,5 @@
+section[data-group=board] h1[data-type=series-title]{font-size:1.3em;padding:5px;text-shadow:1px 1px 0 rgba(0, 0, 0, 0.07);}
+section[data-group=board] p[data-type=series-description]{background-color:#f3f3f3;color:#333;text-shadow:1px 1px 0 rgba(0, 0, 0, 0.07);line-height:1.3em;padding:10px;border-radius:6px;border:1px dashed rgba(0, 0, 0, 0.1);margin-bottom:10px;}
 section[data-group=board]>article{clear:both;width:100%;padding:5px 0;}section[data-group=board]>article [data-type=comments-count]{font-family:WebSymbols;display:inline-block;color:#ccc;font-size:0.9em;}section[data-group=board]>article [data-type=comments-count]:before{content:'c';}
 section[data-group=board]>article [data-type=comments-count] span{color:#ef5900;padding-left:2px;font-size:0.9em;font-family:NanumGothic;}
 section[data-group=board]>article[data-mode=home]{border-bottom:1px dashed #ddd;height:24px;}section[data-group=board]>article[data-mode=home]>figure{margin-left:30px;float:left;padding-right:8px;width:32px;min-width:32px;}
@@ -16,7 +18,8 @@ section[data-group=board]>article[data-mode=single] header [data-type=author-nam
 section[data-group=board]>article[data-mode=single] [data-type=body]{min-height:100px;}
 [data-type=series-list]>article{border-bottom:1px dotted #ddd;}[data-type=series-list]>article figure{float:left;}
 [data-type=series-list]>article header h1{font-size:1.2em;font-weight:bold;text-shadow:1px 1px 0 rgba(0, 0, 0, 0.07);padding-bottom:5px;}
-[data-type=series-list]>article header [data-type=user]{text-shadow:1px 1px 0 rgba(0, 0, 0, 0.07);padding-left:3px;}
+[data-type=series-list]>article header [data-type=user]{font-size:0.9em;font-weight:bold;text-shadow:1px 1px 0 rgba(0, 0, 0, 0.07);padding-left:3px;}
+[data-type=series-list]>article [data-type=description]{font-size:0.85em;padding:5px 10px 5px 40px;color:#555;}
 [data-type=series-list]>article ol{margin-top:5px;background-color:#f2f2f2;border:1px solid rgba(0, 0, 0, 0.1);border-radius:6px;margin-left:48px;display:block;}[data-type=series-list]>article ol li{padding:6px 10px 4px 10px;line-height:1.3em;border-bottom:1px solid rgba(0, 0, 0, 0.1);border-top:1px solid rgba(255, 255, 255, 0.5);text-shadow:1px 1px 0 rgba(255, 255, 255, 0.8);}[data-type=series-list]>article ol li:last-child{border-bottom:0;}
 [data-type=series-list]>article ol li:first-child{border-top:0;}
 [data-type=series-list]>article ol li:nth-child(even){background-color:rgba(255, 255, 255, 0.4);}
