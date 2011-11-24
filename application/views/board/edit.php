@@ -21,7 +21,7 @@
 				<label for="body"><?=__('miniwini.board.newpost.body')?></label>
 				<textarea id="body" name="body" required><?=Input::old('body', $post->body)?></textarea>
 				
-				<? if (Authly::belongs($board->series_level)): ?>
+				<? if (FALSE and Authly::belongs($board->series_level)): ?>
 				
 				<div id="add-series">
 					
