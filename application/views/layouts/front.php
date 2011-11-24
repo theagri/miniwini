@@ -152,8 +152,15 @@
 				
 				<? endif; ?>
 				
+				<? if ($visitors['guest_count'] > 0): ?>
+
+				<span id="guest-count">+<?=$visitors['guest_count']?></span>
+
+				<? endif; ?>
+				
 			</div>
 			
+
 			
 			
 			<? endif; ?>
