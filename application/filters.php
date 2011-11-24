@@ -23,7 +23,12 @@ return array(
 
 				$result[] = $line;
 			}
-
+			
+			if (Config::get('session.driver') != '')
+			{
+				Session::close();
+			}
+			
 			die (implode("\n", $result));
 		}
 	},
