@@ -1,9 +1,11 @@
 <?php
 return array(
-	'url' => 'http://s2.miniwini.dev/commently',
+	'url' => 'http://s2.miniwini.com/commently',
 	
 	'accounts' => function()
 	{
+		if ( ! Authly::signed()) return array();
+		
 		return array(
 			'default' => array(
 				'id' => Authly::get_id(),
@@ -16,6 +18,7 @@ return array(
 		switch ($provider)
 		{
 			case 'default':
+				
 				return array(
 					'author_id' => Authly::get_id(),
 					'author_name' => Authly::get_name(),

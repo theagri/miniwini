@@ -9,6 +9,19 @@ return array(
 	// ---------------------------------------------------------------------
 	
 	'POST /commently' => function(){
-		return Commently::add(Input::all());
+		$rules = array(
+			'provider' => 'required',
+			'url' => 'required|url',
+			'body' => 'required'
+		);
+		
+		$val = Validator::make(Input::all(), $rules);
+		if ($val->valid())
+		{
+			Commently::add(Input::all());
+			return Redirect::back()->with('notification', 'Comment added');
+		}
+		
+		return Redirect::back();
 	}
 );
