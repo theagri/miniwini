@@ -9,53 +9,56 @@
 	[data-type=comment]
 	{
 		margin-bottom:15px;
+		clear:both;
+
 		&[class^=depth]
 		{
 			//
 		}
 		
-		&.depth-1 {margin-left:30px;}
-		&.depth-2 {margin-left:60px;}
-		&.depth-3 {margin-left:90px;}
-		&.depth-4 {margin-left:120px;}
-		&.depth-5 {padding-left:150px;}
-		&.depth-6 {padding-left:180px;}
+		&.depth-1 {width:680px;margin-left:20px;}
+		&.depth-2 {width:660px;margin-left:40px;}
+		&.depth-3 {width:640px;margin-left:60px;}
+		&.depth-4 {width:620px;margin-left:80px;}
+		&.depth-5 {width:600px;padding-left:100px;}
+		&.depth-6 {width:580px;padding-left:120px;}
+		&.depth-7 {width:560px;padding-left:140px;}
+		&.depth-8 {width:540px;padding-left:160px;}
+		&.depth-9 {width:520px;padding-left:180px;}
+		&.depth-10 {width:500px;padding-left:200px;}
 		
 		header
 		{
-			display:table;
 			background-color:#eaeaea;
-			background:url(/img/layout/white_texture.png);
 			border:1px solid #e1e1e1;
-			height:24px;
+			height:25px;
+			overflow:hidden;
 			font-size:0.95em;
 			width:100%;
 			text-shadow:1px 1px 0 rgba(255,255,255,0.8);
 			figure
 			{
-				display:table-cell;
-				width:20px;
+				float:left;
+				width:25px;
+				border-right:1px solid rgba(255,255,255,0.8);
 				img
 				{
 					border-radius:0;
-					border:1px solid #d3d3d3;
 				}
 			}
 			
 			[data-type=user]
 			{
-				border-left:1px solid rgba(255,255,255,0.8);
 				padding-left:6px;
-				display:table-cell;
-				vertical-align:middle;
+				line-height:25px;
 				padding-right:10px;
 			}
 			
 			time
 			{
+
 				text-align:right;
-				display:table-cell;
-				vertical-align:middle;
+				line-height:25px;
 				font-size:0.8em;
 				color:#999;
 				padding-right:8px;
@@ -63,9 +66,9 @@
 			
 			[data-type=reply-button]
 			{
-				display:table-cell;
+				float:right;
 				width:50px;
-				vertical-align:middle;
+				line-height:25px;
 				font-size:0.8em;
 				text-align:center;
 				
@@ -103,40 +106,37 @@
 	{
 		padding-top:10px;
 		
+		[data-type=footer]
+		{
+			height:32px;
+			padding-top:8px;
+		}
+		
 		[data-type=accounts]
 		{
-			display:table-cell;
+			float:left;
 			vertical-align:top;
 		}
 		
 		[data-type=controls]
 		{
-			display:table-cell;
-			vertical-align:top;
-			width:99%;
 			textarea
 			{
 				width:100%;
 				-webkit-appearance:textfield;
-				-webkit-transition-property:height;
-				-webkit-transition-duration:0.3s;
 				height:28px;
 				resize:vertical;
-				font-size:0.9em;
-				overflow:visible;
-				float:left;
 				
 				&.active
 				{
 					height:150px;
 				}
 			}
-			
 		}
 		
 		[data-type=button]
 		{
-			display:table-cell;
+			float:right;
 			width:60px;
 			max-width:60px;
 			min-width:60px;

@@ -1,15 +1,20 @@
-@font-face{font-family:'NanumGothic';font-style:normal;font-weight:normal;src:local('NanumGothic'),local('나눔고딕'),url('/fonts/NanumGothic.woff') format('woff');}@font-face{font-family:'WebSymbols';src:url('/fonts/websymbols-regular-webfont.eot');src:url('/fonts/websymbols-regular-webfont.eot?#iefix') format('embedded-opentype'),url('/fonts/websymbols-regular-webfont.woff') format('woff'),url('/fonts/websymbols-regular-webfont.ttf') format('truetype'),url('/fonts/websymbols-regular-webfont.svg#WebSymbolsRegular') format('svg');font-weight:normal;font-style:normal;}*{font-size:1em;color:#222;}
+*{font-size:1em;color:#222;}
 input[type=text],textarea{background-color:#f3f3f3;}input[type=text]:active,textarea:active,input[type=text]:focus,textarea:focus,input[type=text].active,textarea.active{background-color:#f6f1d0;}
 a{text-decoration:none;}a:visited{text-decoration:none;}
 a:hover{color:#ef3801;}
 strong{font-weight:bold;}
-figure{margin:0;padding:0;}figure[data-type=avatar-small]{width:30px;max-width:30px;max-height:24px;}figure[data-type=avatar-small] img{max-width:24px;max-height:24px;border-radius:4px;}
-figure[data-type=avatar-medium]{width:37px;max-width:37px;height:32px;max-height:32px;min-height:32px;}figure[data-type=avatar-medium] img{max-width:32px;max-height:32px;border-radius:4px;}
-figure[data-type=avatar-big]{width:65px;height:60px;max-width:65px;max-height:65px;max-height:65px;min-height:65px;}figure[data-type=avatar-big] img{max-width:60px;max-height:60px;border-radius:4px;}
+figure{margin:0;padding:0;}figure[data-type=avatar-small]{width:30px;max-width:30px;max-height:24px;}figure[data-type=avatar-small] img{width:24px;max-width:24px;max-height:24px;border-radius:4px;}
+figure[data-type=avatar-medium]{width:37px;max-width:37px;height:32px;max-height:32px;min-height:32px;}figure[data-type=avatar-medium] img{width:32px;max-width:32px;max-height:32px;border-radius:4px;}
+figure[data-type=avatar-big]{width:65px;height:60px;max-width:65px;max-height:65px;max-height:65px;min-height:65px;}figure[data-type=avatar-big] img{width:60px;max-width:60px;max-height:60px;border-radius:4px;}
+[data-type=tabs]{height:34px;}[data-type=tabs] [data-align=right]{float:right;margin-right:10px;}
+[data-type=tabs] li{background:#f5f5f5;background:-webkit-gradient(linear, left bottom, left top, color-stop(0, #ffffff), color-stop(1, #eeeeee));background:-ms-linear-gradient(bottom, #ffffff, #eeeeee);background:-moz-linear-gradient(center bottom, #ffffff 0%, #eeeeee 100%);border:1px solid #ccc;border-bottom:0;padding:3px 10px 5px 10px;display:block;float:left;margin-right:4px;border-top-left-radius:4px;border-top-right-radius:4px;box-shadow:0 0 1px rgba(0, 0, 0, 0.1),inset 0 -1px 1px rgba(0, 0, 0, 0.15),inset 0 2px 1px rgba(255, 255, 255, 0.5);}[data-type=tabs] li:first-child{margin-left:10px;}
+[data-type=tabs] li a{font-size:0.8em;color:#777;text-shadow:1px 1px 0 rgba(255, 255, 255, 0.8);}[data-type=tabs] li a:hover{color:#333;}
+[data-type=tabs]>div{clear:both;background:#f5f5f5;background:-webkit-gradient(linear, left bottom, left top, color-stop(0, #ffffff), color-stop(1, #eeeeee));background:-ms-linear-gradient(bottom, #ffffff, #eeeeee);background:-moz-linear-gradient(center bottom, #ffffff 0%, #eeeeee 100%);height:5px;box-shadow:0 0 2px rgba(0, 0, 0, 0.4),0 1px 1px rgba(0, 0, 0, 0.15);}
+[data-type=tabs] [data-tab] span{font-size:0.9em;}
 section[data-form=general] .actions{border-top:1px dashed #ccc;margin-top:10px;min-height:50px;padding-top:10px;text-align:center;}
 section[data-form=general] .multiple-actions{border-top:1px dashed #ccc;margin-top:10px;min-height:50px;padding-top:10px;}section[data-form=general] .multiple-actions :first-child{float:left;}
 section[data-form=general] .multiple-actions :last-child{float:right;}
-section[data-form=general] label{display:block;font-size:0.9em;padding:3px;margin-top:10px;}
+section[data-form=general] label{display:block;font-size:0.9em;padding:3px;margin-top:10px;}section[data-form=general] label small{color:#c10;}
 section[data-form=general] input[type=text],section[data-form=general] input[type=password],section[data-form=general] input[type=email]{width:694px;font-size:1.3em;}
 section[data-form=general] textarea{width:694px;min-height:200px;resize:vertical;-webkit-appearance:textfield;}
 section[data-form=general][data-type=post] form>textarea{min-height:400px;}
