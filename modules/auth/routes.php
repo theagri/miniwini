@@ -1,6 +1,14 @@
 <?php
 return array(
 	
+	/*
+	 * =====================================================================
+	 *
+	 * 			Login/Logout
+	 *
+	 * =====================================================================
+	 */
+	
 	// ---------------------------------------------------------------------
 	
 	'GET /auth/login' => array('name' => 'login', function(){
@@ -50,7 +58,6 @@ return array(
 	 * =====================================================================
 	 */
 	
-
 	// ---------------------------------------------------------------------
 	
 	'GET /auth/edit' => array('before' => 'signed', function(){
@@ -60,37 +67,68 @@ return array(
 	
 	// ---------------------------------------------------------------------
 	
-	'PUT /auth/edit' => array('before' => 'csrf, signed', function(){
-		
+	'PUT /auth/edit' => array('before' => 'signed, csrf', function(){
 
-		
-	
-		$input = array(
-			'name' => Input::get('name'),
-			'avatar_url' => Input::get('avatar_url'),
-			'avatar' => Input::file('avatar')
-		);
-		
-		$val = Validator::make($input, array(
-			'name' => 'required',
-			'avatar_url' => 'url',
-			'avatar' => 'image|max:100'
-		));
+		$val = Validator::make(array('name' => Input::get('name')), array('name' => 'required|min:' . Config::get('miniwini.user.min_userid_size') . '|max:' . Config::get('miniwini.user.max_userid_size')));
 		
 		if ($val->valid())
 		{
+			$input = array(
+				'name' => strip_tags(Input::get('name')),
+				
+			);
 			$file = Input::file('avatar');
-			$filename = 'avatar_' . Authly::get_userid() . '.' . File::extension($file['name']);
-			$path = PUBLIC_PATH . 'assets/avatars/' . $filename;
-			if (File::upload('avatar', $path))
+			
+			$val_file = Validator::make(array('avatar' => $file), array('avatar' => 'image|max:' . Config::get('miniwini.avatar.max_size')));
+
+			if ( ! empty($file) and ! empty($file['tmp_name']) and $val_file->valid())
 			{
-				$input['avatar_url'] = Config::get('application.url') . '/assets/avatars/' . $filename;
+				/*
+				foreach (Config::get('miniwini.avatar.sizes') as $suffix => $size)
+				{
+					$img = Image_util::make($file['tmp_name']);
+					$savepath = PUBLIC_PATH . '/assets/avatars/avatar_' . Authly::get_userid() . '_' . $suffix . '.png';
+					$img->resize($size, $savepath);
+				}
+				*/
+				$img = Image_util::make($file['tmp_name']);
+				$savepath = PUBLIC_PATH . '/assets/avatars/avatar_' . Authly::get_userid() . '.png';
+				$img->resize(60, $savepath);
+				$input['avatar_url'] = Config::get('application.url') . '/assets/avatars/avatar_' . Authly::get_userid() . '.png';
 			}
 			
-			unset($input['avatar']);
 			
 			Authly::update($input);
 			return Redirect::to('auth/edit')->with('notification', 'Updated!');
+		}
+		
+		return Redirect::to('auth/edit');
+	}),
+	
+	/*
+	 * =====================================================================
+	 *
+	 * 			password
+	 *
+	 * =====================================================================
+	 */
+	
+	'POST /auth/change_password' => array('before' => 'signed, csrf', function(){
+	
+	
+		if ( ! Authly::check_password(Input::get('password_current')))
+		{
+			return Redirect::to('auth/edit')->with('errors', '현재 비밀번호가 맞지 않습니다.');
+		}
+		
+		$val = Validator::make(Input::all(),array(
+			'password_current' => 'required',
+			'password' => 'required|confirmed',
+		));
+		
+		if ($val->valid() and Authly::change_password(Input::get('password')))
+		{
+			return Redirect::to('auth/edit')->with('notification', '비밀번호가 변경되었습니다.');
 		}
 		
 		return Redirect::to('auth/edit');
@@ -126,7 +164,8 @@ return array(
 				'userid' => Input::get('userid'),
 				'email' => Input::get('email'),
 				'name'	=> Input::get('name'),
-				'password' => Input::get('password')
+				'password' => Input::get('password'),
+				'avatar_url' => Config::get('miniwini.avatar.no_avatar_url')
 			);
 
 		if (Authly::exists($uniq_val))
@@ -139,9 +178,9 @@ return array(
 			return Redirect::to_register()->with('errors', 'Reserved');
 		}
 		
-		if (($val = Authly::validate($input)) !== TRUE)
+		if ( ! Authly::validate($input))
 		{
-			return Redirect::to_register()->with('errors', 'Invalid');
+			return Redirect::to_register();
 		}
 		
 		$res = Authly::register($input);

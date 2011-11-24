@@ -1,13 +1,13 @@
 
-
-			<?=HTML::link('auth/edit', '정보 수정')?>
-
-
-			<? if (Config::get('authly.connections.enabled')): ?>
-				
-			<?=HTML::link('auth/connections', 'Connections')?>
+			<?=View::make('dashboard/_header')->get()?>
 			
-			<? endif; ?>
+			<section>
+				
 
+				<? if (Config::get('authly.connections.enabled')): ?>
+				
+				<?=HTML::link('auth/connections', 'Connections')?>
+			
+				<? endif; ?>
 
-
+			</section>
