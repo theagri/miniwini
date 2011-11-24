@@ -7,6 +7,14 @@
 				'board' => $board
 			))->get()?>
 			
+			<? if ($board->locked): ?>
+			
+			<div data-group="notification">
+				잠겨 있는 게시판입니다.
+			</div>
+			
+			<? else: ?>
+			
 			<section data-group="board" data-type="series-list">
 
 				<? foreach ($series_list->results as $s): ?>
@@ -45,3 +53,6 @@
 				<?=$series_list->links()?>
 				
 			</section>
+			
+			<? endif; ?>
+			

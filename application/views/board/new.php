@@ -14,20 +14,6 @@
 
 				<?=Form::token()?>
 				
-				<? if (Form::has_errors()): ?>
-
-				<div data-group="error">
-					
-					<? foreach (Form::all_errors() as $err): ?>
-					
-					<p><?=$err?></p>
-					
-					<? endforeach; ?>
-					
-				</div>
-
-				<? endif; ?>
-				
 				<input type="hidden" name="state" value="open">
 
 				<label for="title"><?=__('miniwini.board.newpost.title')?></label>
@@ -35,7 +21,10 @@
 				
 				<label for="body"><?=__('miniwini.board.newpost.body')?></label>
 				<textarea id="body" name="body" required><?=Input::old('body')?></textarea>
-	
+		
+		
+				<? if (Authly::belongs($board->series_level)): ?>
+				
 				<div id="add-series">
 					
 					<div><input type="radio" name="series" id="series-0" value="0" checked><label for="series-0"><?=__('miniwini.board.newpost.series_type.no_series')?></label></div>
@@ -56,9 +45,9 @@
 					</div>
 					
 					<? endif; ?>
-
+					
 					<div>
-						<input type="radio" name="series" id="series-2" value="2"><label for="series-2"><?=__('miniwini.board.newpost.series_type.new_series')?></label>
+						<input type="radio" name="series" id="series-2" value="2" class="togg"><label for="series-2"><?=__('miniwini.board.newpost.series_type.new_series')?></label>
 						<div id="new-series">
 							<label><?=__('miniwini.board.newpost.series_title')?></label>
 							<input type="text" name="series_title">
@@ -66,19 +55,21 @@
 							<label><?=__('miniwini.board.newpost.series_description')?></label>
 							<textarea name="series_description"></textarea>
 						</div>
-					</div>
-					
-					<script>$(function(){
-						$('#new-series').hide();
-						$('input[name=series]').change(function(){
-							var val = $(this).val(); 
-							$('#new-series')[val == 2 ? 'show' : 'hide']();
-							$('select[name=series_id]').attr('disabled', val != 1);
-						});
-					})
-					</script>
 						
+						<script>
+						$(function(){
+							$('#new-series').hide();
+							$('input[name=series]').change(function(){
+								var val = $(this).val(); 
+								$('#new-series')[val == 2 ? 'show' : 'hide']();
+								$('select[name=series_id]').attr('disabled', val != 1);
+							});
+						})
+						</script>
+					</div>
 				</div>
+				
+				<? endif; ?>
 				
 				<div class="multiple-actions">
 					<button type="button" class="btn alternative" onclick="return miniwini.saveToDraft(this.form)"><?=__('miniwini.board.newpost.button.draft')?></button>

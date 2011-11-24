@@ -43,6 +43,7 @@
 	
 			</section>
 
+
 			<? if ($post->series): ?>
 
 			<section data-group="board" data-type="series">
@@ -65,7 +66,13 @@
 
 			<? endif; ?>
 
-			<section data-group="commently" data-type="comments" data-url="<?=URL::to($board->link . '/' . $post->id)?>"></section>
+			<section data-group="commently" data-type="comments" data-url="<?=URL::to($board->link . '/' . $post->id)?>">
+				
+				<?=Commently::make(URL::to($board->link . '/' . $post->id))->comments()?>
+				
+				<?=Commently::make(URL::to($board->link . '/' . $post->id))->form()?>
+				
+			</section>
 
 
 	
