@@ -154,7 +154,7 @@
 				
 			</div>
 			
-			<div>guest : <?=$visitors['guest_count']?></div>
+			
 			
 			<? endif; ?>
 			
