@@ -33,6 +33,13 @@ class Series extends Blaze {
 	
 	// ---------------------------------------------------------------------
 	
+	public function of_user($user_id)
+	{
+		return $this->user_id == $user_id;
+	}
+	
+	// ---------------------------------------------------------------------
+	
 	public static function count_of($board_id, $user_id)
 	{
 		return self::where_board_id($board_id)->where_user_id($user_id)->count();

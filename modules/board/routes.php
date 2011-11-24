@@ -86,6 +86,44 @@ return array(
 		));
 	},
 	
+	// ---------------------------------------------------------------------
+	
+	'GET /board/(:any)/series/(:num)/manage' => array('before' => 'signed', function($alias, $id){
+		if (is_null($board = Board::aliased($alias)) or
+			is_null($series = Series::find($id)) or 
+			! $series->of_user(Authly::id())
+		) 
+			return Response::error(404);
+		
+		return View::of_front()->partial('content', 'board/series_manage', array(
+			'board' => $board,
+			'series' => $series
+		));
+	}),
+	
+	// ---------------------------------------------------------------------
+	
+	'PUT /board/(:any)/series/(:num)' => array('before' => 'signed, csrf', function($alias, $id){
+		if (is_null($board = Board::aliased($alias)) or
+			is_null($series = Series::find($id)) or 
+			! $series->of_user(Authly::id())
+		) 
+			return Response::error(404);
+		
+		$val = Validator::make(array('title' => Input::get('title')), array('title' => 'required'));
+		if ($val->valid())
+		{
+			$series->title = Input::get('title');
+			$series->description = Input::get('description');
+			if ($series->save())
+			{
+				return Redirect::to('board/' . $alias . '/series/' . $id)->with('notification', 'Updated!');
+			}
+		}
+		
+		return Response::error(500);
+	}),
+	
 	/*
 	 * =====================================================================
 	 *
@@ -265,7 +303,6 @@ return array(
 			'board' => $board,
 			'post' => $post
 		));
-		
 	}),	
 	
 	// ---------------------------------------------------------------------
