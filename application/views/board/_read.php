@@ -49,7 +49,7 @@
 			<section data-group="board" data-type="series">
 	
 				<header>
-					이 글은 [<a href=""><?=$post->series->title?></a>] 연재물에 속해 있습니다. [<a href="#" onclick="$('#series').toggle()">연재물 목록 보기</a>]
+					이 글은 [<a href="<?=$post->series->link($board->alias)?>"><?=$post->series->title?></a>] 연재물에 속해 있습니다. [<a href="#" onclick="$('#series').toggle()">연재물 목록 보기</a>]
 				</header>
 	
 				<ol id="series">
