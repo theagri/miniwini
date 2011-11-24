@@ -6,14 +6,14 @@ body>footer{position:fixed;bottom:0;right:0;background-color:rgba(0, 0, 0, 0.3);
 #wrapper{position:absolute;height:100%;}#wrapper #loginbox{text-align:center;}#wrapper #loginbox figure{display:inline-block;}#wrapper #loginbox figure img{border:1px solid rgba(255, 255, 255, 0.8);box-shadow:1px 1px 2px rgba(0, 0, 0, 0.5);}
 #wrapper #pane-left{min-width:140px;width:140px;position:absolute;z-index:2;background:url(/img/layout/roof_left.png) right top no-repeat;position:relative;padding-top:100px;}
 #wrapper #content{position:absolute;z-index:1;left:140px;top:0;width:700px;padding:0 20px;max-width:700px;overflow:hidden;min-height:100%;background-color:#fff;box-shadow:0 0 7px rgba(0, 0, 0, 0.9),1px 1px 3px rgba(0, 0, 0, 0.8);background:#ffffff url(/img/layout/roof_bg.png) repeat-x;}#wrapper #content>*:first-child{margin-top:80px;}
-#wrapper #pane-right{background:url(/img/layout/roof_right.png) left top no-repeat;padding-top:40px;min-width:100px;position:absolute;z-index:3;left:880px;top:0;}
+#wrapper #pane-right{background:url(/img/layout/roof_right.png) left top no-repeat;padding-top:40px;position:absolute;z-index:3;left:880px;top:0;}
 [data-type=twitter-icon]{text-indent:-1000px !important;color:#429CC4;font-family:WebSymbols;font-size:1.5em;}[data-type=twitter-icon]:before{content:'t';}
 [data-type=twitter-icon]:hover{color:#429CC4;}
 [data-type=twitter-icon] span{display:none;}
 [data-type=facebook-icon]{text-indent:-1000px !important;color:#557B9F;font-family:WebSymbols;font-size:1.5em;}[data-type=facebook-icon]:before{content:'f';}
 [data-type=facebook-icon]:hover{color:#557B9F;}
 [data-type=facebook-icon] span{display:none;}
-#visitors{margin-left:10px;margin-top:10px;}#visitors li{clear:both;height:32px;}#visitors li figure{float:left;}#visitors li figure img{box-shadow:0 0 2px rgba(0, 0, 0, 0.7),1px 1px 2px rgba(0, 0, 0, 0.3);}
+#visitors{margin-left:10px;margin-top:10px;min-width:120px;}#visitors li{clear:both;height:32px;}#visitors li figure{float:left;}#visitors li figure img{box-shadow:0 0 2px rgba(0, 0, 0, 0.7),1px 1px 2px rgba(0, 0, 0, 0.3);}
 #visitors li strong{line-height:24px;font-weight:normal;color:#fff;font-size:0.9em;text-shadow:1px 1px 0 rgba(0, 0, 0, 0.6);}
 [data-group=share]{height:40px;line-height:40px;overflow:hidden;}[data-group=share]>div{text-align:center;vertical-align:top;height:20px;float:left;}
 [data-group=share] [data-network=facebook]{width:162px;}
