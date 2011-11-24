@@ -69,7 +69,7 @@ return array(
 	
 	'PUT /auth/edit' => array('before' => 'signed, csrf', function(){
 
-		$val = Validator::make(array('name' => Input::get('name')), array('name' => 'required|min:' . Config::get('miniwini.user.min_userid_size') . '|max:' . Config::get('miniwini.user.max_userid_size')));
+		$val = Validator::make(array('name' => Input::get('name')), array('name' => 'required|min:' . Config::get('miniwini.user.min_name_size') . '|max:' . Config::get('miniwini.user.max_name_size')));
 		
 		if ($val->valid())
 		{

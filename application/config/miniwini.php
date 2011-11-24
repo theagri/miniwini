@@ -22,6 +22,8 @@ return array(
 	
 	'user' => array(
 		'min_userid_size' => 2,
-		'max_userid_size' => 10
+		'max_userid_size' => 10,
+		'min_name_size' => 2,
+		'max_name_size'=> 16,
 	)
 );

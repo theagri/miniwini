@@ -7,7 +7,7 @@
 				
 				<?=Form::token()?>
 				
-				<label>이름 <small>(최소 <?=Config::get('miniwini.user.min_userid_size')?>글자, 최대 <?=Config::get('miniwini.user.max_userid_size')?>글자)</small></label>
+				<label>이름 <small>(최소 <?=Config::get('miniwini.user.min_name_size')?>글자, 최대 <?=Config::get('miniwini.user.max_name_size')?>글자)</small></label>
 				<input type="text" name="name" value="<?=e(Input::old('name', Authly::get_name()))?>" required autofocus>
 				
 				<label>아바타 파일 업로드 <small>(파일 크기는 최대 <?=Config::get('miniwini.avatar.max_size')?>KB)</small></label>
