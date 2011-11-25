@@ -15,7 +15,7 @@ return array(
 		if ( ! Config::get('authly.register_enabled')) return Response::error(500);
 		
 		Title::put('로그인');
-		return View::of_front()->partial('content', 'auth/login', array(
+		return View::of_front()->nest('content', 'auth/login', array(
 			'error' => Session::get('login_error'),
 			'back_to' => Session::get('back_to'),
 			'message' => Session::get('message')
@@ -62,7 +62,7 @@ return array(
 	
 	'GET /auth/edit' => array('before' => 'signed', function(){
 		Title::put('정보 수정');
-		return View::of_front()->partial('content', 'auth/edit');
+		return View::of_front()->nest('content', 'auth/edit');
 	}),
 	
 	// ---------------------------------------------------------------------
@@ -83,14 +83,6 @@ return array(
 
 			if ( ! empty($file) and ! empty($file['tmp_name']) and $val_file->valid())
 			{
-				/*
-				foreach (Config::get('miniwini.avatar.sizes') as $suffix => $size)
-				{
-					$img = Image_util::make($file['tmp_name']);
-					$savepath = PUBLIC_PATH . '/assets/avatars/avatar_' . Authly::get_userid() . '_' . $suffix . '.png';
-					$img->resize($size, $savepath);
-				}
-				*/
 				$img = Image_util::make($file['tmp_name']);
 				$savepath = PUBLIC_PATH . '/assets/avatars/avatar_' . Authly::get_userid() . '.png';
 				$img->resize(60, $savepath);
@@ -113,7 +105,7 @@ return array(
 	 * =====================================================================
 	 */
 	
-	'POST /auth/change_password' => array('before' => 'signed, csrf', function(){
+	'PUT /auth/change_password' => array('before' => 'signed, csrf', function(){
 	
 	
 		if ( ! Authly::check_password(Input::get('password_current')))
@@ -148,7 +140,7 @@ return array(
 		if ( ! Config::get('authly.register_enabled')) return Response::error(500);
 		
 		Title::put('가입');
-		return View::of_front()->partial('content', 'auth/register', array(
+		return View::of_front()->nest('content', 'auth/register', array(
 			'error' => Session::get('error')
 		));
 	}),
@@ -225,7 +217,7 @@ EMAIL;
 		if ($result)
 		{
 			Title::put('인증 메일 발송 결과');
-			return View::of_front()->partial('content', 'auth/activation_email_sent', array(
+			return View::of_front()->nest('content', 'auth/activation_email_sent', array(
 				'email' => $email
 			));
 		}
@@ -266,15 +258,23 @@ EMAIL;
 	'GET /auth/connections' => function(){
 		if ( ! Config::get('authly.connectiones.enabled')) return Response::error(500);
 		
-		return View::of_front()->partial('content', 'auth/connections');
+		return View::of_front()->nest('content', 'auth/connections');
 	},
 	
 	
 	// ---------------------------------------------------------------------
 	
-	'* /auth/connect/(:any)' => function($service){
+	'GET /auth/connect/(:any)' => function($service){
 		if ( ! Config::get('authly.connectiones.enabled')) return Response::error(500);
 		
+		return Redirect::to($url);
+	},
+	
+	// ---------------------------------------------------------------------
+
+	'POST /auth/connect/(:any)' => function($service){
+		if ( ! Config::get('authly.connectiones.enabled')) return Response::error(500);
+
 		$url = Authly::connect($service, Input::get('openid_identifier'));
 		return Redirect::to($url);
 	},

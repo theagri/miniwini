@@ -29,6 +29,33 @@ return array(
 
 	/*
 	|--------------------------------------------------------------------------
+	| Application Key
+	|--------------------------------------------------------------------------
+	|
+	| The application key should be a random, 32 character string.
+	|
+	| This key is used by the encryption and cookie classes to generate secure
+	| encrypted strings and hashes. It is extremely important that this key
+	| remain secret and should not be shared with anyone.
+	|
+	*/
+
+	'key' => '',
+
+	/*
+	|--------------------------------------------------------------------------
+	| Application Character Encoding
+	|--------------------------------------------------------------------------
+	|
+	| The default character encoding used by your application. This encoding
+	| will be used by the Str, Text, and Form classes.
+	|
+	*/
+
+	'encoding' => 'UTF-8',
+
+	/*
+	|--------------------------------------------------------------------------
 	| Application Language
 	|--------------------------------------------------------------------------
 	|
@@ -41,15 +68,20 @@ return array(
 
 	/*
 	|--------------------------------------------------------------------------
-	| Application Character Encoding
+	| SSL Link Generation
 	|--------------------------------------------------------------------------
 	|
-	| The default character encoding used by your application. This is the
-	| character encoding that will be used by the Str, Text, and Form classes.
+	| Many sites use SSL to protect their users data. However, you may not
+	| always be able to use SSL on your development machine, meaning all HTTPS
+	| will be broken during development.
+	|
+	| For this reason, you may wish to disable the generation of HTTPS links
+	| throughout your application. This option does just that. All attempts to
+	| generate HTTPS links will generate regular HTTP links instead.
 	|
 	*/
 
-	'encoding' => 'UTF-8',
+	'ssl' => false,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -65,51 +97,53 @@ return array(
 
 	/*
 	|--------------------------------------------------------------------------
-	| Auto-Loaded Packages
+	| Class Aliases
 	|--------------------------------------------------------------------------
 	|
-	| The packages that should be auto-loaded each time Laravel handles
-	| a request. These should generally be packages that you use on almost
-	| every request to your application.
+	| Here, you can specify any class aliases that you would like registered
+	| when Laravel loads. Aliases are lazy-loaded, so add as many as you want.
 	|
-	| Each package specified here will be bootstrapped and can be conveniently
-	| used by your application's routes, models, and libraries.
+	| Aliases make it more convenient to use namespaced classes. Instead of
+	| referring to the class using its full namespace, you may simply use
+	| the alias defined here.
 	|
-	| Note: The package names in this array should correspond to a package
-	|       directory in application/packages.
+	| We have already aliased common Laravel classes to make your life easier.
 	|
 	*/
 
-	'packages' => array('authly', 'commently'),
-
-	/*
-	|--------------------------------------------------------------------------
-	| Active Modules
-	|--------------------------------------------------------------------------
-	|
-	| Modules are a convenient way to organize your application into logical
-	| components. Each module may have its own libraries, models, routes,
-	| views, language files, and configuration.
-	|
-	| Here you may specify which modules are "active" for your application.
-	| This simply gives Laravel an easy way to know which directories to
-	| check when auto-loading your classes, routes, and views.
-	|
-	*/
-
-	'modules' => array('admin', 'auth', 'dashboard', 'board', 'home', 'commently'),
-
-	/*
-	|--------------------------------------------------------------------------
-	| Application Key
-	|--------------------------------------------------------------------------
-	|
-	| Your application key should be a 32 character string that is totally
-	| random and secret. This key is used by the encryption class to generate
-	| secure, encrypted strings.
-	|
-	*/
-
-	'key' => '',
+	'aliases' => array(
+		'Arr'        => 'Laravel\\Arr',
+		'Asset'      => 'Laravel\\Asset',
+		'Auth'       => 'Laravel\\Auth',
+		'Autoloader' => 'Laravel\\Autoloader',
+		'Benchmark'  => 'Laravel\\Benchmark',
+		'Cache'      => 'Laravel\\Cache\\Manager',
+		'Config'     => 'Laravel\\Config',
+		'Controller' => 'Laravel\\Routing\\Controller',
+		'Cookie'     => 'Laravel\\Cookie',
+		'Crypter'    => 'Laravel\\Crypter',
+		'DB'         => 'Laravel\\Database\\Manager',
+		'Eloquent'   => 'Laravel\\Database\\Eloquent\\Model',
+		'File'       => 'Laravel\\File',
+		'Form'       => 'Laravel\\Form',
+		'Hash'       => 'Laravel\\Hash',
+		'Inflector'  => 'Laravel\\Inflector',
+		'Input'      => 'Laravel\\Input',
+		'IoC'        => 'Laravel\\IoC',
+		'Lang'       => 'Laravel\\Lang',
+		'Memcached'  => 'Laravel\\Memcached',
+		'Paginator'  => 'Laravel\\Paginator',
+		'URL'        => 'Laravel\\URL',
+		'Redirect'   => 'Laravel\\Redirect',
+		'Redis'      => 'Laravel\\Redis',
+		'Request'    => 'Laravel\\Request',
+		'Response'   => 'Laravel\\Response',
+		'Section'    => 'Laravel\\Section',
+		'Session'    => 'Laravel\\Facades\\Session',
+		'Str'        => 'Laravel\\Str',
+		'Validator'  => 'Laravel\\Validator',
+		'View'       => 'Laravel\\View',
+		'Authly'     => 'Authly\\Authly',	
+	),
 
 );

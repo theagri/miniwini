@@ -17,7 +17,7 @@ return array(
 
 		Title::put($board->title);
 		
-		return View::of_front()->partial('content', 'board/listing', array(
+		return View::of_front()->nest('content', 'board/listing', array(
 			'board' => $board,
 			'posts' => $board->posts()->with('series', 'user', 'last_commenter')->where('state', '=', 'open')->order_by('id', 'desc')->paginate($board->posts_per_page),
 		));
@@ -34,7 +34,7 @@ return array(
 			
 		Title::put($board->title);
 		
-		return View::of_front()->partial('content', 'board/listing', array(
+		return View::of_front()->nest('content', 'board/listing', array(
 			'board' => $board,
 			'posts' => $board->posts()->with('user')->where_user_id($author->id)->order_by('id', 'desc')->paginate($board->posts_per_page),
 		));
@@ -47,7 +47,7 @@ return array(
 		
 		Title::put('임시보관함');
 		
-		return View::of_front()->partial('content', 'board/listing', array(
+		return View::of_front()->nest('content', 'board/listing', array(
 			'board' => $board,
 			'posts' => $board->posts()->with('user')->where_user_id(Authly::get_id())->where_state('draft')->order_by('id', 'desc')->paginate(100)
 		));
@@ -66,7 +66,7 @@ return array(
 	'GET /board/(:any)/series' => function($alias){
 		if (is_null($board = Board::aliased($alias))) return Response::error(404);
 		
-		return View::of_front()->partial('content', 'board/series_listing', array(
+		return View::of_front()->nest('content', 'board/series_listing', array(
 			'series_list' => $board->with('user', 'posts')->series()->order_by('id', 'desc')->paginate(20),
 			'board' => $board
 		));
@@ -80,7 +80,7 @@ return array(
 		) 
 			return Response::error(404);
 		
-		return View::of_front()->partial('content', 'board/series', array(
+		return View::of_front()->nest('content', 'board/series', array(
 			'board' => $board,
 			'series' => $series
 		));
@@ -95,7 +95,7 @@ return array(
 		) 
 			return Response::error(404);
 		
-		return View::of_front()->partial('content', 'board/series_manage', array(
+		return View::of_front()->nest('content', 'board/series_manage', array(
 			'board' => $board,
 			'series' => $series
 		));
@@ -145,7 +145,7 @@ return array(
 		
 		$post->up('views_count');
 		
-		return View::of_front()->partial('content', 'board/read', array(
+		return View::of_front()->nest('content', 'board/read', array(
 			'board' => $board,
 			'post' => $post,
 			'posts' => $board->posts()->with('series', 'user', 'last_commenter')->where('state', '=', 'open')->order_by('id', 'desc')->paginate($board->posts_per_page)
@@ -217,7 +217,7 @@ return array(
 		
 		Title::put('새 글 쓰기');
 		
-		return View::of_front()->partial('content', 'board/new', array(
+		return View::of_front()->nest('content', 'board/new', array(
 			'board' => $board
 		));
 	}),
@@ -299,7 +299,7 @@ return array(
 		)
 		 	return Response::error(404);
 
-		return View::of_front()->partial('content', 'board/edit', array(
+		return View::of_front()->nest('content', 'board/edit', array(
 			'board' => $board,
 			'post' => $post
 		));
@@ -349,7 +349,7 @@ return array(
 		)
 		 	return Response::error(404);
 
-		return View::of_front()->partial('content', 'board/delete', array(
+		return View::of_front()->nest('content', 'board/delete', array(
 			'board' => $board,
 			'post' => $post
 		));

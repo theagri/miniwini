@@ -1,5 +1,5 @@
 			
-			<?=View::make('dashboard/_header')->get()?>
+			<?=View::make('dashboard/_header')->render()?>
 			
 			<section data-group="form" data-form="general"> 
 
@@ -29,7 +29,7 @@
 				
 				<hr>
 				
-				<?=Form::open('auth/change_password')?>
+				<?=Form::open('auth/change_password', 'PUT')?>
 				
 				<?=Form::token()?>
 				

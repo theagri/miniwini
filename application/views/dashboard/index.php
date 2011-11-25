@@ -1,5 +1,5 @@
 
-			<?=View::make('dashboard/_header')->get()?>
+			<?=View::make('dashboard/_header')->render()?>
 			
 			<section>
 				

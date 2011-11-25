@@ -1,13 +1,13 @@
 			
 			<?=View::make('board/_header', array(
 				'board' => $board
-			))->get()?>
+			))->render()?>
 			
 			<?=View::make('board/_tabs', array(
 				'board' => $board
-			))->get()?>
+			))->render()?>
 			
-			<? if ($board->locked): ?>
+			<? if ($board->locked()): ?>
 			
 			<div data-group="notification">
 				잠겨 있는 게시판입니다.
@@ -25,7 +25,7 @@
 					
 					<header>
 						<h1><a href="<?=$s->link($board->alias)?>"><?=$s->title?></a></h1>
-						<a data-type="user" href="<?=$s->user->link?>"><?=$s->user->name?></a>
+						<a data-type="user" href="<?=$s->user->link()?>"><?=$s->user->name?></a>
 					</header>
 					
 					<p data-type="description">

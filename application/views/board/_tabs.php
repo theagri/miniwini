@@ -9,7 +9,7 @@
 				
 					<? endif; ?>
 					
-					<? if ($board->series_enabled): ?>
+					<? if ($board->series_enabled()): ?>
 				
 					<li><a href="<?=$board->link('series')?>">연재물</a></li>
 					
@@ -17,13 +17,13 @@
 					
 					<? if (Authly::signed()): ?>
 					
-					<li><a href="<?=$board->link?>/drafts">임시보관함 <?if($board->draft_count(Authly::get_id())):?><span>(<?=$board->draft_count(Authly::get_id())?>)</span><?endif;?></a></li>
+					<li><a href="<?=$board->link()?>/drafts">임시보관함 <?if($board->draft_count(Authly::get_id())):?><span>(<?=$board->draft_count(Authly::get_id())?>)</span><?endif;?></a></li>
 					
 					<? endif; ?>
 					
 					<? if ( ! $board->locked()): ?>
 					
-					<li data-align="right"><a href="<?=$board->link?>/new">새 글 쓰기</a></li>
+					<li data-align="right"><a href="<?=$board->link()?>/new">새 글 쓰기</a></li>
 					
 					<? endif; ?>
 					

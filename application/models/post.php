@@ -113,6 +113,6 @@ class Post extends Blaze {
 	public function body_html()
 	{
 		$html = nl2br(strip_tags($this->body, '<b><i>'));
-		return \HTML::autolink($html);
+		return HTML::autolink($html);
 	}
 }

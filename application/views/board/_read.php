@@ -6,9 +6,9 @@
 			
 						<?=$post->user->avatar('big')?>
 			
-						<h1><?=$post->safe_title?></h1>
+						<h1><?=$post->safe_title()?></h1>
 			
-						<a data-type="author-name" href="<?=$post->user->link?>"><?=$post->user->name?></a>
+						<a data-type="author-name" href="<?=$post->user->link()?>"><?=$post->user->name?></a>
 			
 						<?=Time::humanized_html($post->created_at)?> / 댓글 <strong><?=number_format($post->comments_count)?></strong>개 / 조회 <strong><?=number_format($post->views_count)?></strong>
 			
@@ -19,7 +19,7 @@
 					<div data-group="notification">
 						<a href="<?=$post->link($board->alias)?>/edit">수정하기</a> / <a href="<?=$post->link($board->alias)?>/delete">삭제하기</a> / 
 						
-						<? if ($post->is_draft and $post->of_user(Authly::get_id())): ?>
+						<? if ($post->is_draft() and $post->of_user(Authly::get_id())): ?>
 						
 						이 글은 현재 <strong>임시보관</strong> 상태입니다. [<a href="<?=$post->link($board->alias) . '/publish'?>">공개하기</a>]
 						
@@ -35,16 +35,17 @@
 		
 					<p data-type="body">
 		
-					<?=$post->body_html?>
+					<?=$post->body_html()?>
 		
 					</p>
 		
 				</article>
 	
 			</section>
-
+			
 
 			<? if ($post->series): ?>
+			
 
 			<section data-group="board" data-type="series">
 	
@@ -66,11 +67,11 @@
 
 			<? endif; ?>
 
-			<section data-group="commently" data-type="comments" data-url="<?=URL::to($board->link . '/' . $post->id)?>">
+			<section data-group="commently" data-type="comments" data-url="<?=URL::to($board->link() . '/' . $post->id)?>">
 				
-				<?=Commently::make(URL::to($board->link . '/' . $post->id))->comments()?>
+				<?=Commently::make(URL::to($board->link() . '/' . $post->id))->comments()?>
 				
-				<?=Commently::make(URL::to($board->link . '/' . $post->id))->form()?>
+				<?=Commently::make(URL::to($board->link() . '/' . $post->id))->form()?>
 				
 			</section>
 

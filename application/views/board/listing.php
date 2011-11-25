@@ -3,15 +3,15 @@
 			
 			<?=View::make('board/_header', array(
 				'board' => $board,
-			))->get()?>
+			))->render()?>
 			
 			
 			<?=View::make('board/_tabs', array(
 				'board' => $board,
-			))->get()?>
+			))->render()?>
 			
 			
-			<? if ($board->locked): ?>
+			<? if ($board->locked()): ?>
 			
 			<div data-group="notification">
 				잠겨 있는 게시판입니다.
@@ -22,6 +22,6 @@
 			<?=View::make('board/_listing', array(
 				'board' => $board,
 				'posts' => $posts
-			))->get()?>
+			))->render()?>
 			
 			<? endif; ?>

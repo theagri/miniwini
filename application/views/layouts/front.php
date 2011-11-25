@@ -95,16 +95,11 @@
 		</aside>
 		<div id="content">
 			
-			
-			<? if (Form::has_errors()): ?>
+			<? if (Session::has('errors')): ?>
 
 			<div data-group="error">
 				
-				<? foreach (Form::all_errors() as $err): ?>
-				
-				<p><?=$err?></p>
-				
-				<? endforeach; ?>
+				<?=Session::get('errors')?>
 				
 			</div>
 
@@ -142,7 +137,7 @@
 					<? foreach ($visitors['users'] as $visitor): ?>
 
 					<li>
-						<?=$visitor->avatar('small')?>
+						<?//=$visitor->avatar('small')?>
 						<strong><?=$visitor->name?></strong>
 					</li>
 					

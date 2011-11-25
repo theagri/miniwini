@@ -6,6 +6,7 @@
 				<? foreach ($posts->results as $p): ?>
 
 				<article data-type="post" data-mode="listing"<?=(Time::is_today($p->created_at) ? ' class="today"':'')?>>
+
 					<?=$p->user->avatar('medium')?>
 		
 					<h1>
@@ -16,7 +17,7 @@
 				
 						<? endif; ?>
 			
-						<a href="<?=$p->link($board->alias)?>?page=<?=$posts->page?>"><?=$p->short_title?></a> 
+						<a href="<?=$p->link($board->alias)?>?page=<?=$posts->page?>"><?=$p->short_title()?></a> 
 			
 						<?if ($p->comments_count > 0):?>
 			
@@ -28,12 +29,12 @@
 		
 					<p data-type="summary">
 		
-						<?=$p->summary?>
+						<?=$p->summary()?>
 		
 					</p>
 	
 					<footer>
-						<a data-type="user" href="<?=$p->user->link?>"><?=$p->user->name?></a>
+						<a data-type="user" href="<?=$p->user()->link()?>"><?=$p->user()->name?></a>
 						/
 						<?=Time::humanized_html($p->created_at)?> / 조회 <strong><?=number_format($p->views_count)?></strong>
 						
@@ -52,6 +53,6 @@
 			<? endif; ?>
 
 
-			<?=$posts->with($board->link())->links(3)?>
+			<?=$posts->links()?>
 	
 			</section>

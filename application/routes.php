@@ -11,7 +11,9 @@ return array(
 			$posts[$alias] = $board->posts()->with('user')->order_by('id', 'desc')->take(10)->get();
 		}
 		
-		return View::of_front()->partial('content', 'home/index', array(
+		
+		
+		return View::of_front()->nest('content', 'home/index', array(
 			'posts' => $posts
 		));
 	}),
@@ -19,15 +21,18 @@ return array(
 	// ---------------------------------------------------------------------
 	
 	'GET /(:any)' => array('name' => 'user', function($segment){
-
 		if (in_array($segment, array('mobile', 'roadmap', 'commently', 'board', 'admin', 'dashboard', 'auth', 'home')))
 		{
+			if (strpos('/', $segment) === FALSE)
+			{
+				$segment = $segment . '/index';
+			}
 			return Redirect::to($segment);
 		}
 		
 		if (is_null($user = User::where_userid($segment)->first())) return Response::error(404);
 		
-		return View::of_front()->partial('content', 'user/index', array(
+		return View::of_front()->nest('content', 'user/index', array(
 			'user' => $user
 		));
 	}),
@@ -41,9 +46,9 @@ return array(
 	// ---------------------------------------------------------------------
 	
 	'GET /mobile' => function(){
+		return Response::error(404);
 		$mobile = Session::get('mobile');
 		Session::put('mobile', ! $mobile);
 		return Redirect::to_home();
 	}
-	
 );

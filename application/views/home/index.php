@@ -28,7 +28,7 @@
 		
 					<h1>
 			
-						<a href="<?=$p->link($alias)?>"><?=$p->short_title?></a> 
+						<a href="<?=$p->link($alias)?>"><?=$p->short_title()?></a> 
 			
 						<?if ($p->comments_count > 0):?>
 			

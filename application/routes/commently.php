@@ -19,9 +19,9 @@ return array(
 		if ($val->valid())
 		{
 			Commently::add(Input::all());
-			return Redirect::back()->with('notification', 'Comment added');
+			return Redirect::to(Input::get('url'))->with('notification', 'Comment added');
 		}
 		
-		return Redirect::back();
+		return Redirect::to(Input::get('url'));
 	}
 );

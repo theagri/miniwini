@@ -1,18 +1,18 @@
 <?php
 return array(
 
-	'before' => function($method, $uri)
+	'before' => function()
 	{
-		// Do stuff before every request to your application.
+		Authly::initialize();
 	},
 
 
-	'after' => function($response, $method, $uri)
+	'after' => function($response)
 	{
 		if ($response and $response->status === 200)
 		{
 			$result = array();
-			$lines = explode("\n", $response);
+			$lines = explode("\n", $response->content);
 
 			foreach ($lines as $line)
 			{
@@ -24,25 +24,18 @@ return array(
 				$result[] = $line;
 			}
 			
-			if (Config::get('session.driver') != '')
+			if (Config::$items['session']['driver'] !== '')
 			{
-				Session::close();
+				IoC::core('session')->save();
 			}
 			
 			die (implode("\n", $result));
 		}
 	},
 
-
-	'auth' => function()
-	{
-		return ( ! Auth::check()) ? Redirect::to_login() : null;
-	},
-
-
 	'csrf' => function()
 	{
-		return (Input::get('csrf_token') !== Form::raw_token()) ? Response::error('500') : null;
+		if (Request::forged()) return Response::error('500');
 	},
 	
 	
@@ -56,5 +49,4 @@ return array(
 			));
 		}
 	},
-
 );
