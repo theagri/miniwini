@@ -34,7 +34,7 @@
 					</p>
 	
 					<footer>
-						<a data-type="user" href="<?=$p->user()->link()?>"><?=$p->user()->name?></a>
+						<a data-type="user" href="<?=$p->user->link()?>"><?=$p->user->name?></a>
 						/
 						<?=Time::humanized_html($p->created_at)?> / 조회 <strong><?=number_format($p->views_count)?></strong>
 						
