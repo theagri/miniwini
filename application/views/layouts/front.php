@@ -137,7 +137,7 @@
 					<? foreach ($visitors['users'] as $visitor): ?>
 
 					<li>
-						<?//=$visitor->avatar('small')?>
+						<?=$visitor->avatar('small')?>
 						<strong><?=$visitor->name?></strong>
 					</li>
 					
