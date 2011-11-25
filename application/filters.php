@@ -43,10 +43,9 @@ return array(
 	{
 		if ( ! Authly::signed())
 		{
-			return Redirect::to_login()->with(array(
-				'message' => 'login required',
-				'back_to' => Request::absolute_uri()
-			));
+			return Redirect::to_login()
+				->with('message', 'login required')
+				->with('back_to', Request::uri());
 		}
 	},
 );
