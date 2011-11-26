@@ -1,6 +1,6 @@
 <?php
 return array(
-	'url' => 'http://s2.miniwini.com/commently',
+	'url' => Config::get('application.url') . '/commently',
 	
 	'accounts' => function()
 	{
@@ -47,7 +47,37 @@ return array(
 				$post->last_commented_at = $comment->created_at;
 			}
 			
-			$post->save();			
+			$post->save();		
+			$body = mb_substr($comment->body, 0, 40, 'UTF-8');
+			if ($comment->parent_id)
+			{
+				$parent = Commently::comment($comment->parent_id);
+				if ($parent and ($parent->author_id != Authly::get_id()))
+				{
+					Notification::put(array(
+						'action' => 'comment_on_comment',				
+						'user_id' => $parent->author_id,
+						'actor_name' => $comment->author_name,
+						'actor_avatar' => $comment->author_avatar_url,
+						'body' => $body,
+						'url' => $url,
+						'created_at' => time()
+					));
+				}
+			}
+			elseif ($post->user_id != Authly::get_id())
+			{
+				Notification::put(array(
+					'action' => 'comment_on_topic',
+					'user_id' => $post->user_id,
+					'actor_name' => $comment->author_name,
+					'actor_avatar' => $comment->author_avatar_url,
+					'body' => $body,
+					'url' => $url,
+					'created_at' => time()
+				));
+			}
+			
 		}
 	},
 	
