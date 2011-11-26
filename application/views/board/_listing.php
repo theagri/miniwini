@@ -21,7 +21,7 @@
 			
 						<?if ($p->comments_count > 0):?>
 			
-						<a data-type="comments-count" href="<?=$p->link($board->alias)?>?page=<?=$posts->page?>"><span><?=number_format($p->comments_count)?></span></a>
+						<span data-type="comments-count"><?=number_format($p->comments_count)?></span>
 			
 						<? endif; ?>
 			
