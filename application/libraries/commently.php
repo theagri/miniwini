@@ -51,7 +51,13 @@ class Commently {
 		}
 		
 		return static::$user;
-		
+	}
+	
+	// ---------------------------------------------------------------------
+	
+	public static function comment($id)
+	{
+		return DB::table(static::$table_data)->where_id($id)->first();
 	}
 	
 	// ---------------------------------------------------------------------

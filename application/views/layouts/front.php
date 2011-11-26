@@ -31,8 +31,13 @@
 
 	
 	<script src="/javascripts/jquery.js"></script>
+	
+	<? if (Authly::signed()): ?>
+	
 	<script src="/javascripts/miniwini.js"></script>
 	<script src="/javascripts/commently.js"></script>
+	
+	<? endif; ?>
 	
 	
 	<!--[if (gte IE 6)&(lte IE 8)]>
@@ -60,7 +65,8 @@
 				<li><a href="<?=URL::to('board/qna')?>">질문&amp;답변</a></li>
 
 				<? if (Authly::signed()): ?>
-
+				
+				<li><span id="notifications-count" onclick="miniwini.notifications()"></span><div id="notifications"></div></li>
 				<li><a href="<?=URL::to('dashboard')?>">Dashboard</a></li>
 				<li data-align="right"><a href="<?=URL::to('auth/logout')?>">logout</a></li>
 
