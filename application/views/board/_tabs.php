@@ -21,6 +21,13 @@
 					
 					<? endif; ?>
 					
+					<? if (isset($board->author_tab)): ?>
+					
+					<li><a href="<?=$board->link()?>/by/<?=$board->author_tab['userid']?>"><?=$board->author_tab['name']?></a></li>					
+					
+					<? endif; ?>
+					
+					
 					<? if ( ! $board->locked()): ?>
 					
 					<li data-align="right"><a href="<?=$board->link()?>/new">새 글 쓰기</a></li>

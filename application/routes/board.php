@@ -34,6 +34,14 @@ return array(
 			
 		Title::put($board->title);
 		
+		if ($author->id != Authly::get_id())
+		{
+			$board->author_tab = array(
+				'userid' => $author->userid,
+				'name' => $author->name,
+			);
+		}
+		
 		return View::of_front()->nest('content', 'board/listing', array(
 			'board' => $board,
 			'posts' => $board->posts()->with('user')->where_user_id($author->id)->order_by('id', 'desc')->paginate($board->posts_per_page),
@@ -142,6 +150,14 @@ return array(
 			return Response::error(404);
 			
 		Title::put($post->title);
+		
+		if ($post->user_id != Authly::get_id())
+		{
+			$board->author_tab = array(
+				'userid' => $post->user->userid,
+				'name' => $post->user->name,
+			);
+		}
 		
 		$post->up('views_count');
 		
