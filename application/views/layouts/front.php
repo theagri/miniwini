@@ -72,8 +72,8 @@
 
 				<? else: ?>
 
-				<li><a href="<?=URL::to('auth/login')?>">로그인</a></li>
-				<li><a href="<?=URL::to('auth/register')?>">회원 가입</a></li>
+				<li data-align="right"><a href="<?=URL::to('auth/login')?>">로그인</a></li>
+				<li data-align="right"><a href="<?=URL::to('auth/register')?>">회원 가입</a></li>
 
 				<? endif; ?>
 
