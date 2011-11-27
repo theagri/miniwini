@@ -255,12 +255,12 @@ return array(
 		{
 			$series_id = Input::get('series_id');
 			$series = Series::find($series_id);
-			if ($series AND ($series->user_id == Authly::get_id()))
+			if ($series and ($series->user_id == Authly::get_id()))
 			{
 				$post->series_id = $series->id;
-				$post->series_sequence = Series::where_id($series->id)->count() + 1;
+				$post->series_sequence = Post::where_series_id($series->id)->count() + 1;
 				$post->save();
-			}	
+			}
 		}
 		elseif ($series_type == 2)
 		{
