@@ -21,7 +21,14 @@
 				
 				<label for="body"><?=__('miniwini.board_newpost_body')?></label>
 				<textarea id="body" name="body" required><?=Input::old('body')?></textarea>
-		
+				
+				<label for="format">형식</label>
+				<select id="format" name="format">
+					<option value="text">Text</option>
+					<option value="markdown">Markdown</option>
+				</select>
+				
+				<hr>
 		
 				<? if (Authly::belongs($board->series_level)): ?>
 				

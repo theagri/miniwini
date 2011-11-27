@@ -19,7 +19,16 @@
 				<input type="text" id="title" name="title" value="<?=Input::old('title', $post->title)?>" required autofocus>
 				
 				<label for="body"><?=__('miniwini.board_newpost_body')?></label>
+				
 				<textarea id="body" name="body" required><?=Input::old('body', $post->body)?></textarea>
+				
+				<label for="format">형식</label>
+				<select id="format" name="format">
+					<option value="text"<?=($post->format == 'text' ? ' selected="selected"' : '')?>>Text</option>
+					<option value="markdown"<?=($post->format == 'markdown' ? ' selected="selected"' : '')?>>Markdown</option>
+				</select>
+				
+				<hr>
 				
 				<? if (FALSE and Authly::belongs($board->series_level)): ?>
 				

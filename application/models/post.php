@@ -90,8 +90,16 @@ class Post extends Blaze {
 	
 	public function summary()
 	{
-		$summary = mb_substr($this->body, 0, 120, 'UTF-8');
-		return e(strip_tags($summary));
+		switch ($this->format)
+		{
+			case 'markdown':
+				$markdown = new Markdown();
+				$summary = $markdown->parse($this->body);
+				return e(strip_tags(mb_substr($summary, 0, 120, 'UTF-8')));
+				
+			default:
+				return e(strip_tags(mb_substr($this->body, 0, 120, 'UTF-8')));
+		}
 	}
 	
 	// ---------------------------------------------------------------------
@@ -112,7 +120,18 @@ class Post extends Blaze {
 	
 	public function body_html()
 	{
-		$html = nl2br(strip_tags($this->body, '<b><i>'));
-		return HTML::autolink($html);
+		switch ($this->format)
+		{
+			case 'markdown':
+				$markdown = new Markdown();
+				$html = $markdown->parse($this->body);
+				break;
+				
+			default:
+				$html = HTML::autolink(nl2br($this->body));
+
+		}
+
+		return strip_tags($html, Config::get('miniwini.available_tags'));
 	}
 }

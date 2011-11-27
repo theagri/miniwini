@@ -33,11 +33,11 @@
 		
 					<? endif; ?>
 		
-					<p data-type="body">
+					<div data-type="body">
 		
 					<?=$post->body_html()?>
 		
-					</p>
+					</div>
 		
 				</article>
 	
