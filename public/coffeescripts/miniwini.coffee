@@ -1,9 +1,6 @@
-
-		
 class Miniwini
 	constructor: ->
-
-		@notificationCheckInterval = 10000
+		@notificationCheckInterval = 5000
 		@checkNotification()
 	
 	checkNotification: ->

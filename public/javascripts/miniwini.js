@@ -2,7 +2,7 @@ var Miniwini;
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 Miniwini = (function() {
   function Miniwini() {
-    this.notificationCheckInterval = 10000;
+    this.notificationCheckInterval = 5000;
     this.checkNotification();
   }
   Miniwini.prototype.checkNotification = function() {
