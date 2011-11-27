@@ -38,7 +38,7 @@ return array(
 	// ---------------------------------------------------------------------
 	
 	'GET /roadmap' => function(){
-		return View::of_front()->partial('content', 'home/roadmap');
+		return View::of_front()->nest('content', 'home/roadmap');
 	},
 	
 	// ---------------------------------------------------------------------
