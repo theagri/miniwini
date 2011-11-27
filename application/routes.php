@@ -11,8 +11,6 @@ return array(
 			$posts[$alias] = $board->posts()->with('user')->where_state('open')->order_by('id', 'desc')->take(10)->get();
 		}
 		
-		
-		
 		return View::of_front()->nest('content', 'home/index', array(
 			'posts' => $posts
 		));

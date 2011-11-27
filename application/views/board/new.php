@@ -17,10 +17,10 @@
 				<input type="hidden" name="state" value="open">
 
 				<label for="title"><?=__('miniwini.board_newpost_title')?></label>
-				<input type="text" id="title" name="title" value="<?=Input::old('title')?>" required autofocus>
+				<input type="text" id="title" name="title" value="<?=Input::old('title')?>">
 				
 				<label for="body"><?=__('miniwini.board_newpost_body')?></label>
-				<textarea id="body" name="body" required><?=Input::old('body')?></textarea>
+				<textarea id="body" name="body" required autofocus><?=Input::old('body')?></textarea>
 				
 				<label for="format">형식</label>
 				<select id="format" name="format">

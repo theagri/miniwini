@@ -5,7 +5,6 @@ class Post extends Blaze {
 	public static $validations = array(
 		'board_id' => 'required|integer',
 		'user_id' => 'required|integer',
-		'title' => 'required',
 		'body' => 'required',
 		'state' => 'in:open,closed,draft',
 	);
@@ -95,10 +94,10 @@ class Post extends Blaze {
 			case 'markdown':
 				$markdown = new Markdown();
 				$summary = $markdown->parse($this->body);
-				return e(strip_tags(mb_substr($summary, 0, 120, 'UTF-8')));
+				return e(strip_tags(mb_substr($summary, 0, 140, 'UTF-8')));
 				
 			default:
-				return e(strip_tags(mb_substr($this->body, 0, 120, 'UTF-8')));
+				return e(strip_tags(mb_substr($this->body, 0, 140, 'UTF-8')));
 		}
 	}
 	

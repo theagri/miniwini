@@ -31,8 +31,16 @@
 					<?=$p->user->avatar('small')?>
 		
 					<h1>
+						
+						<? if ($p->title): ?>
 			
 						<a href="<?=$p->link($alias)?>"><?=$p->short_title()?></a> 
+						
+						<? else: ?>
+						
+						<a href="<?=$p->link($alias)?>"><?=$p->summary()?></a> 
+						
+						<? endif; ?>
 			
 						<?if ($p->comments_count > 0):?>
 			
