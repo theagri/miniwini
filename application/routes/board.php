@@ -320,7 +320,8 @@ return array(
 			'user_id' => Authly::get_id(),
 			'title' => Input::get('title'),
 			'body' => Input::get('body'),
-			'state' => Input::get('state')
+			'state' => Input::get('state'),
+			'format' => Input::get('format')
 		);
 
 		$post->fill($data);
