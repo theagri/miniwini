@@ -16,7 +16,21 @@ return array(
 
 			foreach ($lines as $line)
 			{
-				if ( ! trim($line) OR preg_match('/^\s*$/', $line))
+				if (strpos($line, '<textarea ') !== FALSE)
+				{
+					$preserve = TRUE;
+				}
+				
+				if (strpos($line, '/textarea>') !== FALSE)
+				{
+					$preserve = FALSE;
+				}
+
+				if ($preserve === TRUE)
+				{
+
+				}
+				elseif (! trim($line) OR preg_match('/^\s*$/', $line))
 				{
 					continue;
 				}
