@@ -9,8 +9,10 @@ class Miniwini
 			$.getJSON('/notification/count', (data) =>
 
 					if data and data.count > 0
+						document.title = '(' + data.count + ') ' + document.title.replace(/^\(\d+\) /, '')
 						$elem.data('time', data.last_updated_at.toString()).html(data.count).show()
 					else
+						document.title = document.title.replace(/^\(\d+\)$ /, '')
 						$elem.hide()
 				
 					window.setTimeout(=>

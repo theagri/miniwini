@@ -11,8 +11,10 @@ Miniwini = (function() {
       $elem = $('#notifications-count');
       return $.getJSON('/notification/count', __bind(function(data) {
         if (data && data.count > 0) {
+          document.title = '(' + data.count + ') ' + document.title.replace(/^\(\d+\) /, '');
           $elem.data('time', data.last_updated_at.toString()).html(data.count).show();
         } else {
+          document.title = document.title.replace(/^\(\d+\)$ /, '');
           $elem.hide();
         }
         return window.setTimeout(__bind(function() {
