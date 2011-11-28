@@ -77,6 +77,10 @@ Miniwini = (function() {
 
     }
   };
+  Miniwini.prototype.submitPost = function(f) {
+    $('#submitButton').attr('disabled', true);
+    return true;
+  };
   Miniwini.prototype.saveToDraft = function(f) {
     f.elements['state'].value = 'draft';
     return f.submit();

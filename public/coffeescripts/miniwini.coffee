@@ -69,6 +69,9 @@ class Miniwini
 			
 		catch err
 	
+	submitPost: (f) ->
+		$('#submitButton').attr('disabled', true);
+		return true;
 
 	saveToDraft: (f) ->
 		f.elements['state'].value = 'draft';

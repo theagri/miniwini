@@ -10,7 +10,7 @@
 			<section data-group="board" data-form="general" data-type="post">
 
 				
-				<?=Form::open($board->link('new'), 'POST')?>
+				<?=Form::open($board->link('new'), 'POST', array('onsubmit="return miniwini.submitPost(this)"'))?>
 
 				<?=Form::token()?>
 				
@@ -82,7 +82,7 @@
 					<button type="button" class="btn alternative" onclick="return miniwini.saveToDraft(this.form)"><?=__('miniwini.board_newpost_button_draft')?></button>
 					<button type="button" class="btn alternative" onclick="return miniwini.previewPost(this.form)"><?=__('miniwini.board_newpost_button_preview')?></button>
 										
-					<input type="submit" value="<?=__('miniwini.board_newpost_button_submit')?>">
+					<input type="submit" id="submitButton" value="<?=__('miniwini.board_newpost_button_submit')?>">
 				</div>
 				
 				<?=Form::close()?>
