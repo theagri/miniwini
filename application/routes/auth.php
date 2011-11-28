@@ -256,7 +256,7 @@ EMAIL;
 	// ---------------------------------------------------------------------
 	
 	'GET /auth/connections' => function(){
-		if ( ! Config::get('authly.connectiones.enabled')) return Response::error(500);
+		if ( ! Config::get('authly.connections.enabled')) return Response::error(500);
 		
 		return View::of_front()->nest('content', 'auth/connections');
 	},
@@ -265,7 +265,7 @@ EMAIL;
 	// ---------------------------------------------------------------------
 	
 	'GET /auth/connect/(:any)' => function($service){
-		if ( ! Config::get('authly.connectiones.enabled')) return Response::error(500);
+		if ( ! Config::get('authly.connections.enabled')) return Response::error(500);
 		
 		return Redirect::to($url);
 	},
@@ -273,7 +273,7 @@ EMAIL;
 	// ---------------------------------------------------------------------
 
 	'POST /auth/connect/(:any)' => function($service){
-		if ( ! Config::get('authly.connectiones.enabled')) return Response::error(500);
+		if ( ! Config::get('authly.connections.enabled')) return Response::error(500);
 
 		$url = Authly::connect($service, Input::get('openid_identifier'));
 		return Redirect::to($url);
@@ -282,7 +282,7 @@ EMAIL;
 	// ---------------------------------------------------------------------
 	
 	'GET /auth/connected/(:any)' => function($service){
-		if ( ! Config::get('authly.connectiones.enabled')) return Response::error(500);
+		if ( ! Config::get('authly.connections.enabled')) return Response::error(500);
 		
 		$available_services = Config::get('authly.connections.services');
 		
