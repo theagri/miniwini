@@ -6,16 +6,13 @@ class Visitor extends Blaze {
 	
 	public static function all($within_min = 30)
 	{
-		$sessions = self::get();
+		$min = time() - $within_min * 60;
+		$sessions = self::where('last_activity', '>=', $min)->get();
 		$users = array();
 		$guest_count = 0;
 		foreach ($sessions as $sess)
 		{
 			$data = unserialize($sess->data);
-			if ((time() - $sess->last_activity) > $within_min * 60)
-			{
-				continue;
-			}
 			
 			if ( ! empty($data['authly_key']))
 			{
