@@ -80,8 +80,18 @@
 				
 				<div class="multiple-actions">
 					<button type="button" class="btn alternative" onclick="return miniwini.saveToDraft(this.form)"><?=__('miniwini.board_newpost_button_draft')?></button>
+					<button type="button" class="btn alternative" onclick="return miniwini.previewPost(this.form)"><?=__('miniwini.board_newpost_button_preview')?></button>
+					
 					<input type="submit" value="<?=__('miniwini.board_newpost_button_edit')?>">
 				</div>
+				
+				<?=Form::close()?>
+				
+				<?=Form::open($board->link('preview'), 'POST', array('name' => 'preview', 'target' => '_blank'))?>
+				
+				<?=Form::hidden('body')?>
+				
+				<?=Form::hidden('format')?>
 				
 				<?=Form::close()?>
 				

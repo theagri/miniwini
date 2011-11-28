@@ -228,6 +228,31 @@ return array(
 	
 	// ---------------------------------------------------------------------
 	
+	'POST /board/(:any)/preview' => array('before' => 'signed', function($alias){
+		if (is_null($board = Board::aliased($alias))) return Response::error(404);
+
+		switch (Input::get('format'))
+		{
+			case 'markdown':
+				$markdown = new Markdown();
+				$body = $markdown->parse(Input::get('body'));
+				break;
+				
+			default:
+				$body = HTML::autolink(nl2br(Input::get('body')));
+		}
+		
+		Title::put('미리보기');
+		
+		$body = strip_tags($body, Config::get('miniwini.available_tags'));
+		
+		return View::of_front()->nest('content', 'board/preview', array(
+			'body' => $body
+		));
+	}),
+	
+	// ---------------------------------------------------------------------
+	
 	'GET /board/(:any)/new' => array('before' => 'signed', function($alias){
 		if (is_null($board = Board::aliased($alias))) return Response::error(404);
 		

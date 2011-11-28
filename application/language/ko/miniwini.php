@@ -11,5 +11,6 @@ return array(
 	'board_newpost_series_description' => '새 연재물 설명',
 	'board_newpost_button_draft' => '임시 저장',
 	'board_newpost_button_submit' => '등록하기',
+	'board_newpost_button_preview' => '미리보기',
 	'board_newpost_button_edit' => '수정하기',
 );

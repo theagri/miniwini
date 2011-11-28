@@ -74,6 +74,12 @@ class Miniwini
 		f.elements['state'].value = 'draft';
 		f.submit()
 		
+	previewPost: (f) ->
+		form = document.forms['preview']
+		form.elements['body'].value = f.elements['body'].value
+		form.elements['format'].value = f.elements['format'].value
+		form.submit()
+
 window.miniwini
 $(->
 	window.miniwini = new Miniwini()

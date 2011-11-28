@@ -81,6 +81,13 @@ Miniwini = (function() {
     f.elements['state'].value = 'draft';
     return f.submit();
   };
+  Miniwini.prototype.previewPost = function(f) {
+    var form;
+    form = document.forms['preview'];
+    form.elements['body'].value = f.elements['body'].value;
+    form.elements['format'].value = f.elements['format'].value;
+    return form.submit();
+  };
   return Miniwini;
 })();
 window.miniwini;

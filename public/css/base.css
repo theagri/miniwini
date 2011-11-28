@@ -22,7 +22,7 @@ input[type=submit],button.btn{background:#2daebf url(/img/ui/alert-overlay.png) 
 input[type=submit]:active,button.btn:active{top:1px;}
 input[type=submit]:disabled,button.btn:disabled{box-shadow:0 0 0;opacity:0.6;border-bottom:0;cursor:default;}input[type=submit]:disabled:hover,button.btn:disabled:hover{background-color:#2daebf;}
 input[type=submit]:disabled:active,button.btn:disabled:active{top:0;}
-input[type=submit].alternative,button.btn.alternative{background-color:#444;}input[type=submit].alternative:hover,button.btn.alternative:hover{background-color:#222;}
+input[type=submit].alternative,button.btn.alternative{background-color:#444;margin-right:10px;}input[type=submit].alternative:hover,button.btn.alternative:hover{background-color:#222;}
 input[type=submit].alternative:disabled:hover,button.btn.alternative:disabled:hover{background-color:#444;}
 [data-type=warning]{padding:15px;border:1px dashed #ddd;border-radius:10px;color:#c10;text-shadow:1px 1px 0 rgba(0, 0, 0, 0.15);font-size:1.5em;}
 .pagination{padding:10px 0;font-size:0.8em;}.pagination a,.pagination .disabled,.pagination .current{display:inline-block;background-color:#eee;padding:4px 6px 6px;margin-right:3px;text-decoration:none;color:#666;min-width:12px;text-align:center;border-radius:4px;box-shadow:1px 1px 1px #ddd;}
