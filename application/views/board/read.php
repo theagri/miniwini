@@ -4,7 +4,8 @@
 			))->render()?>
 			
 			<?=View::make('board/_tabs', array(
-				'board' => $board
+				'board' => $board,
+				'active_tab' => $active_tab
 			))->render()?>
 			
 			<?=View::make('board/_read', array(
@@ -13,7 +14,8 @@
 			))->render()?>
 			
 			<?=View::make('board/_tabs', array(
-				'board' => $board
+				'board' => $board,
+				'active_tab' => $active_tab
 			))->render()?>
 			
 			<?=View::make('board/_listing', array(

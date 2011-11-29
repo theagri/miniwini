@@ -1,11 +1,12 @@
 
 			<?=View::make('board/_header', array(
 				'board' => $board
-			))->get()?>
+			))->render()?>
 
 			<?=View::make('board/_tabs', array(
-				'board' => $board
-			))->get()?>
+				'board' => $board,
+				'active_tab' => $active_tab
+			))->render()?>
 			
 			<section data-group="board" data-form="general" data-type="post">
 
@@ -32,7 +33,7 @@
 
 					<h1>
 
-						<a href="<?=$p->link($board->alias)?>"><?=$p->short_title?></a> 
+						<a href="<?=$p->link($board->alias)?>"><?=$p->short_title()?></a> 
 
 						<?if ($p->comments_count > 0):?>
 
@@ -44,12 +45,12 @@
 
 					<p data-type="summary">
 
-						<?=$p->summary?>
+						<?=$p->summary()?>
 
 					</p>
 
 					<footer>
-						<a data-type="user" href="<?=$p->user->link?>"><?=$p->user->name?></a>
+						<a data-type="user" href="<?=$p->user->link()?>"><?=$p->user->name?></a>
 						/
 						<?=Time::humanized_html($p->created_at)?> / 조회 <strong><?=number_format($p->views_count)?></strong>
 			

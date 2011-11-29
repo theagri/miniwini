@@ -85,12 +85,34 @@ Miniwini = (function() {
     f.elements['state'].value = 'draft';
     return f.submit();
   };
-  Miniwini.prototype.previewPost = function(f) {
-    var form;
-    form = document.forms['preview'];
-    form.elements['body'].value = f.elements['body'].value;
-    form.elements['format'].value = f.elements['format'].value;
-    return form.submit();
+  Miniwini.prototype.setPostType = function(tab) {
+    var body, parser, type;
+    type = $(tab).data('post-type');
+    $('[data-group=post-types] li[data-post-type]').removeClass('active');
+    $('[data-group=post-types] li[data-post-type=' + type + ']').addClass('active');
+    $('[data-group=post-types] [id^=type-]').hide();
+    $('[data-group=post-types] [id=type-' + type + ']').show();
+    if (type === 'preview') {
+      $('#preview-body').html('');
+      if (($('#format').val()) === 'markdown') {
+        body = $('#body').val();
+        parser = new Showdown.converter();
+        $('#preview-body').html(parser.makeHtml(body));
+      } else {
+        $.ajax({
+          url: '/ajax/preview',
+          type: 'POST',
+          data: {
+            body: $('#body').val()
+          },
+          success: __bind(function(html) {
+            return $('#preview-body').html(html);
+          }, this)
+        });
+      }
+    }
+    $('#preview-section')[type === 'preview' ? 'show' : 'hide']();
+    return $('#common-controls')[type === 'preview' ? 'hide' : 'show']();
   };
   return Miniwini;
 })();

@@ -4,7 +4,8 @@
 			))->render()?>
 			
 			<?=View::make('board/_tabs', array(
-				'board' => $board
+				'board' => $board,
+				'active_tab' => $active_tab
 			))->render()?>
 			
 			<section data-group="board" data-type="post">

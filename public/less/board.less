@@ -480,18 +480,138 @@ section[data-group=board]
 	}
 }
 
-
+[data-group=board]
+{
+	#preview-section
+	{
+		display:none;
+		padding:20px 0;
+	}
+	
+	#preview-body
+	{
+		min-height:200px;
+		overflow:visible;
+	}
+	
+	
+	[data-group=post-types]
+	{
+		margin-top:10px;
+		
+		[id^=type-]
+		{
+			display:none;
+			padding:10px 20px 0;
+		}
+		
+		#common-controls
+		{
+			> div
+			{
+				padding:10px 20px 10px;
+				text-align:right;
+			}
+		}
+		
+		#panel
+		{
+			background-color:#f3f3f3;
+			border:1px solid rgba(0,0,0,0.2);
+			border-radius:6px;
+			border-top-left-radius:0;
+			border-top-right-radius:0;
+			padding-bottom:20px;
+		}
+		> ul
+		{
+			height:54px;
+			li
+			{
+				display:block;
+				float:left;
+				text-align:center;
+				border:1px solid rgba(0,0,0,0.2);
+				border-bottom:0;
+				border-left:0;
+				background-color:#e4e4e4;
+				background-repeat:no-repeat;
+				background-position:center 5px;
+				a
+				{
+					display:block;
+					width:70px;
+					height:16px;
+					border:1px solid #ddd;
+					border-bottom:1px solid #ccc;
+					font-size:0.85em;
+					color:#555;
+					padding-top:36px;
+					text-shadow:1px 1px 0 rgba(255,255,255,0.5);
+				}
+				
+				&:nth-child(1)
+				{
+					background-image:url(/img/ui/icon_post_type_text.png);
+				}
+				
+				&:nth-child(2)
+				{
+					background-image:url(/img/ui/icon_post_type_photo.png);
+				}
+				&:nth-child(3)
+				{
+					background-image:url(/img/ui/icon_post_type_link.png);
+				}
+				&:nth-child(4)
+				{
+					background-image:url(/img/ui/icon_post_type_gear.png);
+				}
+				&:nth-child(5)
+				{
+					background-image:url(/img/ui/icon_post_type_preview.png);
+				}
+				&:first-child
+				{
+					border-left:1px solid rgba(0,0,0,0.2);
+				}
+				
+				&:last-child
+				{
+				}
+				
+				&.active
+				{
+					background-color:#f3f3f3;
+					abox-shadow:inset 0 0 2px rgba(0,0,0,0.15);
+					a
+					{
+						border:1px solid #fff;
+						border-bottom:1px solid #f3f3f3;
+						font-weight:bold;
+						color:#333;
+						text-shadow:1px 1px 0 rgba(255,255,255,0.8);
+					}
+				}
+			}
+		}
+	}
+}
 
 [data-group=board]
 {
+
+	
+	
 	&[data-type=post]
 	{
 		#add-series
 		{
+			margin:15px 15px 0;
 			border:1px solid rgba(0,0,0,0.2);
-			background-color:#eee;
-			border-radius:6px;
+			border-radius:3px;
 			padding:0 10px 8px 10px;
+			box-shadow:0 0 2px rgba(255,255,255,1);
 			
 			label
 			{
@@ -510,6 +630,12 @@ section[data-group=board]
 			display:block;
 		}
 		
+		textarea
+		{
+			width:654px;
+			margin:0 20px;
+			min-height:400px;
+		}
 		
 		#new-series
 		{
@@ -570,6 +696,4 @@ section[data-group=board]
 	{
 		background-position:0 -103px;
 	}
-	
-
 }

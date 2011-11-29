@@ -9,13 +9,18 @@
 input[type=text],
 textarea
 {
-	background-color:#f3f3f3;
+	background-color:#fff;
+	border:1px solid #999;
+	box-shadow:inset 0 1px 2px rgba(0,0,0,0.15);
+	
 	&:active,
 	&:focus,
 	&.active
 	{
 		background-color:#f6f1d0;
 	}
+	
+	
 }
 
 a
@@ -93,39 +98,53 @@ figure
 	}
 }
 
+[data-align=right]
+{
+	float:right !important;
+}
+
 
 [data-type=tabs]
 {
-	height:34px;
-	[data-align=right]
+	
+	ul
 	{
-		float:right;
-		margin-right:10px;
+		overflow:hidden;
 	}
 	
 	li
 	{
-		.gradient();
-		border:1px solid #ccc;
+		background-color:#e6e6e6;
+		border:1px solid rgba(0,0,0,0.2);
 		border-bottom:0;
-		padding:3px 10px 5px 10px;
 		display:block;
 		float:left;
-		margin-right:4px;
-		border-top-left-radius:4px;
-		border-top-right-radius:4px;
-		box-shadow:0 0 1px rgba(0,0,0,0.1), inset 0 -1px 1px rgba(0,0,0,0.15), inset 0 2px 1px rgba(255,255,255,0.5);
-
+		margin-top:2px;
+		border-radius:4px;
+		border-bottom-left-radius:0;
+		border-bottom-right-radius:0;
+		margin-top:2px;
+		box-shadow:inset 0 -2px 1px rgba(0,0,0,0.1);
 		&:first-child
 		{
-			margin-left:10px;
+			border-left:1px solid rgba(0,0,0,0.2);
+			margin-left:0;
 		}
 		
 		a
 		{
+			border-radius:5px;
+			border-bottom-left-radius:0;
+			border-bottom-right-radius:0;
 			font-size:0.8em;
+			display:block;
 			color:#777;
-			text-shadow:1px 1px 0 rgba(255,255,255,0.8);
+			height:12px;
+			padding:6px 10px 5px 10px;
+			text-shadow:1px 1px 0 rgba(255,255,255,0.6);
+			border:1px solid #ddd;
+			border-bottom:1px solid rgba(0,0,0,0.2);
+			border-right:0;
 			
 			&:hover
 			{
@@ -133,17 +152,33 @@ figure
 			}
 		}
 		
-		&.active
+		&.active,
+		&.pinned
 		{
+			margin-top:0;
+			background-color:#f3f3f3;
+			box-shadow:inset 0 0 0;
+			a
+			{
+				color:#333;
+				height:14px;
+				border:1px solid #fff;
+				border-bottom:1px solid #f3f3f3;
+				box-shadow:inset 0 0 0;
+			}
 		}
 	}
 	
 	> div
 	{
 		clear:both;
-		.gradient();
 		height:5px;
-		box-shadow:0 0 2px rgba(0,0,0,0.4), 0 1px 1px rgba(0,0,0,0.15);
+		position:relative;
+		z-index:-1;
+		top:-1px;
+		background-color:#f3f3f3;
+		border:1px solid rgba(0,0,0,0.2);
+		box-shadow:0 1px 0 rgba(0,0,0,0.1);
 	}
 	
 	[data-tab]
@@ -158,11 +193,6 @@ figure
 
 section[data-form=general]
 {
-	> div
-	{
-	}
-	
-
 	.actions
 	{
 		border-top:1px dashed #ccc;
@@ -195,7 +225,7 @@ section[data-form=general]
 		display:block;
 		font-size:0.9em;
 		padding:3px;
-		margin-top:10px;
+		margin:10px 0 4px 0;
 		
 		small
 		{
@@ -217,16 +247,6 @@ section[data-form=general]
 		min-height:200px;
 		resize:vertical;
 		-webkit-appearance:textfield;
-	}
-	
-	
-	// new post
-	&[data-type=post]
-	{
-		form > textarea
-		{
-			min-height:400px;
-		}
 	}
 }
 

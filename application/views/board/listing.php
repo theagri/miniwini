@@ -8,6 +8,7 @@
 			
 			<?=View::make('board/_tabs', array(
 				'board' => $board,
+				'active_tab' => $active_tab
 			))->render()?>
 			
 			

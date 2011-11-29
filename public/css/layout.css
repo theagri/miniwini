@@ -1,7 +1,7 @@
 html,body{height:100%;}
 body{font-size:11pt;font-family:sans-serif;background:#6b737b url(/img/layout/background.png);margin:0;padding:0;}body>header{position:absolute;z-index:100;}body>header>figure{margin:0;padding:0;width:124px;height:60px;position:absolute;top:35px;left:7px;overflow:hidden;}body>header>figure img{position:relative;top:0px;}body>header>figure img:hover{top:-60px;}
 body>header>figure figcaption{display:none;}
-body>header nav{position:absolute;left:140px;top:28px;width:740px;min-width:740px;}body>header nav ul{list-style:none;padding:0;margin:0;height:40px;}body>header nav ul li{font-size:0.9em;padding:3px;width:80px;float:left;text-align:center;}body>header nav ul li[data-align=right]{float:right;}
+body>header nav{position:absolute;left:140px;top:28px;width:740px;min-width:740px;}body>header nav ul{list-style:none;padding:0;margin:0;height:40px;}body>header nav ul li{font-size:0.9em;padding:3px;width:80px;float:left;text-align:center;}
 body>footer{position:fixed;bottom:0;right:0;background-color:rgba(0, 0, 0, 0.3);color:#fff;padding:5px 20px 5px 5px;font-size:0.8em;border-radius:6px;text-shadow:1px 1px 0 #000000;}body>footer a{color:#fff;}
 #notifications-count{display:none;background-color:#ef3801;color:#fff;border-radius:6px;font-size:0.9em;padding:2px 5px;cursor:pointer;}
 #notifications{display:none;position:absolute;min-width:400px;max-width:400px;border:1px solid rgba(0, 0, 0, 0.3);text-shadow:1px 1px 0 rgba(255, 255, 255, 0.5);border-radius:2px;font-size:0.9em;background-color:#eaeaea;margin-top:5px;}#notifications>div{text-align:left;padding:6px 6px 3px 6px;clear:both;border-bottom:1px dashed rgba(0, 0, 0, 0.1);}#notifications>div>*{cursor:default;}

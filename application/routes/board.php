@@ -19,6 +19,7 @@ return array(
 		
 		return View::of_front()->nest('content', 'board/listing', array(
 			'board' => $board,
+			'active_tab' => 'all',
 			'posts' => $board->posts()->with('series', 'user', 'last_commenter')->where('state', '=', 'open')->order_by('id', 'desc')->paginate($board->posts_per_page),
 		));
 	}),
@@ -34,16 +35,19 @@ return array(
 			
 		Title::put($board->title);
 		
+		$active_tab = 'my';
 		if ($author->id != Authly::get_id())
 		{
 			$board->author_tab = array(
 				'userid' => $author->userid,
 				'name' => $author->name,
 			);
+			$active_tab = 'author';
 		}
 		
 		return View::of_front()->nest('content', 'board/listing', array(
 			'board' => $board,
+			'active_tab' => $active_tab,
 			'posts' => $board->posts()->with('user')->where_user_id($author->id)->order_by('id', 'desc')->paginate($board->posts_per_page),
 		));
 	},
@@ -57,6 +61,7 @@ return array(
 		
 		return View::of_front()->nest('content', 'board/listing', array(
 			'board' => $board,
+			'active_tab' => 'draft',
 			'posts' => $board->posts()->with('user')->where_user_id(Authly::get_id())->where_state('draft')->order_by('id', 'desc')->paginate(100)
 		));
 	},
@@ -76,6 +81,7 @@ return array(
 		
 		return View::of_front()->nest('content', 'board/series_listing', array(
 			'series_list' => $board->with('user', 'posts')->series()->order_by('id', 'desc')->paginate(20),
+			'active_tab' => 'series',
 			'board' => $board
 		));
 	},
@@ -90,6 +96,7 @@ return array(
 		
 		return View::of_front()->nest('content', 'board/series', array(
 			'board' => $board,
+			'active_tab' => 'series',
 			'series' => $series
 		));
 	},
@@ -105,6 +112,7 @@ return array(
 		
 		return View::of_front()->nest('content', 'board/series_manage', array(
 			'board' => $board,
+			'active_tab' => 'series',
 			'series' => $series
 		));
 	}),
@@ -151,18 +159,22 @@ return array(
 			
 		Title::put($post->title);
 		
+		$active_tab = 'my';
 		if ($post->user_id != Authly::get_id())
 		{
 			$board->author_tab = array(
 				'userid' => $post->user->userid,
 				'name' => $post->user->name,
 			);
+			
+			$active_tab = 'author';
 		}
 		
 		$post->up('views_count');
 		
 		return View::of_front()->nest('content', 'board/read', array(
 			'board' => $board,
+			'active_tab' => $active_tab,
 			'post' => $post,
 			'posts' => $board->posts()->with('series', 'user', 'last_commenter')->where('state', '=', 'open')->order_by('id', 'desc')->paginate($board->posts_per_page)
 		));
@@ -228,38 +240,15 @@ return array(
 	
 	// ---------------------------------------------------------------------
 	
-	'POST /board/(:any)/preview' => array('before' => 'signed', function($alias){
-		if (is_null($board = Board::aliased($alias))) return Response::error(404);
-
-		switch (Input::get('format'))
-		{
-			case 'markdown':
-				$markdown = new Markdown();
-				$body = $markdown->parse(Input::get('body'));
-				break;
-				
-			default:
-				$body = HTML::autolink(nl2br(Input::get('body')));
-		}
-		
-		Title::put('미리보기');
-		
-		$body = strip_tags($body, Config::get('miniwini.available_tags'));
-		
-		return View::of_front()->nest('content', 'board/preview', array(
-			'body' => $body
-		));
-	}),
-	
-	// ---------------------------------------------------------------------
-	
 	'GET /board/(:any)/new' => array('before' => 'signed', function($alias){
 		if (is_null($board = Board::aliased($alias))) return Response::error(404);
 		
 		Title::put('새 글 쓰기');
 		
 		return View::of_front()->nest('content', 'board/new', array(
-			'board' => $board
+			'edit' => FALSE,
+			'board' => $board,
+			'active_tab' => 'new'
 		));
 	}),
 	
@@ -320,6 +309,8 @@ return array(
 				$post->save();
 			}
 		}
+		
+		Cookie::forever('preferred_format', Input::get('format'));
 
 		return Redirect::to_board(array($alias));
 	}),
@@ -341,9 +332,10 @@ return array(
 		)
 		 	return Response::error(404);
 
-		return View::of_front()->nest('content', 'board/edit', array(
+		return View::of_front()->nest('content', 'board/new', array(
+			'edit' => TRUE,
 			'board' => $board,
-			'post' => $post
+			'post' => $post,
 		));
 	}),	
 	

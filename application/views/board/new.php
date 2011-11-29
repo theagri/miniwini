@@ -5,94 +5,143 @@
 			
 			<?=View::make('board/_tabs', array(
 				'board' => $board,
+				'active_tab' => $active_tab
 			))->render()?>
 			
 			<section data-group="board" data-form="general" data-type="post">
-
+				
+				<? if ($edit): ?>
+				
+				<?=Form::open($post->link($board->alias) . '/edit', 'PUT', array('onsubmit="return miniwini.submitPost(this)"'))?>
+				
+				<? else: ?>
 				
 				<?=Form::open($board->link('new'), 'POST', array('onsubmit="return miniwini.submitPost(this)"'))?>
+				
+				<? endif; ?>
 
 				<?=Form::token()?>
 				
 				<input type="hidden" name="state" value="open">
 
-				<label for="title"><?=__('miniwini.board_newpost_title')?></label>
-				<input type="text" id="title" name="title" value="<?=Input::old('title')?>">
+				<label for="title"><?=__('miniwini.board_newpost_title')?> <small>(안쓰셔도 됩니다)</small></label>
+				<input type="text" id="title" name="title" value="<?=Input::old('title', e($post->title))?>">
 				
-				<label for="body"><?=__('miniwini.board_newpost_body')?></label>
-				<textarea id="body" name="body" required autofocus><?=Input::old('body')?></textarea>
 				
-				<label for="format">형식</label>
-				<select id="format" name="format">
-					<option value="text">Text</option>
-					<option value="markdown">Markdown</option>
-				</select>
-				
-				<hr>
-		
-				<? if (Authly::belongs($board->series_level)): ?>
-				
-				<div id="add-series">
+				<div data-group="post-types">
+					<ul>
+						<li onclick="miniwini.setPostType(this)" class="active" data-post-type="text"><a href="#">텍스트</a></li>
+						<li onclick="miniwini.setPostType(this)" data-post-type="photo"><a href="#">사진</a></li>
+						<li onclick="miniwini.setPostType(this)" data-post-type="link"><a href="#">링크</a></li>
+						<li onclick="miniwini.setPostType(this)" data-post-type="option"><a href="#">설정</a></li>
+						<li onclick="miniwini.setPostType(this)" data-post-type="preview"><a href="#">미리보기</a></li>
+					</ul>
 					
-					<div><input type="radio" name="series" id="series-0" value="0" checked><label for="series-0"><?=__('miniwini.board_newpost_series_type_no_series')?></label></div>
-					
-					<? if (Series::count_of($board->id, Authly::get_id()) > 0): ?>
-					
-					<div>
-						<input type="radio" name="series" id="series-1" value="1"><label for="series-1"><?=__('miniwini.board_newpost_series_type_existing_series')?></label>
-						<select name="series_id" disabled>
-						
-						<? foreach (Series::of($board->id, Authly::get_id()) as $series): ?>
-						
-						<option value="<?=$series->id?>"><?=$series->title?></option>
-						
-						<? endforeach; ?>
+					<div id="panel">
+						<div id="type-photo">
+							사진 
+						</div>
+
+						<div id="type-link">
+							링크 
+						</div>
+
+						<div id="type-option">
 							
-						</select>
-					</div>
-					
-					<? endif; ?>
-					
-					<div>
-						<input type="radio" name="series" id="series-2" value="2"><label for="series-2"><?=__('miniwini.board_newpost_series_type_new_series')?></label>
-						<div id="new-series">
-							<label><?=__('miniwini.board_newpost_series_title')?></label>
-							<input type="text" name="series_title">
-							
-							<label><?=__('miniwini.board_newpost_series_description')?></label>
-							<textarea name="series_description"></textarea>
+							<? if (Authly::belongs($board->series_level)): ?>
+
+							<div id="add-series">
+
+								<div><input type="radio" name="series" id="series-0" value="0" checked><label for="series-0"><?=__('miniwini.board_newpost_series_type_no_series')?></label></div>
+
+								<? if (Series::count_of($board->id, Authly::get_id()) > 0): ?>
+
+								<div>
+									<input type="radio" name="series" id="series-1" value="1"><label for="series-1"><?=__('miniwini.board_newpost_series_type_existing_series')?></label>
+									<select name="series_id" id="series_id" disabled>
+
+									<? foreach (Series::of($board->id, Authly::get_id()) as $series): ?>
+
+									<option value="<?=$series->id?>"><?=$series->title?></option>
+
+									<? endforeach; ?>
+
+									</select>
+								</div>
+
+								<? endif; ?>
+
+								<div>
+									<input type="radio" name="series" id="series-2" value="2"><label for="series-2"><?=__('miniwini.board_newpost_series_type_new_series')?></label>
+									<div id="new-series">
+										<label for="series_title"><?=__('miniwini.board_newpost_series_title')?></label>
+										<input type="text" name="series_title" id="series_title">
+
+										<label for="series_description"><?=__('miniwini.board_newpost_series_description')?></label>
+										<textarea name="series_description" id="series_description"></textarea>
+									</div>
+
+									<script>
+									$(function(){
+										$('#new-series').hide();
+										$('input[name=series]').change(function(){
+											var val = $(this).val(); 
+											$('#new-series')[val == 2 ? 'show' : 'hide']();
+											$('select[name=series_id]').attr('disabled', val != 1);
+										});
+										
+										<? if ($edit and $post->series_id): ?>
+										
+										$('#series-1').attr('checked', true);
+										$('#series_id').attr('disabled', false).val(<?=$post->series_id?>);
+										
+										<? endif; ?>
+									})
+									</script>
+								</div>
+							</div>
+
+							<? endif; ?> 
+						</div>
+
+						<div id="type-preview">
 						</div>
 						
-						<script>
-						$(function(){
-							$('#new-series').hide();
-							$('input[name=series]').change(function(){
-								var val = $(this).val(); 
-								$('#new-series')[val == 2 ? 'show' : 'hide']();
-								$('select[name=series_id]').attr('disabled', val != 1);
-							});
-						})
-						</script>
+						<div id="common-controls">
+							<div>
+								
+								<?=Form::select('format', array(
+									'text' => 'Text',
+									'markdown' => 'Markdown'
+								),
+								$post->format ? $post->format : ((Cookie::has('preferred_format') ? Cookie::get('preferred_format') : 'text')), 
+								array('id' => 'format'))?>
+								
+							</div>
+							
+							<textarea id="body" name="body" required autofocus><?=Input::old('body', $post->body)?></textarea>
+						</div>
+					</div>
+					
+					<div id="preview-section">
+						<div data-type="body" id="preview-body"></div>
 					</div>
 				</div>
 				
-				<? endif; ?>
 				
 				<div class="multiple-actions">
 					<button type="button" class="btn alternative" onclick="return miniwini.saveToDraft(this.form)"><?=__('miniwini.board_newpost_button_draft')?></button>
-					<button type="button" class="btn alternative" onclick="return miniwini.previewPost(this.form)"><?=__('miniwini.board_newpost_button_preview')?></button>
-										
+					
+					<? if ($edit): ?>
+
+					<input type="submit" id="submitButton" value="<?=__('miniwini.board_newpost_button_edit')?>">
+					
+					<? else: ?>
+					
 					<input type="submit" id="submitButton" value="<?=__('miniwini.board_newpost_button_submit')?>">
+					
+					<? endif; ?>
 				</div>
-				
-				<?=Form::close()?>
-				
-				
-				<?=Form::open($board->link('preview'), 'POST', array('name' => 'preview', 'target' => '_blank'))?>
-				
-				<?=Form::hidden('body')?>
-				
-				<?=Form::hidden('format')?>
 				
 				<?=Form::close()?>
 				
