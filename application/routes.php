@@ -19,7 +19,7 @@ return array(
 	// ---------------------------------------------------------------------
 	
 	'GET /(:any)' => array('name' => 'user', function($segment){
-		if (in_array($segment, array('mobile', 'roadmap', 'commently', 'board', 'admin', 'dashboard', 'auth', 'home')))
+		if (in_array($segment, array('mobile', 'roadmap', 'commently', 'ajax', 'board', 'admin', 'dashboard', 'auth', 'home')))
 		{
 			if (strpos('/', $segment) === FALSE)
 			{
