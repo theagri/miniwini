@@ -80,6 +80,13 @@ class Post extends Blaze {
 	
 	// ---------------------------------------------------------------------
 	
+	public function open()
+	{
+		return $this->state === 'open';
+	}
+	
+	// ---------------------------------------------------------------------
+	
 	public function series()
 	{
 		return $this->belongs_to('series');
@@ -131,6 +138,14 @@ class Post extends Blaze {
 
 		}
 
+		return strip_tags($html, Config::get('miniwini.available_tags'));
+	}
+	
+	// ---------------------------------------------------------------------
+	
+	public static function preview($body)
+	{
+		$html = HTML::autolink(nl2br($body));
 		return strip_tags($html, Config::get('miniwini.available_tags'));
 	}
 }
