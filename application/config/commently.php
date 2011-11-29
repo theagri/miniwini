@@ -2,6 +2,14 @@
 return array(
 	'url' => Config::get('application.url') . '/commently',
 	
+	// ---------------------------------------------------------------------
+	
+	'max_depth' => 10,
+	
+	'available_tags' => '<br><strong><em><u><del><img><a><p><ol><ul><li><code><pre><blockquote><q><cite><span><h1><h2><h3><h4><h5><h6><hr>',
+	
+	// ---------------------------------------------------------------------
+	
 	'accounts' => function()
 	{
 		if ( ! Authly::signed()) return array();
@@ -13,6 +21,8 @@ return array(
 			)
 		);
 	},
+	
+	// ---------------------------------------------------------------------
 	
 	'account_by_provider' => function($provider){
 		switch ($provider)
@@ -29,6 +39,8 @@ return array(
 		
 		return NULL;
 	},
+	
+	// ---------------------------------------------------------------------
 	
 	'after_hook' => function($page, $comment){
 		$url = $page->url;

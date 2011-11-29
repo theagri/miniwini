@@ -17,7 +17,8 @@
 [data-group=commently] [data-type=comment] [data-type=body]{padding:5px 3px 5px 3px;font-size:0.95em;line-height:1.4em;text-shadow:1px 1px 0 rgba(255, 255, 255, 0.8);}
 [data-group=commently] [data-type=comment] [data-type=user]{font-weight:bold;}
 [data-group=commently] [data-type=comment] footer time{padding-left:37px !important;}
-[data-group=commently] [data-type=form-container]{padding-top:10px;}[data-group=commently] [data-type=form-container] [data-type=footer]{height:32px;padding-top:8px;}
-[data-group=commently] [data-type=form-container] [data-type=accounts]{float:left;vertical-align:top;}
-[data-group=commently] [data-type=form-container] [data-type=controls] textarea{width:100%;-webkit-appearance:textfield;height:28px;resize:vertical;}[data-group=commently] [data-type=form-container] [data-type=controls] textarea.active{height:150px;}
+[data-group=commently] [data-type=form-container]{padding:10px 16px 10px 10px;background-color:#f3f3f3;border-radius:5px;border:1px solid rgba(0, 0, 0, 0.2);box-shadow:0 1px 1px rgba(0, 0, 0, 0.3);}[data-group=commently] [data-type=form-container] .commently-help{font-size:0.8em;padding:0 0 4px;color:#555;text-shadow:1px 1px 0 rgba(255, 255, 255, 0.8);}[data-group=commently] [data-type=form-container] .commently-help>span:last-child{float:right;}
+[data-group=commently] [data-type=form-container] [data-type=footer]{height:32px;padding-top:8px;}
+[data-group=commently] [data-type=form-container] [data-type=accounts]{float:left;vertical-align:top;}[data-group=commently] [data-type=form-container] [data-type=accounts] figure img{border-radius:0;border:1px solid #fff;}
+[data-group=commently] [data-type=form-container] [data-type=controls] textarea{width:100%;position:relative;height:28px;resize:vertical;}[data-group=commently] [data-type=form-container] [data-type=controls] textarea.active{height:150px;}
 [data-group=commently] [data-type=form-container] [data-type=button]{float:right;width:60px;max-width:60px;min-width:60px;padding-left:10px;}[data-group=commently] [data-type=form-container] [data-type=button] input{float:right;}

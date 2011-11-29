@@ -126,7 +126,6 @@ class Commently {
 			}
 		}
 
-
 		$page = static::find_or_create_by_url($url);
 		if ($page)
 		{
@@ -135,6 +134,7 @@ class Commently {
 				'parent_id' => empty($data['parent_id']) ? NULL : $data['parent_id'],
 				'page_id' => $page->id,
 				'body' => $data['body'],
+				'format' => ($data['format'] ? $data['format'] : 'text'),
 				'created_at' => date('Y-m-d H:i:s'),
 				'updated_at' => date('Y-m-d H:i:s'),
 				'ip' => Request::ip()
@@ -144,11 +144,14 @@ class Commently {
 			
 			$rec = DB::table(static::$table_data)->where_id($comment_id)->first();
 			
+			// call 'after_hook'
 			$hook = Config::get('commently.after_hook');
 			if (is_callable($hook))
 			{
 				call_user_func_array($hook, array($page, $rec));
 			}
+			
+			Cookie::forever('commently_preferred_format', $data['format']);
 			
 			return TRUE;
 			
@@ -170,7 +173,6 @@ class Commently {
 		$comments = DB::table(static::$table_data)->where_page_id($page->id)->order_by('id', 'asc')->get();
 		$h = array();
 		
-
 		$append = Config::get('commently.misc.append_html');
 		$result = array();
 		$map = array();
@@ -181,13 +183,10 @@ class Commently {
 			$c = $comments[$i];
 			$parent_id = is_null($c->parent_id) ? $c->id : $c->parent_id;
 			$map[$c->id] = $parent_id;
-
-
 		}
 		
 		for ($i = 0; $i < count($comments); $i++)
 		{
-
 			$c = $comments[$i];
 			$parent_id = $c->parent_id;
 			$path = array();
@@ -204,10 +203,6 @@ class Commently {
 				}
 				array_unshift($path, $parent_id);
 				$parent_id = $map[$parent_id];
-				
-//									trace($parent_id);
-									
-//				trace($parent_id);
 			}
 			
 			$parsed[$c->id] = $path;
@@ -220,7 +215,6 @@ class Commently {
 				}
 			}
 
-
 			$merged = count($path) ? implode('-', $path) : '';
 			$seq = ltrim($merged . '-' . str_pad($c->id, static::$MAX_PAD, '0', STR_PAD_LEFT) , '-');
 			$c->depth = substr_count($seq, '-');			
@@ -231,17 +225,11 @@ class Commently {
 
 		ksort($sorted);
 		
-
-
 		$h = array();
 		foreach ($sorted as $path => $c)
 		{
-
 			$h[] = static::comment_to_html($c, $page);
-
 		}
-		
-
 		
 		return implode("\n", $h);
 	}
@@ -252,12 +240,26 @@ class Commently {
 	{
 		$account = '<figure data-type="avatar-small"><img alt="' . $c->author_name . '" src="'.$c->author_avatar_url.'"></figure>';
 		$time = Time::humanized_html($c->created_at);
-		$body = nl2br(strip_tags($c->body));
+		
+		switch ($c->format)
+		{
+			case 'markdown':
+				$markdown = new Markdown();
+				$body = $markdown->parse($c->body);
+				break;
+				
+			default:
+				$body = HTML::autolink(nl2br($c->body));
+		}
+		
+		$body = strip_tags($body, Config::get('commently.available_tags'));
+		
 		$today = Time::is_today($c->created_at) ? ' data-time="today"' : '';
 
-		if (empty(static::$user))
+		if (empty(static::$user) or $c->depth > Config::get('commently.max_depth') - 1)
 		{
 			$reply = '';
+			$reply = '<a data-type="reply-button" href="javascript:void(0)" onclick="javascript:commently.reply('. $c->id . ')">댓글 ↵</a>';
 		}
 		else
 		{
@@ -276,12 +278,11 @@ class Commently {
 						{$reply}
 
 					</header>
-					<p data-type="body">
+					<div data-type="body">
 
 					{$body}
 
-					</p>
-
+					</div>
 					<div id="commently-reply-{$c->id}"></div>
 				</article>
 
@@ -308,13 +309,26 @@ HTML;
 		}
 		
 		$account_html = implode('', $account_html);
-
+		$format = '';
+		if (Cookie::get('commently_preferred_format') == 'markdown')
+		{
+			$format = ' checked';
+		}
 		
 		$html = <<<HTML
 		
 				<!-- Commently form -->
 				<div data-group="commently" data-type="form-container" data-url="{$this->url}">
+					
 					<form action="{$post_url}" class="commently-form" method="POST" accept-charset="UTF-8">
+						
+					<div class="commently-help">
+						<span>HTML은 사용할 수 없습니다.</span>
+						<span>
+							<label><input type="checkbox" name="format" value="markdown"{$format}> Markdown 사용</label>
+						</span>
+					</div>
+					
 					
 					<div data-type="controls">
 						
