@@ -151,7 +151,7 @@ class Commently {
 				call_user_func_array($hook, array($page, $rec));
 			}
 			
-			Cookie::forever('commently_preferred_format', $data['format']);
+			Cookie::forever('preferred_format', $data['format']);
 			
 			return TRUE;
 			
@@ -310,7 +310,7 @@ HTML;
 		
 		$account_html = implode('', $account_html);
 		$format = '';
-		if (Cookie::get('commently_preferred_format') == 'markdown')
+		if (Cookie::get('preferred_format') == 'markdown')
 		{
 			$format = ' checked';
 		}
