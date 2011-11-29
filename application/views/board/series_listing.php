@@ -4,7 +4,8 @@
 			))->render()?>
 			
 			<?=View::make('board/_tabs', array(
-				'board' => $board
+				'board' => $board,
+				'active_tab' => $active_tab
 			))->render()?>
 			
 			<? if ($board->locked()): ?>
@@ -39,13 +40,17 @@
 					<ol>
 						
 						<? foreach ($s->posts as $p): ?>
+						
+						<? if ($p->open()): ?>
 					
 						<li>
 							<span><?=$p->series_sequence?></span> 
 							<a href="<?=$p->link($board->alias)?>"><?=$p->title?></a>
 							<?=Time::humanized_html($p->created_at)?>
 						</li>
-					
+						
+						<? endif; ?>
+						
 						<? endforeach; ?>
 					
 					</ol>

@@ -56,8 +56,12 @@
 				<ol id="series">
 		
 					<? foreach (array_reverse($post->series->posts) as $series_post): ?>
+					
+					<? if ($series_post->open()): ?>
 		
 					<li><span>#<?=$series_post->series_sequence?></span> <a href='<?=$series_post->link($board->alias)?>'><?=$series_post->title?></a></li>
+					
+					<? endif; ?>
 		
 					<? endforeach; ?>
 		
