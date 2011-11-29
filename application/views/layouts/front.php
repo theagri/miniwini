@@ -130,7 +130,6 @@
 		</div>
 		<aside id="pane-right">
 			
-			<? $visitors = Visitor::all(); ?>
 			
 			<? if ( ! empty($visitors)): ?>
 			
