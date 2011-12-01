@@ -168,7 +168,7 @@ Miniwini = (function() {
     var body, parser, type;
     this.selectTab(tab);
     type = $(tab).data('tab');
-    if (type === 'preview') {
+    if (type === 'post-type-preview') {
       $('#preview-body').html('');
       if (($('#format').val()) === 'markdown') {
         body = $('#body').val();
@@ -187,8 +187,8 @@ Miniwini = (function() {
         });
       }
     }
-    $('#preview-section')[type === 'preview' ? 'show' : 'hide']();
-    return $('#common-controls')[type === 'preview' ? 'hide' : 'show']();
+    $('#preview-section')[type === 'post-type-preview' ? 'show' : 'hide']();
+    return $('#common-controls')[type === 'post-type-preview' ? 'hide' : 'show']();
   };
   return Miniwini;
 })();

@@ -160,10 +160,13 @@ class Miniwini
 	setPostType: (tab) ->
 		@selectTab(tab)
 		type = $(tab).data('tab')
-		if type == 'preview'
+
+		if type == 'post-type-preview'
+
 			$('#preview-body').html('')
-			
+
 			if ($('#format').val()) == 'markdown'
+
 				body = $('#body').val()
 				parser = new Showdown.converter()
 				$('#preview-body').html(parser.makeHtml(body))
@@ -179,8 +182,8 @@ class Miniwini
 				})
 				
 
-		$('#preview-section')[if type == 'preview' then 'show' else 'hide']()
-		$('#common-controls')[if type == 'preview' then 'hide' else 'show']()
+		$('#preview-section')[if type == 'post-type-preview' then 'show' else 'hide']()
+		$('#common-controls')[if type == 'post-type-preview' then 'hide' else 'show']()
 
 window.miniwini
 $(->
