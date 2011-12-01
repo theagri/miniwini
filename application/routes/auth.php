@@ -97,6 +97,27 @@ return array(
 		return Redirect::to('auth/edit');
 	}),
 	
+	// ---------------------------------------------------------------------
+	
+	'PUT /auth/change_avatar' => array('before' => 'signed, csrf', function(){
+
+		$file = Input::file('avatar');
+		
+		$val = Validator::make(array('avatar' => $file), array('avatar' => 'image|max:' . Config::get('miniwini.avatar.max_size')));
+		$input = array();
+		if ( ! empty($file) and ! empty($file['tmp_name']) and $val->valid())
+		{
+			$img = Image_util::make($file['tmp_name']);
+			$savepath = PUBLIC_PATH . '/assets/avatars/avatar_' . Authly::get_userid() . '.png';
+			$img->resize(60, $savepath);
+			$input['avatar_url'] = Config::get('application.url') . '/assets/avatars/avatar_' . Authly::get_userid() . '.png';
+			Authly::update($input);
+			return Redirect::to('auth/edit#avatar')->with('notification', 'Avatar updated!');
+		}
+		
+		return Redirect::to('auth/edit#avatar');
+	}),
+	
 	/*
 	 * =====================================================================
 	 *
@@ -110,7 +131,7 @@ return array(
 	
 		if ( ! Authly::check_password(Input::get('password_current')))
 		{
-			return Redirect::to('auth/edit')->with('errors', '현재 비밀번호가 맞지 않습니다.');
+			return Redirect::to('auth/edit#password')->with('errors', '현재 비밀번호가 맞지 않습니다.');
 		}
 		
 		$val = Validator::make(Input::all(),array(
@@ -120,10 +141,10 @@ return array(
 		
 		if ($val->valid() and Authly::change_password(Input::get('password')))
 		{
-			return Redirect::to('auth/edit')->with('notification', '비밀번호가 변경되었습니다.');
+			return Redirect::to('auth/edit#password')->with('notification', '비밀번호가 변경되었습니다.');
 		}
 		
-		return Redirect::to('auth/edit');
+		return Redirect::to('auth/edit#password');
 	}),
 	
 	/*
