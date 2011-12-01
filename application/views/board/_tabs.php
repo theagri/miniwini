@@ -1,5 +1,5 @@
 			
-			<div data-type="tabs">
+			<div data-ui="tabs">
 				<ul>
 					<li<?=($active_tab == 'all' ? ' class="active"' : '')?>><a href="<?=URL::to('board/' . $board->alias)?>">전체 보기</a></li>
 				

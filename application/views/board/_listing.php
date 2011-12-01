@@ -62,7 +62,7 @@
 					<footer>
 						<a data-type="user" href="<?=$p->user->link()?>"><?=$p->user->name?></a>
 						/
-						<?=Time::humanized_html($p->created_at)?> / 조회 <strong><?=number_format($p->views_count)?></strong>
+						<?=Time::humanized_html($p->created_at)?> / 조회 <?=number_format($p->views_count)?>
 						
 						<? if ($p->last_commenter): ?>
 		

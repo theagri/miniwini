@@ -2,20 +2,72 @@ var Miniwini;
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 Miniwini = (function() {
   function Miniwini() {
-    this.notificationCheckInterval = 5000;
+    this.doc = $(document);
+    this.notificationCheckInterval = 8000;
     this.checkNotification();
+    this.noti_count = $('#notifications-count');
+    this.noti_list = $('#notifications');
+    this.links_trigger = $('#links-trigger');
+    this.links_list = $('#links');
+    $('#wrapper').css({
+      left: parseInt($.cookie('x'))
+    });
+    $('#wrapper').draggable({
+      handle: '#mover',
+      axis: 'x',
+      stop: __bind(function() {
+        var x;
+        x = $('#wrapper').offset().left;
+        return $.cookie('x', x, {
+          expires: 365,
+          path: '/'
+        });
+      }, this)
+    });
+    this.doc.bind('click', __bind(function(evt) {
+      return this.handleClick(evt);
+    }, this));
   }
+  Miniwini.prototype.handleClick = function(evt) {
+    if (evt.target.id === 'links-trigger') {
+      this.noti_list.hide();
+      this.noti_count.removeClass('opened');
+      return;
+    }
+    if (evt.target.id === 'notifications-count' || evt.target.id === 'notifications-count-data') {
+      this.links_list.hide();
+      this.links_trigger.removeClass('opened');
+      return;
+    }
+    return this.closeAll();
+  };
+  Miniwini.prototype.closeAll = function() {
+    if (this.noti_count.hasClass('opened')) {
+      this.noti_list.hide();
+      this.noti_count.removeClass('opened');
+    }
+    if (this.links_trigger.hasClass('opened')) {
+      this.links_list.hide();
+      return this.links_trigger.removeClass('opened');
+    }
+  };
+  Miniwini.prototype.logged = function() {
+    return $('body').data('user') === 'y';
+  };
   Miniwini.prototype.checkNotification = function() {
-    var $elem;
     try {
-      $elem = $('#notifications-count');
+      if (!this.logged()) {
+        return;
+      }
       return $.getJSON('/notification/count', __bind(function(data) {
+        var changed;
+        changed = false;
         if (data && data.count > 0) {
+          changed = data.count !== this.noti_count.html();
           document.title = '(' + data.count + ') ' + document.title.replace(/^\(\d+\) /, '');
-          $elem.data('time', data.last_updated_at.toString()).html(data.count).show();
+          this.noti_count.data('time', data.last_updated_at.toString()).data('count', data.count).html('<span id="notifications-count-data">' + data.count + '</span>').addClass('active');
         } else {
           document.title = document.title.replace(/^\(\d+\)$ /, '');
-          $elem.hide();
         }
         return window.setTimeout(__bind(function() {
           return this.checkNotification();
@@ -25,23 +77,27 @@ Miniwini = (function() {
 
     }
   };
-  Miniwini.prototype.notifications = function() {
-    var $elem;
+  Miniwini.prototype.notifications = function(src) {
     try {
-      $elem = $('#notifications');
-      $(document).unbind('click');
-      $(document).bind('click', __bind(function(evt) {
-        if ($elem.css('display') !== 'none' && evt.target.id !== 'notifications-count') {
-          return $elem.hide();
-        }
-      }, this));
-      if ($('#notifications-count').data('time') === $elem.data('time')) {
-        return window.setTimeout(__bind(function() {
-          return $elem.toggle();
-        }, this), 10);
+      if (!this.logged()) {
+        return;
+      }
+      if (!this.noti_count.data('count')) {
+        return;
+      }
+      if (this.noti_count.data('time') === this.noti_list.data('time')) {
+        this.noti_list.toggle();
+        return this.noti_count[this.noti_list.css('display') !== 'none' ? 'addClass' : 'removeClass']('opened');
       } else {
+        if (this.noti_count.data('loading') === 'y') {
+          return;
+        }
+        this.noti_count.addClass('loading');
+        this.noti_count.data('loading', 'y');
         return $.getJSON('/notification/all', __bind(function(data) {
           var html;
+          this.noti_count.removeClass('loading');
+          this.noti_count.data('loading', 'n');
           html = [];
           $.each(data, __bind(function(idx, noti) {
             var h, time;
@@ -55,12 +111,12 @@ Miniwini = (function() {
                 h = "<div data-url=\"" + noti.url + "\" data-time=\"" + noti.created_at + "\"><figure data-type=\"avatar-medium\"><img src=\"" + noti.actor_avatar + "\" alt=\"" + noti.actor_name + "\"></figure><p>" + noti.actor_name + "님이 당신의 댓글에 댓글을 남겼습니다. <q>" + noti.body + "</q><time>" + time + "</time></p></div>";
             }
             if (idx === 0) {
-              $('#notifications').data('time', noti.created_at.toString());
+              this.noti_list.data('time', noti.created_at.toString());
             }
             return html.push(h);
           }, this));
-          $elem.html(html.join('')).toggle();
-          return $('#notifications  div[data-url]').click(function() {
+          this.noti_list.html(html.join('')).toggle();
+          $('#notifications  div[data-url]').click(function() {
             var time, url;
             time = $(this).data('time');
             url = $(this).data('url');
@@ -71,11 +127,20 @@ Miniwini = (function() {
               }
             });
           });
+          return this.noti_count[this.noti_list.css('display') !== 'none' ? 'addClass' : 'removeClass']('opened');
         }, this));
       }
     } catch (err) {
 
     }
+  };
+  Miniwini.prototype.messages = function(src) {};
+  Miniwini.prototype.links = function(src) {
+    if (!this.logged()) {
+      return;
+    }
+    this.links_list.toggle();
+    return this.links_trigger[this.links_list.css('display') !== 'none' ? 'addClass' : 'removeClass']('opened');
   };
   Miniwini.prototype.submitPost = function(f) {
     $('#submitButton').attr('disabled', true);
@@ -85,13 +150,23 @@ Miniwini = (function() {
     f.elements['state'].value = 'draft';
     return f.submit();
   };
+  Miniwini.prototype.selectTab = function(tab) {
+    var panel, type;
+    try {
+      type = $(tab).data('tab');
+      panel = $('[data-ui=tabbed-panel]');
+      $('[data-tab]', panel).removeClass('active');
+      $('[data-tab=' + type + ']', panel).addClass('active');
+      $('[id^=panel-]', panel).hide();
+      return $('[id=panel-' + type + ']', panel).show();
+    } catch (err) {
+
+    }
+  };
   Miniwini.prototype.setPostType = function(tab) {
     var body, parser, type;
-    type = $(tab).data('post-type');
-    $('[data-group=post-types] li[data-post-type]').removeClass('active');
-    $('[data-group=post-types] li[data-post-type=' + type + ']').addClass('active');
-    $('[data-group=post-types] [id^=type-]').hide();
-    $('[data-group=post-types] [id=type-' + type + ']').show();
+    this.selectTab(tab);
+    type = $(tab).data('tab');
     if (type === 'preview') {
       $('#preview-body').html('');
       if (($('#format').val()) === 'markdown') {

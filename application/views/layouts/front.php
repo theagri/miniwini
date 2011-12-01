@@ -28,13 +28,24 @@
 	<link href="/css/miniwini.css" media="screen" rel="stylesheet">
 	
 	<? endif; ?>
+	
+	<? if ( ! empty($_COOKIE['x'])): ?>
+	
+	<style type="text/css">
+	#wrapper
+	{
+		left:<?=$_COOKIE['x']?>px;
+	}
+	</style>
+	
+	<? endif; ?>
 
 	
 	<script src="/javascripts/jquery.js"></script>
+	<script src="/javascripts/miniwini.js"></script>
 	
 	<? if (Authly::signed()): ?>
 	
-	<script src="/javascripts/miniwini.js"></script>
 	<script src="/javascripts/commently.js"></script>
 	
 	<? endif; ?>
@@ -49,147 +60,172 @@
 	
 </head>
 
-<body>
+<body data-user="<?=(Authly::signed() ? 'y' : 'n')?>">
+	
+<div id="wrapper">
 	
 	<header>
 		<figure>
 			<a href="/"><img src="/img/layout/miniwini_logo.png" alt="<?=Config::get('miniwini.title')?>"></a>
 			<figcaption><?=Config::get('miniwini.description')?></figcaption>
 		</figure>
+
 		
-		<nav>
-			<ul>
-				
-				<li><a href="<?=URL::to('board/talk')?>">자유게시판</a></li>
-				<li><a href="<?=URL::to('board/share')?>">알짜게시판</a></li>
-				<li><a href="<?=URL::to('board/qna')?>">질문&amp;답변</a></li>
-
-				<? if (Authly::signed()): ?>
-				
-				<li><span id="notifications-count" onclick="miniwini.notifications()"></span><div id="notifications"></div></li>
-				<li><a href="<?=URL::to('dashboard')?>">Dashboard</a></li>
-				<li data-align="right"><a href="<?=URL::to('auth/logout')?>">logout</a></li>
-
-				<? else: ?>
-
-				<li data-align="right"><a href="<?=URL::to('auth/login')?>">로그인</a></li>
-				<li data-align="right"><a href="<?=URL::to('auth/register')?>">회원 가입</a></li>
-
-				<? endif; ?>
-
-			</ul>
-
-		</nav>
 	</header>
 	
-
-	
-	
-	<div id="wrapper">
+	<aside id="pane-left">
 		
-		<aside id="pane-left">
+		<? if (Authly::signed()): ?>
+		
+		<div id="mybox">
+			
+			<a title="환경 설정" id="links-trigger" href="#" onclick="miniwini.links(this)"></a>
+			
+			<div id="links">
+				
+				<ul>
+					<li><a href="<?=URL::to('dashboard')?>">대쉬보드</a></li>
+					<li><a href="<?=URL::to('auth/edit')?>">환경 설정</a></li>
+					<li><a href="<?=URL::to('auth/logout')?>">로그아웃</a></li>
+					
+				</ul>
+			</div>
+			
+			<a title="메시지" id="messages-count" onclick="miniwini.messages(this)"></a><div id="messages"></div>
+			
+			<a title="알림" id="notifications-count" onclick="miniwini.notifications(this)"></a><div id="notifications"></div>
+			
+		</div>
+		
+		<? endif; ?>
+		
+		<ul id="guest-menu">
 			
 			<? if (Authly::signed()): ?>
 			
-			<div id="loginbox">
-				<figure data-type="avatar-medium"><a href="<?=URL::to('dashboard')?>"><img alt="<?=Authly::get_name()?>" src="<?=Authly::get_avatar_url()?>"></a></figure>
-	
-			</div>
-			
+			<? else: ?>
+
+			<li data-menu="login"><a href="<?=URL::to('auth/login')?>">로그인</a></li>
+			<li data-menu="register"><a href="<?=URL::to('auth/register')?>">회원 가입</a></li>
+
 			<? endif; ?>
+
+		</ul>
+		
+		
+		
+	</aside>
+	<div id="content">
+		
+		<div id="content-box">
 			
-		</aside>
-		<div id="content">
+			
+			<nav>
+				<ul>
+					
+					<li><a href="<?=URL::to('board/talk')?>">자유게시판</a></li>
+					<li><a href="<?=URL::to('board/share')?>">알짜게시판</a></li>
+					<li><a href="<?=URL::to('board/qna')?>">질문&amp;답변</a></li>
+
+				</ul>
+
+			</nav>
 			
 			<? if (Session::has('errors')): ?>
-
+			
 			<div data-group="error">
-				
+
 				<?=Session::get('errors')?>
-				
+
 			</div>
 
 			<? endif; ?>
-			
+
 			<? if (Session::has('notification')): ?>
 
 			<div data-group="notification">
-				
+
 				<?=Session::get('notification')?>
-				
+
 			</div>
 
 			<? endif; ?>
-			
+		
 			<!--== Content ==-->
-	
+
 			<?=$content?>
 
 			<!--== Content ==-->
-			
+		
 		</div>
-		<aside id="pane-right">
+		
+		
+		<footer>
+			(c) miniwini / <?=$_SERVER['LARAVEL_ENV']?> 
 			
-			
-			<? if ( ! empty($visitors)): ?>
-			
-			<div id="visitors">
-				
-				<? if ( ! empty($visitors['users'])): ?>
-				
-				<ul>
-					
-					<? foreach ($visitors['users'] as $visitor): ?>
-
-					<li>
-						<?=$visitor->avatar('small')?>
-						<strong><?=$visitor->name?></strong>
-					</li>
-					
-					<? endforeach; ?>
-					
-				</ul>
-				
-				<? endif; ?>
-				
-				<? if ($visitors['guest_count'] > 0): ?>
-
-				<span id="guest-count">+<?=$visitors['guest_count']?></span>
-
-				<? endif; ?>
-				
-			</div>
-			
-
-			
-			
-			<? endif; ?>
-			
-		</aside>
+		</footer>
+		
 	</div>
 	
 	
 	
-	<footer>
-		(c) miniwini / <?=$_SERVER['LARAVEL_ENV']?> / 
-		<a href="http://twitter.com/mywizz" data-type="twitter-icon" target="_blank"><span>mywizz on Twitter</span></a> / 
-		<a href="http://facebook.com/mywizz" data-type="facebook-icon" target="_blank"><span>mywizz on Facebook</span></a>
+	
+	
+	<aside id="pane-right">
+		
+		<div id="mover"></div>
+		
+		<? if ( ! empty($visitors)): ?>
+		
+		<div id="visitors">
+			
+			<? if ( ! empty($visitors['users'])): ?>
+			
+			<ul>
+				
+				<? foreach ($visitors['users'] as $visitor): ?>
+
+				<li id="connected-<?=$visitor->id?>">
+					<?=$visitor->avatar('small')?>
+					<strong><?=$visitor->name?></strong>
+				</li>
+				
+				<? endforeach; ?>
+				
+			</ul>
+			
+			<? endif; ?>
+			
+			<? if ($visitors['guest_count'] > 0): ?>
+
+			<span id="guest-count">+<?=$visitors['guest_count']?></span>
+
+			<? endif; ?>
+			
+		</div>
+		
 
 		
-	</footer>
-	
-	<div id="fb-root"></div>
-	
-	
-	<script>
-	window._gaq = [['_setAccount','UA-297919-5'],['_trackPageview'],['_trackPageLoadTime']];
-	(function(){
-		var ga = document.createElement('script'); ga.type = 'text/javascript'; 
-		ga.async = true;
-		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		var s = document.getElementsByTagName('script')[0];
-		s.parentNode.insertBefore(ga, s);
-	})();
-	</script>
+		
+		<? endif; ?>
+		
+	</aside>
+</div>
+
+
+
+
+
+
+<script>
+window._gaq = [['_setAccount','UA-297919-5'],['_trackPageview'],['_trackPageLoadTime']];
+(function(){
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; 
+	ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0];
+	s.parentNode.insertBefore(ga, s);
+})();
+</script>
 </body>
 </html>

@@ -1,43 +1,96 @@
 class Miniwini
 	constructor: ->
-		@notificationCheckInterval = 5000
+		@doc = $(document)
+		@notificationCheckInterval = 8000
 		@checkNotification()
+		@noti_count = $('#notifications-count')
+		@noti_list = $('#notifications')
+		@links_trigger = $('#links-trigger')
+		@links_list = $('#links')
 	
+		$('#wrapper').css({left:parseInt($.cookie('x'))})
+			
+		$('#wrapper').draggable({
+			handle:'#mover'
+			axis:'x'
+			stop: =>
+
+				x = $('#wrapper').offset().left
+				$.cookie('x', x, {
+					expires:365
+					path:'/'
+				})
+		})
+		
+		@doc.bind('click', (evt) =>
+			@handleClick(evt)
+		)
+	
+	handleClick: (evt) ->
+		if evt.target.id is 'links-trigger'
+			@noti_list.hide()
+			@noti_count.removeClass('opened')
+			return
+		if evt.target.id is 'notifications-count' or evt.target.id is 'notifications-count-data'
+			@links_list.hide()
+			@links_trigger.removeClass('opened')
+			return
+		@closeAll()
+		
+	closeAll: ->
+		if @noti_count.hasClass('opened')
+			@noti_list.hide()
+			@noti_count.removeClass('opened')
+			
+		if @links_trigger.hasClass('opened')
+			@links_list.hide()
+			@links_trigger.removeClass('opened') 
+		
+	logged: ->
+		$('body').data('user') is 'y'
+		
 	checkNotification: ->
 		try
-			$elem = $('#notifications-count')
+			return unless @logged()
+			
 			$.getJSON('/notification/count', (data) =>
-
+					
+					changed = false
 					if data and data.count > 0
+						changed = (data.count != @noti_count.html())
 						document.title = '(' + data.count + ') ' + document.title.replace(/^\(\d+\) /, '')
-						$elem.data('time', data.last_updated_at.toString()).html(data.count).show()
+						@noti_count.data('time', data.last_updated_at.toString()).data('count', data.count).html('<span id="notifications-count-data">' + data.count + '</span>').addClass('active')
 					else
 						document.title = document.title.replace(/^\(\d+\)$ /, '')
-						$elem.hide()
-				
+						
+					
 					window.setTimeout(=>
 						@checkNotification()
 					, @notificationCheckInterval)
 			)
 		catch err
 			
-	notifications: ->
+	notifications: (src) ->
 		try
-			$elem = $('#notifications')
+			return unless @logged()
 			
-			$(document).unbind('click')
+			return unless @noti_count.data('count')
 			
-			$(document).bind('click', (evt) =>
-				if $elem.css('display') != 'none' and evt.target.id != 'notifications-count'
-					$elem.hide()
-			)
 			
-			if $('#notifications-count').data('time') == $elem.data('time')
-				window.setTimeout(=>
-					$elem.toggle()
-				,10)
+			if @noti_count.data('time') == @noti_list.data('time')
+					
+					@noti_list.toggle()
+					@noti_count[if @noti_list.css('display') != 'none' then 'addClass' else 'removeClass']('opened')
+			
 			else
+				if @noti_count.data('loading') == 'y'
+					return
+					
+				@noti_count.addClass('loading')
+				@noti_count.data('loading', 'y')
 				$.getJSON('/notification/all', (data) =>
+					@noti_count.removeClass('loading')
+					@noti_count.data('loading', 'n')
 					html = []
 					$.each(data, (idx, noti) =>
 				
@@ -50,11 +103,12 @@ class Miniwini
 								time = $.timeago(new Date(noti.created_at * 1000))
 								h = "<div data-url=\"#{noti.url}\" data-time=\"#{noti.created_at}\"><figure data-type=\"avatar-medium\"><img src=\"#{noti.actor_avatar}\" alt=\"#{noti.actor_name}\"></figure><p>#{noti.actor_name}님이 당신의 댓글에 댓글을 남겼습니다. <q>#{noti.body}</q><time>#{time}</time></p></div>"
 					
-						$('#notifications').data('time', noti.created_at.toString()) if idx == 0
+						@noti_list.data('time', noti.created_at.toString()) if idx == 0
+						
 						html.push(h)
 					)
 
-					$elem.html(html.join('')).toggle()
+					@noti_list.html(html.join('')).toggle()
 					$('#notifications  div[data-url]').click(->
 						time = $(this).data('time')
 						url = $(this).data('url')
@@ -65,10 +119,21 @@ class Miniwini
 								document.location.href = url
 						})
 					)
+					
+					@noti_count[if @noti_list.css('display') != 'none' then 'addClass' else 'removeClass']('opened')
 				)
+				
+				
 			
 		catch err
 	
+	messages: (src) ->
+		
+	links: (src) ->
+		return unless @logged()
+		@links_list.toggle()
+		@links_trigger[if @links_list.css('display') != 'none' then 'addClass' else 'removeClass']('opened')
+		
 	submitPost: (f) ->
 		$('#submitButton').attr('disabled', true);
 		return true;
@@ -77,15 +142,23 @@ class Miniwini
 		f.elements['state'].value = 'draft';
 		f.submit()
 		
+	selectTab: (tab) ->
+		try
+			type = $(tab).data('tab')
+			panel = $('[data-ui=tabbed-panel]')
+
+			$('[data-tab]', panel).removeClass('active')
+			$('[data-tab='+type+']', panel).addClass('active')
+
+			$('[id^=panel-]', panel).hide()
+			$('[id=panel-' + type + ']', panel).show()
+			
+		catch err
+	
+		
 	setPostType: (tab) ->
-		type = $(tab).data('post-type')
-		
-		$('[data-group=post-types] li[data-post-type]').removeClass('active')
-		$('[data-group=post-types] li[data-post-type='+type+']').addClass('active')
-		
-		$('[data-group=post-types] [id^=type-]').hide()
-		$('[data-group=post-types] [id=type-' + type + ']').show()
-				
+		@selectTab(tab)
+		type = $(tab).data('tab')
 		if type == 'preview'
 			$('#preview-body').html('')
 			

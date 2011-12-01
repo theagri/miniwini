@@ -25,28 +25,30 @@
 				<input type="hidden" name="state" value="open">
 
 				<label for="title"><?=__('miniwini.board_newpost_title')?> <small>(안쓰셔도 됩니다)</small></label>
-				<input type="text" id="title" name="title" value="<?=Input::old('title', e($post->title))?>">
+				<input data-length="full" type="text" id="title" name="title" value="<?=Input::old('title', e($post->title))?>">
 				
 				
-				<div data-group="post-types">
+				<div data-ui="tabbed-panel">
 					<ul>
-						<li onclick="miniwini.setPostType(this)" class="active" data-post-type="text"><a href="#">텍스트</a></li>
-						<li onclick="miniwini.setPostType(this)" data-post-type="photo"><a href="#">사진</a></li>
-						<li onclick="miniwini.setPostType(this)" data-post-type="link"><a href="#">링크</a></li>
-						<li onclick="miniwini.setPostType(this)" data-post-type="option"><a href="#">설정</a></li>
-						<li onclick="miniwini.setPostType(this)" data-post-type="preview"><a href="#">미리보기</a></li>
+						<li onclick="miniwini.setPostType(this)" class="active" data-tab="post-type-text"><a href="#">텍스트</a></li>
+						<li onclick="miniwini.setPostType(this)" data-tab="post-type-photo"><a href="#">사진</a></li>
+						<li onclick="miniwini.setPostType(this)" data-tab="post-type-link"><a href="#">링크</a></li>
+						<li onclick="miniwini.setPostType(this)" data-tab="post-type-option"><a href="#">설정</a></li>
+						<li onclick="miniwini.setPostType(this)" data-tab="post-type-preview"><a href="#">미리보기</a></li>
 					</ul>
 					
 					<div id="panel">
-						<div id="type-photo">
+						<div id="panel-post-type-text"></div>
+						
+						<div id="panel-post-type-photo">
 							사진 
 						</div>
 
-						<div id="type-link">
+						<div id="panel-post-type-link">
 							링크 
 						</div>
 
-						<div id="type-option">
+						<div id="panel-post-type-option">
 							
 							<? if (Authly::belongs($board->series_level)): ?>
 
@@ -104,7 +106,7 @@
 							<? endif; ?> 
 						</div>
 
-						<div id="type-preview">
+						<div id="panel-post-type-preview">
 						</div>
 						
 						<div id="common-controls">

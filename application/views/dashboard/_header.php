@@ -1,5 +1,5 @@
 			
-			<div data-type="tabs">
+			<div data-ui="tabs">
 				<ul>
 					<li data-tab=""><a href="#">알림</a></li>
 					<li data-tab=""><a href="#">메시지</a></li>

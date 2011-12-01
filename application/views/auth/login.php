@@ -13,10 +13,10 @@
 
 
 				<label for="userid">아이디</label>
-				<input type="text" id="userid" name="userid" value="<?=Input::old('userid')?>" required autofocus>
+				<input data-length="small" type="text" id="userid" name="userid" value="<?=Input::old('userid')?>" required autofocus>
 
 				<label for="password">비밀번호</label>
-				<input id="password" type="password" name="password" required>
+				<input data-length="small" id="password" type="password" name="password" required>
 
 				<div class="actions">
 					<input type="submit" class="button" value="로그인">
