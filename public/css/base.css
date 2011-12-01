@@ -7,18 +7,6 @@ figure{margin:0;padding:0;}figure[data-type=avatar-small]{width:30px;max-width:3
 figure[data-type=avatar-medium]{width:37px;max-width:37px;height:32px;max-height:32px;min-height:32px;}figure[data-type=avatar-medium] img{width:32px;max-width:32px;max-height:32px;border-radius:4px;}
 figure[data-type=avatar-big]{width:65px;height:60px;max-width:65px;max-height:65px;max-height:65px;min-height:65px;}figure[data-type=avatar-big] img{width:60px;max-width:60px;max-height:60px;border-radius:4px;}
 [data-align=right]{float:right !important;}
-[data-type=tabs] ul{overflow:hidden;}
-[data-type=tabs] li{background-color:#e6e6e6;border:1px solid rgba(0, 0, 0, 0.2);border-bottom:0;display:block;float:left;margin-top:2px;border-radius:4px;border-bottom-left-radius:0;border-bottom-right-radius:0;margin-top:2px;box-shadow:inset 0 -2px 1px rgba(0, 0, 0, 0.1);}[data-type=tabs] li:first-child{border-left:1px solid rgba(0, 0, 0, 0.2);margin-left:0;}
-[data-type=tabs] li a{border-radius:5px;border-bottom-left-radius:0;border-bottom-right-radius:0;font-size:0.8em;display:block;color:#777;height:12px;padding:6px 10px 5px 10px;text-shadow:1px 1px 0 rgba(255, 255, 255, 0.6);border:1px solid #ddd;border-bottom:1px solid rgba(0, 0, 0, 0.2);border-right:0;}[data-type=tabs] li a:hover{color:#333;}
-[data-type=tabs] li.active,[data-type=tabs] li.pinned{margin-top:0;background-color:#f3f3f3;box-shadow:inset 0 0 0;}[data-type=tabs] li.active a,[data-type=tabs] li.pinned a{color:#333;height:14px;border:1px solid #fff;border-bottom:1px solid #f3f3f3;box-shadow:inset 0 0 0;}
-[data-type=tabs]>div{clear:both;height:5px;position:relative;z-index:-1;top:-1px;background-color:#f3f3f3;border:1px solid rgba(0, 0, 0, 0.2);box-shadow:0 1px 0 rgba(0, 0, 0, 0.1);}
-[data-type=tabs] [data-tab] span{font-size:0.9em;}
-section[data-form=general] .actions{border-top:1px dashed #ccc;margin-top:10px;min-height:50px;padding-top:10px;text-align:center;}
-section[data-form=general] .multiple-actions{border-top:1px dashed #ccc;margin-top:10px;min-height:50px;padding-top:10px;}section[data-form=general] .multiple-actions :first-child{float:left;}
-section[data-form=general] .multiple-actions :last-child{float:right;}
-section[data-form=general] label{display:block;font-size:0.9em;padding:3px;margin:10px 0 4px 0;}section[data-form=general] label small{color:#c10;}
-section[data-form=general] input[type=text],section[data-form=general] input[type=password],section[data-form=general] input[type=email]{width:694px;font-size:1.3em;}
-section[data-form=general] textarea{width:694px;min-height:200px;resize:vertical;-webkit-appearance:textfield;}
 input[type=submit],button.btn{background:#2daebf url(/img/ui/alert-overlay.png) repeat-x;display:inline-block;padding:5px 10px 3px;color:#fff;border:0;text-decoration:none;border-radius:5px;box-shadow:0 1px 3px rgba(0, 0, 0, 0.5);border-bottom:1px solid rgba(0, 0, 0, 0.25);position:relative;cursor:pointer;text-shadow:1px 1px 0 rgba(0, 0, 0, 0.2);}input[type=submit]:hover,button.btn:hover{background-color:#007d9a;}
 input[type=submit]:active,button.btn:active{top:1px;}
 input[type=submit]:disabled,button.btn:disabled{box-shadow:0 0 0;opacity:0.6;border-bottom:0;cursor:default;}input[type=submit]:disabled:hover,button.btn:disabled:hover{background-color:#2daebf;}

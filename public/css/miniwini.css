@@ -2,6 +2,8 @@
 @import url("fonts.css");
 @import url("base.css");
 @import url("layout.css");
+@import url("ui.css");
+@import url("notification.css");
 @import url("commently.css");
 @import url("home.css");
 @import url("board.css");

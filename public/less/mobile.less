@@ -8,28 +8,31 @@ body
 	font-size:13pt;
 	font-family:Helvetica,sans-serif;
 	
-	> header
+	#wrapper
 	{
-		background-color:#6b737b;
-		height:44px;
-		> nav
+		header
 		{
-			position:absolute;
-			left:110px;
-			top:0;
-			
-			li
+			background-color:#6b737b;
+			height:44px;
+			> nav
 			{
-				display:block;
-				float:left;
+				position:absolute;
+				left:110px;
+				top:0;
+
+				li
+				{
+					display:block;
+					float:left;
+				}
+			}
+
+			figcaption
+			{
+				display:none;
 			}
 		}
-		
-		figcaption
-		{
-			display:none;
-		}
-	}
+	} 
 }
 
 body
@@ -58,7 +61,6 @@ input, textarea
 	
 	article[data-mode=listing]
 	{
-		
 		.gradient(#eee, #eee, #fff);
 		border-bottom:1px solid rgba(0,0,0,0.2);
 		padding:6px;

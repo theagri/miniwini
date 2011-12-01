@@ -10,10 +10,11 @@
 [data-group=commently] [data-type=comment].depth-8{width:540px;padding-left:160px;}
 [data-group=commently] [data-type=comment].depth-9{width:520px;padding-left:180px;}
 [data-group=commently] [data-type=comment].depth-10{width:500px;padding-left:200px;}
-[data-group=commently] [data-type=comment] header{background-color:#eaeaea;border:1px solid #e1e1e1;border-bottom:1px solid #ddd;border-right:1px solid #ddd;height:23px;overflow:hidden;font-size:0.95em;width:100%;text-shadow:1px 1px 0 rgba(255, 255, 255, 0.8);}[data-group=commently] [data-type=comment] header figure{float:left;width:24px;border-right:1px solid rgba(255, 255, 255, 0.8);}[data-group=commently] [data-type=comment] header figure img{border-radius:0;}
+[data-group=commently] [data-type=comment] header{background-color:#eaeaea;border:1px solid #e1e1e1;border-bottom:1px solid #ddd;border-right:1px solid #ddd;height:23px;overflow:hidden;font-size:0.95em;border-top-right-radius:4px;border-bottom-right-radius:4px;width:100%;text-shadow:1px 1px 0 rgba(255, 255, 255, 0.8);}[data-group=commently] [data-type=comment] header figure{float:left;width:24px;border-right:1px solid rgba(255, 255, 255, 0.8);}[data-group=commently] [data-type=comment] header figure img{border-radius:0;}
 [data-group=commently] [data-type=comment] header [data-type=user]{padding-left:6px;line-height:25px;padding-right:10px;}
 [data-group=commently] [data-type=comment] header time{text-align:right;line-height:25px;font-size:0.8em;color:#999;padding-right:8px;}
 [data-group=commently] [data-type=comment] header [data-type=reply-button]{float:right;width:50px;line-height:25px;font-size:0.8em;text-align:center;}[data-group=commently] [data-type=comment] header [data-type=reply-button] a{color:#555;}
+[data-group=commently] [data-type=comment][data-today=y] header{background-color:#eee;border:1px solid rgba(0, 0, 0, 0.2);}
 [data-group=commently] [data-type=comment] [data-type=body]{padding:5px 3px 5px 3px;font-size:0.95em;line-height:1.4em;text-shadow:1px 1px 0 rgba(255, 255, 255, 0.8);}
 [data-group=commently] [data-type=comment] [data-type=user]{font-weight:bold;}
 [data-group=commently] [data-type=comment] footer time{padding-left:37px !important;}
