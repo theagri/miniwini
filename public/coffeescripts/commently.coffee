@@ -10,10 +10,19 @@ class Commently
 	reply: (id) ->
 		article = $('#commently-comment-' + id)
 		root = @getRoot(article.data('url'))
-		form = jQuery('[data-type=form-container]', root)
-		$('#commently-reply-' + id).append(form)
+		form = $('[data-type=form-container]', root)
+		con = $('#commently-reply-' + id)
+		if con.html()
+			$('[data-type=form-wrapper]', root).append(form)
+			article.removeClass('replying')
+			$('input[name=parent_id]', form).val('')
+		else
+			con.append(form)
+			article.addClass('replying')
+			$('input[name=parent_id]', form).val(id)
+			
 		$('textarea', form).addClass('active').focus()
-		$('input[name=parent_id]', form).val(id)
+		
 		
 	reset: (f) ->
 		$('textarea', f).val('')

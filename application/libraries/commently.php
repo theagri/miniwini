@@ -318,47 +318,49 @@ HTML;
 		$html = <<<HTML
 		
 				<!-- Commently form -->
-				<div data-group="commently" data-type="form-container" data-url="{$this->url}">
+				<div data-group="commently" data-type="form-wrapper" data-url="{$this->url}">
+					<div data-group="commently" data-type="form-container" data-url="{$this->url}">
 					
-					<form action="{$post_url}" class="commently-form" method="POST" accept-charset="UTF-8">
+						<form action="{$post_url}" class="commently-form" method="POST" accept-charset="UTF-8">
 						
-					<div class="commently-help">
-						<span>HTML은 사용할 수 없습니다.</span>
-						<span>
-							<label><input type="checkbox" name="format" value="markdown"{$format}> Markdown 사용</label>
-						</span>
-					</div>
+						<div class="commently-help">
+							<span>HTML은 사용할 수 없습니다.</span>
+							<span>
+								<label><input type="checkbox" name="format" value="markdown"{$format}> Markdown 사용</label>
+							</span>
+						</div>
 					
 					
-					<div data-type="controls">
+						<div data-type="controls">
 						
-							<input type="hidden" name="provider" value="default">
-							<input type="hidden" name="url" value="{$this->url}">
-							<input type="hidden" name="parent_id" value="">
-							<textarea name="body"></textarea>
+								<input type="hidden" name="provider" value="default">
+								<input type="hidden" name="url" value="{$this->url}">
+								<input type="hidden" name="parent_id" value="">
+								<textarea name="body"></textarea>
 							
-					</div>
-					
-					<div data-type="footer">
-						<div data-type="accounts">
-						
-							{$account_html}
-						
 						</div>
 					
-						<div data-type="button">
-							<input type="submit" value="등록">
-						</div>
-					</div>
+						<div data-type="footer">
+							<div data-type="accounts">
+						
+								{$account_html}
+						
+							</div>
 					
-					</form>
-					<script>
-					$(function(){
-						$('.commently-form textarea').bind('click', function(){
-							$(this).addClass('active');
+							<div data-type="button">
+								<input type="submit" value="등록">
+							</div>
+						</div>
+					
+						</form>
+						<script>
+						$(function(){
+							$('.commently-form textarea').bind('click', function(){
+								$(this).addClass('active');
+							})
 						})
-					})
-					</script>
+						</script>
+					</div>
 				</div>
 HTML;
 		return $html;
