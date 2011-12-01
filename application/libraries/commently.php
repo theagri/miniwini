@@ -254,7 +254,7 @@ class Commently {
 		
 		$body = strip_tags($body, Config::get('commently.available_tags'));
 		
-		$today = Time::is_today($c->created_at) ? ' data-time="today"' : '';
+		$today = Time::is_today($c->created_at) ? ' data-today="y"' : '';
 
 		if (empty(static::$user) or $c->depth > Config::get('commently.max_depth') - 1)
 		{

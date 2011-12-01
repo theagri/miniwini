@@ -69,6 +69,7 @@ return array(
 					Notification::put(array(
 						'action' => 'comment_on_comment',				
 						'user_id' => $parent->author_id,
+						'actor_id' => $comment->author_id,
 						'actor_name' => $comment->author_name,
 						'actor_avatar' => $comment->author_avatar_url,
 						'body' => $body,
@@ -82,6 +83,7 @@ return array(
 				Notification::put(array(
 					'action' => 'comment_on_topic',
 					'user_id' => $post->user_id,
+					'actor_id' => $comment->author_id,
 					'actor_name' => $comment->author_name,
 					'actor_avatar' => $comment->author_avatar_url,
 					'body' => $body,
