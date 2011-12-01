@@ -100,8 +100,8 @@ class Post extends Blaze {
 		{
 			case 'markdown':
 				$markdown = new Markdown();
-				$summary = $markdown->parse($this->body);
-				return e(strip_tags(mb_substr($summary, 0, 140, 'UTF-8')));
+				$summary = strip_tags($markdown->parse($this->body));
+				return e(mb_substr($summary, 0, 140, 'UTF-8'));
 				
 			default:
 				return e(strip_tags(mb_substr($this->body, 0, 140, 'UTF-8')));
