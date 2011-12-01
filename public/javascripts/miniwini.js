@@ -13,8 +13,9 @@ Miniwini = (function() {
       left: parseInt($.cookie('x'))
     });
     $('#wrapper').draggable({
-      handle: '#mover',
+      handle: '.mover',
       axis: 'x',
+      containment: [0, 0, window.innerWidth - 1056, 0],
       stop: __bind(function() {
         var x;
         x = $('#wrapper').offset().left;

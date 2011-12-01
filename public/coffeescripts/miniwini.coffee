@@ -9,10 +9,11 @@ class Miniwini
 		@links_list = $('#links')
 	
 		$('#wrapper').css({left:parseInt($.cookie('x'))})
-			
+		
 		$('#wrapper').draggable({
-			handle:'#mover'
+			handle:'.mover'
 			axis:'x'
+			containment: [0,0,(window.innerWidth - 1056), 0]
 			stop: =>
 
 				x = $('#wrapper').offset().left
