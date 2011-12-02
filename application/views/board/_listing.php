@@ -18,6 +18,18 @@
 						<span data-type="series-title"><a href="<?=$p->series->link($board->alias)?>"><?=$p->series->title?></a></span>
 				
 						<? endif; ?>
+						
+						<? if ($p->unpublished()): ?>
+						
+						<span data-type="post-unpublished">발행 취소됨</span>
+						
+						<? endif; ?>
+						
+						<? if ($p->is_draft()): ?>
+						
+						<span data-type="post-draft">임시 보관 중</span>
+						
+						<? endif; ?>
 			
 						<a href="<?=$p->link($board->alias)?>?page=<?=$posts->page?>"><?=$p->short_title()?></a> 
 			
@@ -43,6 +55,18 @@
 			
 						<span data-type="series-title"><a href="<?=$p->series->link($board->alias)?>"><?=$p->series->title?></a></span>
 				
+						<? endif; ?>
+						
+						<? if ($p->unpublished()): ?>
+						
+						<span data-type="post-unpublished">발행 취소됨</span>
+						
+						<? endif; ?>
+						
+						<? if ($p->is_draft()): ?>
+						
+						<span data-type="post-draft">임시 보관 중</span>
+						
 						<? endif; ?>
 			
 						<a href="<?=$p->link($board->alias)?>?page=<?=$posts->page?>"><?=$p->summary()?></a> 

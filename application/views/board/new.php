@@ -10,6 +10,21 @@
 			
 			<section data-group="board" data-form="general" data-type="post">
 				
+				<? if ($post and $post->is_draft()): ?>
+				
+				<div data-group="helpbox">
+					이 글은 현재 <strong>임시 보관</strong> 상태입니다.
+				</div>
+				
+				<? elseif ($post and $post->unpublished()): ?>
+				
+				<div data-group="helpbox">
+					이 글은 현재 <strong>발행 취소</strong> 상태입니다.
+				</div>
+				
+				<? endif; ?>
+				
+				
 				<? if ($edit): ?>
 				
 				<?=Form::open($post->link($board->alias) . '/edit', 'PUT', array('onsubmit="return miniwini.submitPost(this)"'))?>
@@ -131,19 +146,35 @@
 				</div>
 				
 				
-				<div class="multiple-actions">
-					<button type="button" class="btn alternative" onclick="return miniwini.saveToDraft(this.form)"><?=__('miniwini.board_newpost_button_draft')?></button>
+				
 					
-					<? if ($edit): ?>
-
+				<? if ($post and $post->is_draft()): ?>
+				
+				<div class="actions">
 					<input type="submit" id="submitButton" value="<?=__('miniwini.board_newpost_button_edit')?>">
-					
-					<? else: ?>
-					
-					<input type="submit" id="submitButton" value="<?=__('miniwini.board_newpost_button_submit')?>">
-					
-					<? endif; ?>
 				</div>
+				
+				<? else: ?>
+				
+				
+				<? if ($edit): ?>
+				
+				<div class="actions">
+					<input type="submit" id="submitButton" value="<?=__('miniwini.board_newpost_button_edit')?>">
+				</div>
+				
+				<? else: ?>
+				
+				<div class="multiple-actions">
+				
+					<button type="button" class="btn alternative" onclick="return miniwini.saveToDraft(this.form)"><?=__('miniwini.board_newpost_button_draft')?></button>
+					<input type="submit" id="submitButton" value="<?=__('miniwini.board_newpost_button_submit')?>">
+				</div>
+				
+				<? endif; ?>
+				
+				<? endif; ?>
+					
 				
 				<?=Form::close()?>
 				

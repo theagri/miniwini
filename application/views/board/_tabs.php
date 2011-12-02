@@ -5,7 +5,7 @@
 				
 					<? if (Authly::signed()): ?>
 				
-					<li<?=($active_tab == 'my' ? ' class="active"' : '')?>><a href="<?=$board->link('by/' . Authly::get_userid())?>">내가 쓴 글</a></li>
+					<li<?=($active_tab == 'my' ? ' class="active"' : '')?>><a href="<?=$board->link('by/' . Authly::get_userid())?>">내 글</a></li>
 				
 					<? endif; ?>
 					
@@ -17,7 +17,7 @@
 					
 					<? if (Authly::signed()): ?>
 					
-					<li<?=($active_tab == 'draft' ? ' class="active"' : '')?>><a href="<?=$board->link()?>/drafts">임시보관함 <?if($board->draft_count(Authly::get_id())):?><span>(<?=$board->draft_count(Authly::get_id())?>)</span><?endif;?></a></li>
+					<li<?=($active_tab == 'draft' ? ' class="active"' : '')?>><a href="<?=$board->link()?>/drafts">보관함 <?if($board->draft_count(Authly::get_id())):?><span>(<?=$board->draft_count(Authly::get_id())?>)</span><?endif;?></a></li>
 					
 					<? endif; ?>
 					
@@ -30,7 +30,7 @@
 					
 					<? if ( ! $board->locked()): ?>
 					
-					<li<?=($active_tab == 'new' ? ' class="active"' : '')?> data-align="right"><a href="<?=$board->link()?>/new">새 글 쓰기</a></li>
+					<li<?=($active_tab == 'new' ? ' class="active"' : '')?> data-align="right"><a href="<?=$board->link()?>/new">글쓰기</a></li>
 					
 					<? endif; ?>
 					

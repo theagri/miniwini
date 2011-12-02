@@ -27,7 +27,7 @@ class Board extends Blaze {
 	
 	public function draft_count($user_id)
 	{
-		return Post::where_board_id($this->id)->where_user_id($user_id)->where_state('draft')->count();
+		return Post::where_board_id($this->id)->where_user_id($user_id)->where_in('state', array('draft', 'unpublished'))->count();
 	}
 	
 	// ---------------------------------------------------------------------

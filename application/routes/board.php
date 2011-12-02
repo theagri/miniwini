@@ -57,12 +57,12 @@ return array(
 	'GET /board/(:any)/drafts' => function($alias){
 		if (is_null($board = Board::aliased($alias))) return Response::error(404);
 		
-		Title::put('임시보관함');
+		Title::put('보관함');
 		
 		return View::of_front()->nest('content', 'board/listing', array(
 			'board' => $board,
 			'active_tab' => 'draft',
-			'posts' => $board->posts()->with('user')->where_user_id(Authly::get_id())->where_state('draft')->order_by('id', 'desc')->paginate(100)
+			'posts' => $board->posts()->with('user')->where_user_id(Authly::get_id())->where_in( 'state' , array('draft', 'unpublished'))->order_by('id', 'desc')->paginate(100)
 		));
 	},
 	
@@ -196,17 +196,51 @@ return array(
 			! $post->of_user(Authly::get_id())
 		) 
 			return Response::error(404);
+			
+		return View::of_front()->nest('content', 'board/publish', array(
+			'board' => $board,
+			'post' => $post
+		));
+	}),
+	
+	// ---------------------------------------------------------------------
+	
+	'PUT /board/(:any)/(:num)/publish' =>array('before' => 'signed', function($alias, $id){
+		if (is_null($board = Board::aliased($alias)) or
+			is_null($post = Post::find($id)) or 
+			! $post->of_user(Authly::get_id())
+		) 
+			return Response::error(404);
 		
-		$post->state = 'open';
 		
-		if ($post->save())
+		
+		
+		if ($post->state == 'draft')
 		{
-			return Redirect::to_post(array($alias, $id))->with('notification', 'Published');
+			$attrs = array('board_id', 'series_id', 'series_sequence', 'user_id', 'title', 'body', 'format');
+			$new_post = new Post();
+			foreach ($attrs as $attr)
+			{
+				$new_post->{$attr} = $post->{$attr};
+			}
+			$new_post->state = 'open';
+			if ($new_post->save())
+			{
+				$post->delete();
+				return Redirect::to_post(array($alias, $new_post->id))->with('notification', '발행되었습니다!');
+			}
 		}
-		else
+		elseif ($post->state == 'unpublished')
 		{
-			return Response::error(500);
+			$post->state = 'open';
+			
+			if ($post->save())
+			{
+				return Redirect::to_post(array($alias, $id))->with('notification', '다시 발행되었습니다!');
+			}
 		}
+
+		return Response::error(500);
 	}),
 	
 	// ---------------------------------------------------------------------
@@ -218,7 +252,7 @@ return array(
 		)
 			return Response::error(404);
 
-		$post->state = 'draft';
+		$post->state = 'unpublished';
 		
 		if ($post->save())
 		{
@@ -353,7 +387,6 @@ return array(
 			'user_id' => Authly::get_id(),
 			'title' => Input::get('title'),
 			'body' => Input::get('body'),
-			'state' => Input::get('state'),
 			'format' => Input::get('format')
 		);
 
@@ -364,7 +397,7 @@ return array(
 			return Redirect::to('board/' . $alias . '/' . $id . '/edit');
 		}
 
-		return Redirect::to('board/' . $alias . '/' . $id)->with('notification', 'OK');
+		return Redirect::to('board/' . $alias . '/' . $id)->with('notification', '글이 수정되었습니다!');
 	}),
 	
 	/*

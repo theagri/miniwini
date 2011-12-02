@@ -6,7 +6,7 @@ class Post extends Blaze {
 		'board_id' => 'required|integer',
 		'user_id' => 'required|integer',
 		'body' => 'required',
-		'state' => 'in:open,closed,draft',
+		'state' => 'in:open,closed,draft,unpublished',
 	);
 	
 	// ---------------------------------------------------------------------
@@ -83,6 +83,13 @@ class Post extends Blaze {
 	public function open()
 	{
 		return $this->state === 'open';
+	}
+	
+	// ---------------------------------------------------------------------
+	
+	public function unpublished()
+	{
+		return $this->state === 'unpublished';
 	}
 	
 	// ---------------------------------------------------------------------
