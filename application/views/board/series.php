@@ -28,6 +28,8 @@
 
 				<? foreach (array_reverse($series->posts) as $p): ?>
 				
+				<? if ( ! $p->open()) continue; ?>
+				
 				<article data-type="post" data-mode="listing">
 					<?=$p->user->avatar('medium')?>
 		
