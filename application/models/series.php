@@ -14,7 +14,7 @@ class Series extends Blaze {
 	
 	public function posts()
 	{
-		return $this->has_many('post');
+		return $this->has_many('post')->order_by('series_sequence', 'desc');
 	}
 	
 	// ---------------------------------------------------------------------
