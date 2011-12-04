@@ -16,7 +16,7 @@
 		
 					<? if ($post->of_user(Authly::get_id())): ?>
 		
-					<div data-group="toolbox">
+					<div data-ui="toolbox">
 						
 						<? if ($post->is_draft() and $post->of_user(Authly::get_id())): ?>
 						

@@ -10,6 +10,8 @@ class Miniwini
 	
 		$('#wrapper').css({left:parseInt($.cookie('x'))})
 		
+		$('#wrapper').prepend('<div class="mover" id="mover-left"></div>').prepend('<div class="mover" id="mover-right"></div>')
+		
 		$('#wrapper').draggable({
 			handle:'.mover'
 			axis:'x'
@@ -23,9 +25,11 @@ class Miniwini
 				})
 		})
 		
+		
 		@doc.bind('click', (evt) =>
 			@handleClick(evt)
 		)
+		
 	
 	handleClick: (evt) ->
 		if evt.target.id is 'links-trigger'

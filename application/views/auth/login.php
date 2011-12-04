@@ -1,5 +1,7 @@
 			
-			<section data-group="form" data-form="general">
+			<h1>로그인</h1>
+			
+			<fieldset data-ui="compact-form">
 				
 				<?=Form::open('auth/login')?>
 				
@@ -11,12 +13,15 @@
 				
 				<? endif; ?>
 
-
-				<label for="userid">아이디</label>
-				<input data-length="small" type="text" id="userid" name="userid" value="<?=Input::old('userid')?>" required autofocus>
-
-				<label for="password">비밀번호</label>
-				<input data-length="small" id="password" type="password" name="password" required>
+				<div data-ui="control-box-full-vertical">
+					<label for="userid">아이디</label>
+					<input type="text" id="userid" name="userid" value="<?=Input::old('userid')?>" required autofocus>
+				</div>
+				
+				<div data-ui="control-box-full-vertical">
+					<label for="password">비밀번호</label>
+					<input id="password" type="password" name="password" required>
+				</div>
 
 				<div class="actions">
 					<input type="submit" class="button" value="로그인">
@@ -38,4 +43,4 @@
 
 
 
-			</section>
+			</fieldset>

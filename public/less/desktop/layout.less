@@ -1,9 +1,11 @@
-@import "include.less";
+@import "../common/include.less";
 
 html, body
 {
 	height:100%;
 }
+
+
 
 body
 {
@@ -11,41 +13,47 @@ body
 	font-family:sans-serif;
 	background:#6b737b url(/img/layout/background.png);
 
-	#wrapper > header
+	#wrapper
 	{
-		position:relative;
-		z-index:100;
-		> figure
+		
+		position:absolute;
+		
+		> header
 		{
-			margin:0;
-			padding:0;
-			width:124px;
-			height:60px;
 			position:absolute;
-			top:35px;
-			left:7px;
-			overflow:hidden;
-			
-			img
+			z-index:1000;
+
+			> figure
 			{
-				position:relative;
-				top:0px;
-				&:hover
+				width:124px;
+				height:60px;
+				position:absolute;
+				top:35px;
+				left:7px;
+				overflow:hidden;
+
+				img
 				{
-					top:-60px;
+					position:relative;
+					top:0px;
+					&:hover
+					{
+						top:-60px;
+					}
+				}
+
+
+
+				figcaption
+				{
+					display:none;
 				}
 			}
-			
-			
-			
-			figcaption
-			{
-				display:none;
-			}
+
+
 		}
-		
-		
-	}
+	} 
+	
 	
 	
 }
@@ -53,10 +61,12 @@ body
 
 nav
 {
-	width:700px;
-	min-width:700px;
+	width:740px;
+	min-width:740px;
 	height:46px;
-	
+	position:relative;
+	left:140px;
+	top:28px;
 	figure
 	{
 		float:left;
@@ -69,7 +79,6 @@ nav
 	
 	ul
 	{
-		list-style:none;
 		float:right;
 		padding:0;
 		margin:0;
@@ -130,179 +139,89 @@ nav
 
 
 
-#wrapper
+
+#content
 {
 	position:absolute;
+	z-index:500;
+	left:140px;
+	top:0;
+	width:740px;
+
+	background:url(/img/layout/roof_bg.png) repeat-x;
+	padding:80px 20px 50px;
+	max-width:700px;
+	min-height:500px;
+	background-color:#fff;
+	box-shadow:0 0 7px rgba(0,0,0,0.9), 1px 1px 3px rgba(0,0,0,0.8);
+	border-bottom-right-radius:6px;
+	border-bottom-left-radius:6px;
 	
-	#loginbox
-	{
-		text-align:center;
-		
-		figure
-		{
-			display:inline-block;
-			img
-			{
-				border:1px solid rgba(255,255,255,0.8);
-				box-shadow:1px 1px 2px rgba(0,0,0,0.5);
-			}
-		}
-	}
 
-	#pane-left
+	> footer
 	{
-		min-width:140px;
-		width:140px;
-		position:absolute;
-		z-index:2;
+		color:#fff;
+		font-size:0.9em;
+		padding:10px 0 30px;
+
+		text-shadow:1px 1px 0 rgb(0,0,0,0.3);
 		
-		background:url(/img/layout/roof_left.png) right top no-repeat;
-		position:relative;
-		
-		.mover
+		> div:first-child
 		{
-			width:20px;
-			height:20px;
-			cursor:move;
-			margin-bottom:80px;
-			margin-left:120px;
+			float:left;
 		}
-		
-		#guest-menu
+
+		> div:last-child
 		{
-			padding-right:20px;
+			white-space:nowrap;
+			width:50px;
+			padding-right:10px;
+			float:right;
 			
-			li
-			{
-				display:block;
-				text-align:right;
-				padding:5px;
-
-
-
-				a
-				{
-					color:#fff;
-					font-size:0.85em;
-					text-shadow:1px 1px 0 rgba(0,0,0,0.4);
-				}
-
-				&:after
-				{
-					opacity:0.4;
-					text-shadow:1px 1px 0 rgba(255,255,255,0.5);
-					font-family:WebSymbols;
-				}
-
-				&[data-menu=login]
-				{
-				}
-
-				&[data-menu=register]
-				{
-				}
-
-				&[data-menu=dashboard]
-				{
-					figure
-					{
-						float:right;
-					}
-
-				}
-			}
-		}
-		
-		
-	}
-	
-	#content
-	{
-		position:absolute;
-		z-index:0;
-		left:140px;
-		top:0;
-		width:740px;
-
-		> footer
-		{
-			color:#fff;
-			font-size:0.9em;
-			padding:10px 0 30px;
-
-			text-shadow:1px 1px 0 rgb(0,0,0,0.3);
-			
-			> div:first-child
-			{
-				float:left;
-			}
-
-			> div:last-child
-			{
-				white-space:nowrap;
-				width:50px;
-				padding-right:10px;
-				float:right;
-				
-				a
-				{
-					margin-left:5px;
-				}
-			}
 			a
 			{
-				color:#fff;
+				margin-left:5px;
+			}
+		}
+		a
+		{
+			color:#fff;
+		}
+	}
+	
+	> h1
+	{
+		font-size:1.4em;
+		color:#555;
+		text-shadow:1px 1px 0 rgba(0,0,0,0.15);
+		border-bottom:1px dashed #ddd;
+		padding-bottom:8px;
+	}
+}
+
+#guestbox
+{
+	position:absolute;
+	top:110px;
+	width:140px;
+	
+	li
+	{
+		display:block;
+		text-align:right;
+		padding:5px 20px 10px;
+
+		a
+		{
+			color:#fff;
+			text-shadow:1px 1px 0 rgba(0,0,0,0.4);
+			
+			&:hover
+			{
+				color:@color-active;
 			}
 		}
 	}
-
-	#content-box
-	{
-		background:url(/img/layout/roof_bg.png) repeat-x;
-		padding:30px 20px 50px;
-		position:relative;
-		z-index:-1;
-		max-width:700px;
-		overflow:hidden;
-		min-height:500px;
-		background-color:#fff;
-		box-shadow:0 0 7px rgba(0,0,0,0.9), 1px 1px 3px rgba(0,0,0,0.8);
-		border-bottom-right-radius:6px;
-		border-bottom-left-radius:6px;		
-		
-		
-		> h1
-		{
-			font-size:1.4em;
-			color:#555;
-			text-shadow:1px 1px 0 rgba(0,0,0,0.15);
-			border-bottom:1px dashed #ddd;
-			padding-bottom:8px;
-		}
-				
-	}
-	
-	
-	
-	#pane-right
-	{
-		background:url(/img/layout/roof_right.png) left top no-repeat;
-		padding-top:0px;
-		position:absolute;
-		z-index:3;
-		left:880px;
-		top:0;
-		
-		.mover
-		{
-			width:20px;
-			height:20px;
-			cursor:move;
-			margin-bottom:20px;
-		}
-	}
-	
-	
 }
 
 
@@ -310,7 +229,9 @@ nav
 #mybox
 {
 	padding-left:10px;
-	margin:10px 0 20px 0;
+	position:absolute;
+	top:110px;
+	width:140px;
 	height:29px;
 	> a
 	{
@@ -335,8 +256,6 @@ nav
 			font-size:1.2em;
 			opacity:0.4;
 		}
-		
-		
 		
 		&#links-trigger
 		{
@@ -627,6 +546,9 @@ nav
 	margin-left:10px;
 	margin-top:10px;
 	min-width:150px;
+	position:absolute;
+	left:880px;
+	top:40px;
 	li
 	{
 		clear:both;
@@ -704,4 +626,32 @@ nav
 	{
 		width:92px;
 	}
+}
+
+
+.mover
+{
+	cursor:move;
+}
+
+#mover-left
+{
+	background:url(/img/layout/roof_left.png) no-repeat left top;
+	display:block;
+	margin-left:107px;
+	position:absolute;
+	z-index:2000;
+	width:33px;
+	height:30px;
+}
+
+#mover-right
+{
+	background:url(/img/layout/roof_right.png) no-repeat left top;
+	display:block;
+	margin-left:880px;
+	position:absolute;
+	z-index:2000;
+	width:35px;
+	height:30px;
 }

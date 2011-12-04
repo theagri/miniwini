@@ -8,17 +8,17 @@
 				'active_tab' => $active_tab
 			))->render()?>
 			
-			<section data-group="board" data-form="general" data-type="post">
+			<section>
 				
 				<? if ($post and $post->is_draft()): ?>
 				
-				<div data-group="helpbox">
+				<div data-ui="helpbox">
 					이 글은 현재 <strong>임시 보관</strong> 상태입니다.
 				</div>
 				
 				<? elseif ($post and $post->unpublished()): ?>
 				
-				<div data-group="helpbox">
+				<div data-ui="helpbox">
 					이 글은 현재 <strong>발행 취소</strong> 상태입니다.
 				</div>
 				
@@ -27,21 +27,22 @@
 				
 				<? if ($edit): ?>
 				
-				<?=Form::open($post->link($board->alias) . '/edit', 'PUT', array('onsubmit="return miniwini.submitPost(this)"'))?>
+				<?=Form::open($post->link($board->alias) . '/edit', 'PUT', array('onsubmit' => "return miniwini.submitPost(this)"))?>
 				
 				<? else: ?>
 				
-				<?=Form::open($board->link('new'), 'POST', array('onsubmit="return miniwini.submitPost(this)"'))?>
+				<?=Form::open($board->link('new'), 'POST', array('onsubmit' => 'return miniwini.submitPost(this)'))?>
 				
 				<? endif; ?>
 
 				<?=Form::token()?>
 				
-				<input type="hidden" name="state" value="open">
-
-				<label for="title"><?=__('miniwini.board_newpost_title')?> <small>(안쓰셔도 됩니다)</small></label>
-				<input data-length="full" type="text" id="title" name="title" value="<?=Input::old('title', e($post->title))?>">
+				<?=Form::hidden('state', 'open')?>
 				
+				<div data-ui="control-box-full-vertical">
+					<label for="title"><?=__('miniwini.board_newpost_title')?> <small>(안쓰셔도 됩니다)</small></label>
+					<input type="text" id="title" name="title" value="<?=Input::old('title', e($post->title))?>">
+				</div>
 				
 				<div data-ui="tabbed-panel">
 					<ul>
@@ -52,29 +53,31 @@
 						<li onclick="miniwini.setPostType(this)" data-tab="post-type-preview"><a href="#">미리보기</a></li>
 					</ul>
 					
-					<div id="panel">
-						<div id="panel-post-type-text"></div>
+					<div data-ui="panel">
+						<div data-panel="text" id="panel-post-type-text"></div>
 						
-						<div id="panel-post-type-photo">
+						<div data-panel="photo" id="panel-post-type-photo">
 							사진 
 						</div>
 
-						<div id="panel-post-type-link">
+						<div data-panel="link" id="panel-post-type-link">
 							링크 
 						</div>
 
-						<div id="panel-post-type-option">
+						<div data-panel="option" id="panel-post-type-option">
 							
 							<? if (Authly::belongs($board->series_level)): ?>
 
-							<div id="add-series">
+							<fieldset data-ui="sub-panel" id="add-series">
+								
+								<legend>연재물 설정</legend>
 
-								<div><input type="radio" name="series" id="series-0" value="0" checked><label for="series-0"><?=__('miniwini.board_newpost_series_type_no_series')?></label></div>
+								<div data-ui="control-box-horizontal"><input type="radio" name="series" id="series-0" value="0" checked> <label for="series-0"><?=__('miniwini.board_newpost_series_type_no_series')?></label></div>
 
 								<? if (Series::count_of($board->id, Authly::get_id()) > 0): ?>
 
-								<div>
-									<input type="radio" name="series" id="series-1" value="1"><label for="series-1"><?=__('miniwini.board_newpost_series_type_existing_series')?></label>
+								<div data-ui="control-box-horizontal">
+									<input type="radio" name="series" id="series-1" value="1"> <label for="series-1"><?=__('miniwini.board_newpost_series_type_existing_series')?></label>
 									<select name="series_id" id="series_id" disabled>
 
 									<? foreach (Series::of($board->id, Authly::get_id()) as $series): ?>
@@ -88,15 +91,22 @@
 
 								<? endif; ?>
 
-								<div>
-									<input type="radio" name="series" id="series-2" value="2"><label for="series-2"><?=__('miniwini.board_newpost_series_type_new_series')?></label>
-									<div id="new-series">
-										<label for="series_title"><?=__('miniwini.board_newpost_series_title')?></label>
-										<input type="text" name="series_title" id="series_title">
+								<div data-ui="control-box-horizontal">
+									<input type="radio" name="series" id="series-2" value="2"> <label for="series-2"><?=__('miniwini.board_newpost_series_type_new_series')?></label>
 
-										<label for="series_description"><?=__('miniwini.board_newpost_series_description')?></label>
-										<textarea name="series_description" id="series_description"></textarea>
-									</div>
+									<fieldset id="new-series" data-ui="sub-panel">
+										<legend>새 연재물을 만듭니다</legend>
+										
+										<div data-ui="control-box-full-vertical">
+											<label for="series_title"><?=__('miniwini.board_newpost_series_title')?></label>
+											<input type="text" name="series_title" id="series_title">
+										</div>
+										
+										<div data-ui="control-box-full-vertical">
+											<label for="series_description"><?=__('miniwini.board_newpost_series_description')?></label>
+											<textarea name="series_description" id="series_description"></textarea>
+										</div>
+									</fieldset>
 
 									<script>
 									$(function(){
@@ -119,13 +129,12 @@
 							</div>
 
 							<? endif; ?> 
-						</div>
+						</fieldset>
 
-						<div id="panel-post-type-preview">
-						</div>
+						<div id="panel-post-type-preview"></div>
 						
 						<div id="common-controls">
-							<div>
+							<div data-align="right" data-ui="control-box-horizontal">
 								
 								<?=Form::select('format', array(
 									'text' => 'Text',
@@ -135,8 +144,7 @@
 								array('id' => 'format'))?>
 								
 							</div>
-							
-							<textarea id="body" name="body" required autofocus><?=Input::old('body', $post->body)?></textarea>
+							<div data-ui="control-box-full-vertical"><textarea id="body" name="body" required autofocus><?=Input::old('body', $post->body)?></textarea></div>
 						</div>
 					</div>
 					

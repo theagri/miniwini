@@ -12,7 +12,7 @@
 				
 				<? if ($series->of_user(Authly::id())): ?>
 
-				<div data-group="toolbox">
+				<div data-ui="toolbox">
 					[<a href="<?=$series->link($board->alias)?>/manage">수정하기</a>]
 				</div>
 				

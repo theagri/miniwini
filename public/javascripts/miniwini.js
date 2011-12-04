@@ -12,6 +12,7 @@ Miniwini = (function() {
     $('#wrapper').css({
       left: parseInt($.cookie('x'))
     });
+    $('#wrapper').prepend('<div class="mover" id="mover-left"></div>').prepend('<div class="mover" id="mover-right"></div>');
     $('#wrapper').draggable({
       handle: '.mover',
       axis: 'x',

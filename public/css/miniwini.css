@@ -1,9 +1,7 @@
-@import url("reset.css");
-@import url("fonts.css");
-@import url("base.css");
-@import url("layout.css");
-@import url("ui.css");
-@import url("notification.css");
-@import url("commently.css");
-@import url("home.css");
-@import url("board.css");
+@import url("common/reset.css");
+@import url("common/base.css");
+@import url("common/ui.css");
+@import url("common/commently.css");
+
+/*@import url("handheld.css") screen and (max-width:640px);*/
+@import url("desktop.css"); /* screen and (min-width:641px);*/

@@ -1,15 +1,15 @@
 [data-group=commently][data-type=comments]{margin-bottom:50px;}
 [data-group=commently] [data-type=comment]{margin-bottom:15px;clear:both;}
-[data-group=commently] [data-type=comment].depth-1{width:680px;margin-left:20px;}
-[data-group=commently] [data-type=comment].depth-2{width:660px;margin-left:40px;}
-[data-group=commently] [data-type=comment].depth-3{width:640px;margin-left:60px;}
-[data-group=commently] [data-type=comment].depth-4{width:620px;margin-left:80px;}
-[data-group=commently] [data-type=comment].depth-5{width:600px;padding-left:100px;}
-[data-group=commently] [data-type=comment].depth-6{width:580px;padding-left:120px;}
-[data-group=commently] [data-type=comment].depth-7{width:560px;padding-left:140px;}
-[data-group=commently] [data-type=comment].depth-8{width:540px;padding-left:160px;}
-[data-group=commently] [data-type=comment].depth-9{width:520px;padding-left:180px;}
-[data-group=commently] [data-type=comment].depth-10{width:500px;padding-left:200px;}
+[data-group=commently] [data-type=comment].depth-1{margin-left:20px;}
+[data-group=commently] [data-type=comment].depth-2{margin-left:40px;}
+[data-group=commently] [data-type=comment].depth-3{margin-left:60px;}
+[data-group=commently] [data-type=comment].depth-4{margin-left:80px;}
+[data-group=commently] [data-type=comment].depth-5{margin-left:100px;}
+[data-group=commently] [data-type=comment].depth-6{margin-left:120px;}
+[data-group=commently] [data-type=comment].depth-7{margin-left:140px;}
+[data-group=commently] [data-type=comment].depth-8{margin-left:160px;}
+[data-group=commently] [data-type=comment].depth-9{margin-left:180px;}
+[data-group=commently] [data-type=comment].depth-10{margin-left:200px;}
 [data-group=commently] [data-type=comment] header{background-color:#eaeaea;border:1px solid #e1e1e1;border-bottom:1px solid #ddd;border-right:1px solid #ddd;height:23px;overflow:hidden;font-size:0.95em;border-top-right-radius:4px;border-bottom-right-radius:4px;width:100%;text-shadow:1px 1px 0 rgba(255, 255, 255, 0.8);}[data-group=commently] [data-type=comment] header figure{float:left;width:24px;border-right:1px solid rgba(255, 255, 255, 0.8);}[data-group=commently] [data-type=comment] header figure img{border-radius:0;}
 [data-group=commently] [data-type=comment] header [data-type=user]{padding-left:6px;line-height:25px;padding-right:10px;}
 [data-group=commently] [data-type=comment] header time{text-align:right;line-height:25px;font-size:0.8em;color:#999;padding-right:8px;}
@@ -19,8 +19,8 @@
 [data-group=commently] [data-type=comment] [data-type=user]{font-weight:bold;}
 [data-group=commently] [data-type=comment].replying header{background-color:#333;}[data-group=commently] [data-type=comment].replying header *{color:#ddd;text-shadow:1px 1px 0 rgba(0, 0, 0, 0.5);}
 [data-group=commently] [data-type=comment] footer time{padding-left:37px !important;}
-[data-group=commently] [data-type=form-container]{padding:10px 16px 10px 10px;background-color:#f3f3f3;border-radius:5px;border:1px solid rgba(0, 0, 0, 0.2);box-shadow:0 1px 1px rgba(0, 0, 0, 0.3);}[data-group=commently] [data-type=form-container] .commently-help{font-size:0.8em;padding:0 0 4px;color:#555;text-shadow:1px 1px 0 rgba(255, 255, 255, 0.8);}[data-group=commently] [data-type=form-container] .commently-help>span:last-child{float:right;}
+[data-group=commently] [data-type=form-container]{padding:10px 16px 10px 10px;background-color:#f3f3f3;border-radius:5px;border:1px solid rgba(0, 0, 0, 0.2);box-shadow:0 1px 1px rgba(0, 0, 0, 0.3);}[data-group=commently] [data-type=form-container] .commently-help{font-size:0.8em;padding:0 0 4px;color:#555;text-shadow:1px 1px 0 rgba(255, 255, 255, 0.7);}[data-group=commently] [data-type=form-container] .commently-help>span:last-child{float:right;}
 [data-group=commently] [data-type=form-container] [data-type=footer]{height:32px;padding-top:8px;}
 [data-group=commently] [data-type=form-container] [data-type=accounts]{float:left;vertical-align:top;}[data-group=commently] [data-type=form-container] [data-type=accounts] figure img{border-radius:0;border:1px solid #fff;}
-[data-group=commently] [data-type=form-container] [data-type=controls] textarea{width:100%;position:relative;height:28px;resize:vertical;}[data-group=commently] [data-type=form-container] [data-type=controls] textarea.active{height:150px;}
+[data-group=commently] [data-type=form-container] [data-type=controls] textarea{width:100%;position:relative;height:28px;}[data-group=commently] [data-type=form-container] [data-type=controls] textarea.active{height:150px;}
 [data-group=commently] [data-type=form-container] [data-type=button]{float:right;width:60px;max-width:60px;min-width:60px;padding-left:10px;}[data-group=commently] [data-type=form-container] [data-type=button] input{float:right;}
