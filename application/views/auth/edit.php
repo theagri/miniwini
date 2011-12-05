@@ -101,7 +101,7 @@
 							<?=Form::select('font', array(
 								'' => '지정 안함',
 								'NanumGothic' => '나눔 고딕',
-								'MalgunGothic' => '맑은 고딕'
+								'맑은 고딕' => '맑은 고딕'
 							), Authly::pref('font'))?>
 							
 						</div>

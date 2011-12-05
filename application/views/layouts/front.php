@@ -37,7 +37,7 @@
 	
 	body
 	{
-		font-family:<?=Authly::pref('font')?>, sans-serif;
+		font-family:"<?=Authly::pref('font')?>", sans-serif;
 	}
 	
 	<? endif; ?>
