@@ -140,22 +140,86 @@
 	
 	[data-type=form-container]
 	{
-		padding:10px 16px 10px 10px;
+		padding:10px;
+		text-align:center;
 		background-color:#f3f3f3;
 		border-radius:5px;
 		border:1px solid rgba(0,0,0,0.2);
 		box-shadow:0 1px 1px rgba(0,0,0,0.3);
 		
+		#commently-preview
+		{
+			display:none;
+			background-color:#333;
+			border-radius:4px;
+			margin-top:8px;
+			box-shadow:0 1px 1px rgba(0,0,0,0.3), inset 0 0 3px rgba(0,0,0,0.9);
+			text-shadow:1px 1px 0 rgba(0,0,0,0.5);
+			text-align:left;
+			padding:8px;
+			overflow:hidden;
+			
+
+			*
+			{
+				color:#eee;
+			}
+			
+			
+			a
+			{
+				color:@color-active;
+			}
+			
+			pre
+			{
+				font-family:monaco;
+				font-size:0.9em;
+				line-height:1.3em;
+				background-color:#555;
+				padding:10px;
+				margin:10px 0;
+
+				code
+				{
+					border:0;
+					padding:0;
+					font-size:1em;
+				}
+			}
+
+			code
+			{
+				font-family:monaco;
+				background-color:#555;
+				border:1px solid rgba(0,0,0,0.1);
+				border-radius:4px;
+				padding:2px 5px 2px 5px;
+				font-size:0.85em;
+			}
+		}
+		
 		.commently-help
 		{
 			font-size:0.8em;
-			padding:0 0 4px;
+			padding:0 0 8px;
 			color:#555;
+			text-align:left;
 			text-shadow:@text-shadow-white;
 			
+			#label-preview
+			{
+				display:none;
+			}
+			
+	
 			> span:last-child
 			{
 				float:right;
+				label
+				{
+					padding-left:15px;
+				}
 			}
 		}
 		
@@ -183,14 +247,13 @@
 		{
 			textarea
 			{
-				width:100%;
+				width:99%;
 				position:relative;
 				height:28px;
-
 				
 				&.active
 				{
-					height:150px;
+					height:250px;
 				}
 			}
 		}

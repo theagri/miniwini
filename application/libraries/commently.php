@@ -326,6 +326,7 @@ HTML;
 						<div class="commently-help">
 							<span>HTML은 사용할 수 없습니다.</span>
 							<span>
+								<label id="label-preview"><input type="checkbox" name="preview" value="on"> Markdown 미리보기</label>
 								<label><input type="checkbox" name="format" value="markdown"{$format}> Markdown 사용</label>
 							</span>
 						</div>
@@ -337,6 +338,7 @@ HTML;
 								<input type="hidden" name="url" value="{$this->url}">
 								<input type="hidden" name="parent_id" value="">
 								<textarea name="body"></textarea>
+								<div data-type="body" id="commently-preview"></div>
 							
 						</div>
 					
@@ -355,9 +357,7 @@ HTML;
 						</form>
 						<script>
 						$(function(){
-							$('.commently-form textarea').bind('click', function(){
-								$(this).addClass('active');
-							})
+							commently.initialize();
 						})
 						</script>
 					</div>
