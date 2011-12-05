@@ -90,7 +90,28 @@
 					</div>
 					
 					<div data-panel="pref" id="panel-pref">
-						설정 
+						
+						<?=Form::open('auth/change_pref', 'PUT')?>
+						
+						<?=Form::token()?>
+						
+						<div data-ui="control-box-full-vertical">
+							<label>폰트 <small>(미니위니 기본 폰트를 설정합니다)</small></label>
+							
+							<?=Form::select('font', array(
+								'' => '지정 안함',
+								'NanumGothic' => '나눔 고딕',
+								'MalgunGothic' => '맑은 고딕'
+							), Authly::pref('font'))?>
+							
+						</div>
+						
+						<div class="actions">
+							<input type="submit" value="변경하기">
+						</div>
+						
+						<?=Form::close()?>
+						
 					</div>
 				</div>
 			</div>

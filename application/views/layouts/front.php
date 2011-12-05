@@ -20,16 +20,31 @@
 	<link href="/favicon.png" rel="shortcut icon" type="image/png">
 	<link rel="stylesheet" href="/css/miniwini.css" type="text/css">
 	
-	<? if ( ! empty($_COOKIE['x'])): ?>
+	
 	
 	<style type="text/css">
+	
+	<? if ( ! empty($_COOKIE['x'])): ?>
+	
 	#wrapper
 	{
 		left:<?=$_COOKIE['x']?>px;
 	}
-	</style>
 	
 	<? endif; ?>
+	
+	<? if (Authly::signed() and Authly::pref('font')):?>
+	
+	body
+	{
+		font-family:<?=Authly::pref('font')?>, sans-serif;
+	}
+	
+	<? endif; ?>
+	
+	</style>
+	
+	
 	
 	<script src="/javascripts/jquery.js"></script>
 	<script src="/javascripts/miniwini.js"></script>
