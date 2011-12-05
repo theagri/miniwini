@@ -18,21 +18,7 @@
 		
 					<div data-ui="toolbox">
 						
-						<? if ($post->is_draft() and $post->of_user(Authly::get_id())): ?>
-						
-						이 글은 현재 <strong>임시 보관</strong> 상태입니다. [<a href="<?=$post->link($board->alias) . '/publish'?>">발행하기</a>]
-						
-						<? elseif ($post->unpublished()): ?>
-						
-						이 글은 현재 <strong>발행 취소</strong> 상태입니다. [<a href="<?=$post->link($board->alias) . '/publish'?>">다시 발행하기</a>]
-						
-						<? else: ?>
-						
-						[<a href="<?=$post->link($board->alias)?>/unpublish">발행 취소하기</a>]
-						
-						<? endif; ?>
-						
-						 [<a href="<?=$post->link($board->alias)?>/edit">수정하기</a>] [<a href="<?=$post->link($board->alias)?>/delete">삭제하기</a>]
+						 <a href="<?=$post->link($board->alias)?>/edit">수정하기</a>
 						
 					</div>
 		
@@ -43,6 +29,30 @@
 					<?=$post->body_html()?>
 		
 					</div>
+					
+					<? if ($post->of_user(Authly::get_id())): ?>
+					
+					<div data-ui="dangerbox">
+						
+						<? if ($post->is_draft() and $post->of_user(Authly::get_id())): ?>
+						
+						이 글은 현재 <strong>임시 보관</strong> 상태입니다. <a href="<?=$post->link($board->alias) . '/publish'?>">발행하기</a>
+						
+						<? elseif ($post->unpublished()): ?>
+						
+						이 글은 현재 <strong>발행 취소</strong> 상태입니다. <a href="<?=$post->link($board->alias) . '/publish'?>">다시 발행하기</a>
+						
+						<? else: ?>
+						
+						<a href="<?=$post->link($board->alias)?>/unpublish">발행 취소하기</a>
+						
+						<? endif; ?>
+						
+						<a href="<?=$post->link($board->alias)?>/delete">삭제하기</a>
+						
+					</div>
+					
+					<? endif; ?>
 		
 				</article>
 	
