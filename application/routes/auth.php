@@ -67,7 +67,7 @@ return array(
 	
 	// ---------------------------------------------------------------------
 	
-	'PUT /auth/edit' => array('before' => 'signed, csrf', function(){
+	'PUT /auth/edit' => array('before' => 'signed|csrf', function(){
 
 		$val = Validator::make(array('name' => Input::get('name')), array('name' => 'required|min:' . Config::get('miniwini.user.min_name_size') . '|max:' . Config::get('miniwini.user.max_name_size')));
 		
@@ -99,7 +99,7 @@ return array(
 	
 	// ---------------------------------------------------------------------
 	
-	'PUT /auth/change_avatar' => array('before' => 'signed, csrf', function(){
+	'PUT /auth/change_avatar' => array('before' => 'signed|csrf', function(){
 
 		$file = Input::file('avatar');
 		
@@ -126,7 +126,7 @@ return array(
 	 * =====================================================================
 	 */
 	
-	'PUT /auth/change_password' => array('before' => 'signed, csrf', function(){
+	'PUT /auth/change_password' => array('before' => 'signed|csrf', function(){
 	
 	
 		if ( ! Authly::check_password(Input::get('password_current')))
@@ -150,6 +150,24 @@ return array(
 	/*
 	 * =====================================================================
 	 *
+	 * 			Preferences
+	 *
+	 * =====================================================================
+	 */
+	
+	'PUT /auth/change_pref' => array('before' => 'signed|csrf', function(){
+
+		Authly::update_preferences(array(
+			'font' => Input::get('font')
+		));
+		
+		return Redirect::to('auth/edit#pref');
+	}),
+	
+	
+	/*
+	 * =====================================================================
+	 *
 	 * 			Register
 	 *
 	 * =====================================================================
@@ -157,7 +175,7 @@ return array(
 	
 	// ---------------------------------------------------------------------
 	
-	'GET /auth/register' => array('name' => 'register', 'do' => function(){
+	'GET /auth/register' => array('name' => 'register', function(){
 		if ( ! Config::get('authly.register_enabled')) return Response::error(500);
 		
 		Title::put('가입');

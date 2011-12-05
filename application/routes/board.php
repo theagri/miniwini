@@ -119,7 +119,7 @@ return array(
 	
 	// ---------------------------------------------------------------------
 	
-	'PUT /board/(:any)/series/(:num)' => array('before' => 'signed, csrf', function($alias, $id){
+	'PUT /board/(:any)/series/(:num)' => array('before' => 'signed|csrf', function($alias, $id){
 		if (is_null($board = Board::aliased($alias)) or
 			is_null($series = Series::find($id)) or 
 			! $series->of_user(Authly::id())
@@ -288,7 +288,7 @@ return array(
 	
 	// ---------------------------------------------------------------------
 	
-	'POST /board/(:any)/new' => array('before' => 'signed, csrf', function($alias){
+	'POST /board/(:any)/new' => array('before' => 'signed|csrf', function($alias){
 		if (is_null($board = Board::aliased($alias)) or
 			$board->closed() or
 			$board->locked()
@@ -375,7 +375,7 @@ return array(
 	
 	// ---------------------------------------------------------------------
 	
-	'PUT /board/(:any)/(:num)/edit' => array('before' => 'signed, csrf', function($alias, $id){
+	'PUT /board/(:any)/(:num)/edit' => array('before' => 'signed|csrf', function($alias, $id){
 		if (is_null($board = Board::aliased($alias)) or
 			is_null($post = Post::find($id)) or 
 			! $post->of_user(Authly::get_id())
@@ -425,7 +425,7 @@ return array(
 	
 	// ---------------------------------------------------------------------
 	
-	'DELETE /board/(:any)/(:num)/delete' => array('before' => 'signed, csrf', function($alias, $id){
+	'DELETE /board/(:any)/(:num)/delete' => array('before' => 'signed|csrf', function($alias, $id){
 		if (is_null($board = Board::aliased($alias)) or
 			is_null($post = Post::find($id)) or 
 			! $post->of_user(Authly::get_id())
