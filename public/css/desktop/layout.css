@@ -1,5 +1,5 @@
 html,body{height:100%;}
-body{font-size:11pt;font-family:sans-serif;background:#6b737b url(/img/layout/background.png);}body #wrapper{position:absolute;}body #wrapper>header{position:absolute;z-index:1000;}body #wrapper>header>figure{width:124px;height:60px;position:absolute;top:35px;left:7px;overflow:hidden;}body #wrapper>header>figure img{position:relative;top:0px;}body #wrapper>header>figure img:hover{top:-60px;}
+body{font-size:15px;font-family:sans-serif;background:#6b737b url(/img/layout/background.png);}body #wrapper{position:absolute;}body #wrapper>header{position:absolute;z-index:1000;}body #wrapper>header>figure{width:124px;height:60px;position:absolute;top:35px;left:7px;overflow:hidden;}body #wrapper>header>figure img{position:relative;top:0px;}body #wrapper>header>figure img:hover{top:-60px;}
 body #wrapper>header>figure figcaption{display:none;}
 nav{width:740px;min-width:740px;height:46px;position:relative;left:140px;top:28px;}nav figure{float:left;}nav figure img{border:2px solid #fff;box-shadow:0 0 3px rgba(0, 0, 0, 0.3),0 1px 2px rgba(0, 0, 0, 0.2);}
 nav ul{float:right;padding:0;margin:0;}nav ul li{height:46px;float:left;}nav ul li a{border-top:0;font-size:0.85em;padding-top:29px;width:80px;height:17px;float:left;text-align:center;background-repeat:no-repeat;background-size:22px;background-position:28px 4px;border-right:1px solid #e6e6e6;}

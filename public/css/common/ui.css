@@ -1,6 +1,7 @@
 [data-ui=compact-form]{min-width:280px;width:30%;margin:10px auto;background-color:#f5f5f5;border:1px solid rgba(0, 0, 0, 0.3);box-shadow:0 1px 1px rgba(0, 0, 0, 0.35),inset 0 0 1px #ffffff;border-radius:4px;padding:8px;}
 [data-ui=control-box-full-vertical]{margin:5px 0;text-align:center;}[data-ui=control-box-full-vertical] input[type=text],[data-ui=control-box-full-vertical] input[type=password],[data-ui=control-box-full-vertical] input[type=email],[data-ui=control-box-full-vertical] input[type=file],[data-ui=control-box-full-vertical] textarea{width:97%;}
 [data-ui=control-box-full-vertical]>label{text-align:left;display:block;padding:3px 3px 3px 8px;}[data-ui=control-box-full-vertical]>label small{font-size:0.9em;color:#c10;}
+[data-ui=control-box-full-vertical]>select{float:left;margin-left:8px;}
 [data-ui=control-box-horizontal]{margin:10px 0;text-align:left;}
 [data-ui=sub-panel]{background-color:#e3e3e3;border:1px solid rgba(0, 0, 0, 0.4);border-radius:4px;padding:5px;text-align:center;text-shadow:1px 1px 0 rgba(255, 255, 255, 0.7);box-shadow:0 1px 1px rgba(0, 0, 0, 0.2),inset 0 1px 6px rgba(255, 255, 255, 0.3);}[data-ui=sub-panel] legend{text-align:left;font-size:0.9em;background-color:#555;border-radius:4px;border:1px solid rgba(0, 0, 0, 0.3);box-shadow:0 1px 0 rgba(0, 0, 0, 0.2);padding:4px;color:#fff;text-shadow:1px 1px 0 rgba(0, 0, 0, 0.4);}
 [data-ui=sub-panel] [data-ui=sub-panel]{margin-top:10px;}
