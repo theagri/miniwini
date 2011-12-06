@@ -90,10 +90,15 @@
 		
 		&[data-mode=listing]
 		{	
-			&.today
+			&[data-today=y]
 			{
 				//.gradient(#fffeeb, #f9f9f9, #f3f3f3);
 				background-color:#fffeeb;
+			}
+			
+			&[data-current=y]
+			{
+				background-color:#e9ffb4;
 			}
 			
 			border-bottom:1px dotted #ddd;

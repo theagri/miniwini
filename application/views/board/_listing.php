@@ -5,7 +5,7 @@
 				
 				<? foreach ($posts->results as $p): ?>
 
-				<article data-type="post" data-mode="listing"<?=(Time::is_today($p->created_at) ? ' class="today"':'')?>>
+				<article data-type="post" data-mode="listing"<?=(Time::is_today($p->created_at) ? ' data-today="y"':'')?><?=((isset($post) and $post->id == $p->id) ? ' data-current="y"':'')?>>
 
 					<?=$p->user->avatar('medium')?>
 					
@@ -103,6 +103,6 @@
 			<? endif; ?>
 
 
-			<?=$posts->links()?>
+			<?=$posts->from($board->link())->links()?>
 	
 			</section>
