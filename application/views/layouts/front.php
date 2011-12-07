@@ -7,6 +7,7 @@
 |_| |_| |_||_||_| |_||_|  \_/\_/  |_||_| |_||_|
                                     since 2002
 -->
+<? Section::start('layout.desktop')?>
 <html lang="ko">
 <head>
 	<meta charset="utf-8">
@@ -198,3 +199,140 @@
 
 </body>
 </html>
+
+<? Section::stop() ?>
+
+<? Section::start('layout.handheld')?>
+
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	
+	<title><?=Title::get()?></title>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="mywizz">
+	<meta name="description" content="">
+	
+	<link href="/favicon.png" rel="shortcut icon" type="image/png">
+	<link rel="stylesheet" href="/css/handheld.css" type="text/css">
+	
+	<script src="/javascripts/jquery.js"></script>
+	<script src="/javascripts/miniwini.js"></script>
+	
+	<? if (Authly::signed()): ?>
+	
+	<script src="/javascripts/commently.js"></script>
+	
+	<? endif; ?>
+	
+</head>
+
+<body data-user="<?=(Authly::signed() ? 'y' : 'n')?>">
+	
+	<div id="wrapper">
+	
+	
+		<header>
+			<figure>
+				<a href="/"><img src="/img/layout/miniwini_logo.png" alt="<?=Config::get('miniwini.title')?>"></a>
+				<figcaption><?=Config::get('miniwini.description')?></figcaption>
+			</figure>
+		
+			<nav>
+				<ul>
+					<li><a href="<?=URL::to('board/talk')?>">자유게시판</a></li>
+					<li><a href="<?=URL::to('board/share')?>">알짜게시판</a></li>
+					<li><a href="<?=URL::to('board/qna')?>">질문&amp;답변</a></li>
+				</ul>
+			</nav>
+		</header>
+	
+
+		<? if (Authly::signed()): ?>
+	
+		<div id="mybox">
+		
+			<a title="환경 설정" id="links-trigger" href="#" onclick="miniwini.links(this)"></a>
+		
+			<div id="links">
+			
+				<ul>
+					<li><a href="<?=URL::to('dashboard')?>">대쉬보드</a></li>
+					<li><a href="<?=URL::to('auth/edit')?>">환경 설정</a></li>
+					<li><a href="<?=URL::to('auth/logout')?>">로그아웃</a></li>
+				
+				</ul>
+			</div>
+		
+			<a title="메시지" id="messages-count" onclick="miniwini.messages(this)"></a><div id="messages"></div>
+		
+			<a title="알림" id="notifications-count" onclick="miniwini.notifications(this)"></a><div id="notifications"></div>
+		
+		</div>
+	
+		<? else: ?>
+	
+		<div id="guestbox">
+	
+			<ul>
+
+				<li data-menu="login"><a href="<?=URL::to('auth/login')?>">로그인</a></li>
+				<li data-menu="register"><a href="<?=URL::to('auth/register')?>">가입</a></li>
+
+			</ul>
+
+		</div>
+	
+		<? endif; ?>
+		
+	
+		<div id="content">
+		
+			<? if (Session::has('errors')): ?>
+
+			<div data-ui="error">
+				
+				<?=Session::get('errors')?>
+
+			</div>
+
+			<? endif; ?>
+
+			<? if (Session::has('notification')): ?>
+
+			<div data-ui="notification">
+				
+				<?=Session::get('notification')?>
+
+			</div>
+
+			<? endif; ?>
+		
+			<!--== Content ==-->
+
+				<?=$content?>
+
+			<!--== Content ==-->
+		
+		
+		
+		</div>
+	
+		
+	</div>
+
+</body>
+</html>
+<? Section::stop() ?>
+
+
+<? if (Agent::is_mobile()): ?>
+
+<?=Section::yield('layout.desktop')?>
+
+<? else: ?>
+
+<?=Section::yield('layout.desktop')?>
+
+<? endif; ?>
