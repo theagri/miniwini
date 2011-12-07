@@ -396,15 +396,25 @@ return array(
 			$width_limit = 700;
 			$max_width = 0;
 			$max_photo = NULL;
-			
+			$default_photo = NULL;
 			foreach ($result->sizes->size as $s)
 			{
+				if (is_null($default_photo))
+				{
+					$default_photo = $s;
+				}
+				
 				$width = $s->width;
 				if ($width > $max_width and $width < $width_limit)
 				{
 					$max_width = $width;
 					$max_photo = $s;
 				}
+			}
+			
+			if (is_null($max_photo))
+			{
+				$max_photo = $default_photo;
 			}
 			
 			$url = $max_photo->source;
