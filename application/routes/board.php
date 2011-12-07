@@ -360,10 +360,24 @@ return array(
 		return View::of_blank()->nest('content', 'board/upload');
 	}),
 	
+	// ---------------------------------------------------------------------
+	
 	'POST /board/upload' => array('before' => 'signed|csrf', function(){
-		
+		$error = <<<SCRIPT
+<script>
+try
+{
+	top.miniwini.photoUploadFailed();
+}
+catch (err){}
+finally
+{
+	location.href = "/board/upload";
+}
+</script>
+SCRIPT;
 		require_once LIBRARY_PATH . '/authly/factory.php';
-		
+
 		$conn = Authly::connection('flickr');
 		
 		if ( ! $conn)
@@ -420,17 +434,25 @@ return array(
 			$url = $max_photo->source;
 			$timestamp = time();
 			$result = <<<SCRIPT
-			<script>top.miniwini.photoUploaded({
-				url: '{$url}',
-				created_at: {$timestamp}
-			});
-			location.href = "/board/upload";
+			<script>
+			try
+			{
+				top.miniwini.photoUploaded({
+					url: '{$url}',
+					created_at: {$timestamp}
+				});
+			}
+			catch (err){}
+			finally
+			{
+				location.href = "/board/upload";
+			}
 			</script>
 SCRIPT;
 			die($result);
 		}
 		
-		die('<script>top.miniwini.photoUploadFailed();location.href = "/board/upload";</script>');
+		die($error);
 	}),
 	
 

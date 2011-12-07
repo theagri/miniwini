@@ -556,42 +556,28 @@
 {
 	.uploaded-photo
 	{
-		clear:both;
+		float:left;
 		img
 		{
-			border:1px solid #fff;
+			border:3px solid #fff;
 			float:left;
 			margin:10px;
 			border-radius:6px;
+			box-shadow:0 0 3px rgba(0,0,0,0.3), 0 1px 1px rgba(0,0,0,0.2);
 		}
 		
-		> div
+		&:hover
 		{
-			overflow:auto;
-			border-bottom:1px dashed #ccc;
-			padding:5px;
-			padding-top:10px;
-			label
+			img
 			{
-				font-size:0.85em;
-				font-weight:bold;
-				color:#999;
+				border:3px solid #111;
 			}
-			input
-			{
-				display:block;
-				border:1px solid rgba(0,0,0,0.1);
-					
-				font-size:1em;
-				width:95%;
-				margin-top:1px;
-				margin-bottom:10px;
-				
-				&:focus
-				{
-					background-color:#f6f1d0;
-				}
-			}
+		}
+		
+		&.selected
+		{
+			.transition(0.4s);
+			opacity:0.3;
 		}
 	}
 }

@@ -208,7 +208,18 @@ class Miniwini
 					if $('img[src="' + photo.url + '"]', con).size() == 0
 						con.append($.tmpl(tpl, photo).html())
 		catch err
-
+	selectPhoto: (photo) ->
+		img = $('img', photo)
+		body = document.getElementById('body')
+		src = img.attr('src')
+		body.focus()
+		startPos = body.selectionStart
+		endPos = body.selectionEnd
+		src = '![](' + src + ')' if $('#format').val() is 'markdown'
+		$(photo).addClass('selected')
+		body.value = body.value.substring(0, startPos)+ src + "\n" + body.value.substring(endPos, body.value.length)
+		
+		
 	photoUploadFailed: ->
 		alert('업로드 실패')
 		
@@ -217,7 +228,7 @@ class Miniwini
 			tpl = $('#tpl-uploaded-photo').template()
 			$('#uploaded-photos').prepend($.tmpl(tpl, res).html())
 			if localStorage?
-				photos = if localStorage.uploadedPhoto then JSON.parse(localStorage.uploadedPhoto) else []
+				photos = if localStorage.uploadedPhoto? then JSON.parse(localStorage.uploadedPhoto) else []
 				photos.unshift(res)
 				localStorage.uploadedPhoto = JSON.stringify(photos.slice(0,5))
 		

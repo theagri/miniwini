@@ -221,6 +221,20 @@ Miniwini = (function() {
 
     }
   };
+  Miniwini.prototype.selectPhoto = function(photo) {
+    var body, endPos, img, src, startPos;
+    img = $('img', photo);
+    body = document.getElementById('body');
+    src = img.attr('src');
+    body.focus();
+    startPos = body.selectionStart;
+    endPos = body.selectionEnd;
+    if ($('#format').val() === 'markdown') {
+      src = '![](' + src + ')';
+    }
+    $(photo).addClass('selected');
+    return body.value = body.value.substring(0, startPos) + src + "\n" + body.value.substring(endPos, body.value.length);
+  };
   Miniwini.prototype.photoUploadFailed = function() {
     return alert('업로드 실패');
   };
@@ -230,7 +244,7 @@ Miniwini = (function() {
       tpl = $('#tpl-uploaded-photo').template();
       $('#uploaded-photos').prepend($.tmpl(tpl, res).html());
       if (typeof localStorage !== "undefined" && localStorage !== null) {
-        photos = localStorage.uploadedPhoto ? JSON.parse(localStorage.uploadedPhoto) : [];
+        photos = localStorage.uploadedPhoto != null ? JSON.parse(localStorage.uploadedPhoto) : [];
         photos.unshift(res);
         return localStorage.uploadedPhoto = JSON.stringify(photos.slice(0, 5));
       }

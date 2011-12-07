@@ -46,6 +46,6 @@
 #upload-to-flickr{background:url(/img/ui/flickr.png) left center no-repeat;padding-left:24px;padding-top:12px;height:24px;}#upload-to-flickr small{font-size:0.9em;}
 #upload-to-flickr a{color:#ef3801;}
 #upload-frame{border:0;height:33px;width:100%;}
-#uploaded-photos .uploaded-photo{clear:both;}#uploaded-photos .uploaded-photo img{border:1px solid #fff;float:left;margin:10px;border-radius:6px;}
-#uploaded-photos .uploaded-photo>div{overflow:auto;border-bottom:1px dashed #ccc;padding:5px;padding-top:10px;}#uploaded-photos .uploaded-photo>div label{font-size:0.85em;font-weight:bold;color:#999;}
-#uploaded-photos .uploaded-photo>div input{display:block;border:1px solid rgba(0, 0, 0, 0.1);font-size:1em;width:95%;margin-top:1px;margin-bottom:10px;}#uploaded-photos .uploaded-photo>div input:focus{background-color:#f6f1d0;}
+#uploaded-photos .uploaded-photo{float:left;}#uploaded-photos .uploaded-photo img{border:3px solid #fff;float:left;margin:10px;border-radius:6px;box-shadow:0 0 3px rgba(0, 0, 0, 0.3),0 1px 1px rgba(0, 0, 0, 0.2);}
+#uploaded-photos .uploaded-photo:hover img{border:3px solid #111;}
+#uploaded-photos .uploaded-photo.selected{-webkit-transition:all 0.4s ease-out;-moz-transition:all 0.4s ease-out;transition:all 0.4s ease-out;opacity:0.3;}

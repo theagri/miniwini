@@ -220,12 +220,8 @@
 			
 			<script id="tpl-uploaded-photo" type="text/x-jquery-tmpl">
 			<div>
-				<div class="uploaded-photo">
-					<a href="${url}" target="_blank"><img src="${url}" width="100"></a>
-					<div>
-						<label>URL <input onclick="this.select()" type="text" value="${url}"></label>
-						<label>Markdown <input onclick="this.select()" type="text" value="![](${url})"></label>
-					</div>
+				<div class="uploaded-photo" onclick="return miniwini.selectPhoto(this)">
+					<img src="${url}" width="100">
 				</div>
 			</div>
 			</script>
