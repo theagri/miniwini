@@ -6,4 +6,8 @@ return array(
 	{
 		$view->with('visitors', Visitor::all());
 	}),
+	
+	'layouts.blank' => array('name' => 'blank', function($view)
+	{
+	}),
 );
