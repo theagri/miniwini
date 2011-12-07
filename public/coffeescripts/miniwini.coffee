@@ -1,6 +1,8 @@
 class Miniwini
 	constructor: ->
+		
 		@doc = $(document)
+		
 		@notificationCheckInterval = 8000
 		@checkNotification()
 		@noti_count = $('#notifications-count')
@@ -55,7 +57,10 @@ class Miniwini
 		$('body').data('user') is 'y'
 		
 	checkNotification: ->
+		
+		
 		try
+			
 			return unless @logged()
 			
 			$.getJSON('/notification/count', (data) =>
@@ -76,7 +81,9 @@ class Miniwini
 		catch err
 			
 	notifications: (src) ->
+		
 		try
+			
 			return unless @logged()
 			
 			return unless @noti_count.data('count')
@@ -90,6 +97,7 @@ class Miniwini
 			else
 				if @noti_count.data('loading') == 'y'
 					return
+					
 					
 				@noti_count.addClass('loading')
 				@noti_count.data('loading', 'y')
@@ -107,7 +115,10 @@ class Miniwini
 							when "comment_on_comment"
 								time = $.timeago(new Date(noti.created_at * 1000))
 								h = "<div data-url=\"#{noti.url}\" data-time=\"#{noti.created_at}\"><figure data-type=\"avatar-medium\"><img src=\"#{noti.actor_avatar}\" alt=\"#{noti.actor_name}\"></figure><p>#{noti.actor_name}님이 당신의 댓글에 댓글을 남겼습니다. <q>#{noti.body}</q><time>#{time}</time></p></div>"
-					
+							
+							when "mention"
+								time = $.timeago(new Date(noti.created_at * 1000))
+								h = "<div data-url=\"#{noti.url}\" data-time=\"#{noti.created_at}\"><figure data-type=\"avatar-medium\"><img src=\"#{noti.actor_avatar}\" alt=\"#{noti.actor_name}\"></figure><p>#{noti.actor_name}님이 당신을 언급했습니다. <q>#{noti.body}</q><time>#{time}</time></p></div>"
 						@noti_list.data('time', noti.created_at.toString()) if idx == 0
 						
 						html.push(h)
@@ -208,6 +219,7 @@ class Miniwini
 					if $('img[src="' + photo.url + '"]', con).size() == 0
 						con.append($.tmpl(tpl, photo).html())
 		catch err
+			
 	selectPhoto: (photo) ->
 		img = $('img', photo)
 		body = document.getElementById('body')

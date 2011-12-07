@@ -251,8 +251,14 @@ class Commently {
 			default:
 				$body = HTML::autolink(nl2br($c->body));
 		}
-		
+
+
 		$body = strip_tags($body, Config::get('commently.available_tags'));
+		$body = preg_replace(
+			'/\[userlink:(.+?)\](.+?)\[\/userlink\]/',
+			'<a href="'.URL::to('$1').'">$2</a>',
+			$body
+		);
 		
 		$today = Time::is_today($c->created_at) ? ' data-today="y"' : '';
 

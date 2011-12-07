@@ -111,6 +111,10 @@ Miniwini = (function() {
               case "comment_on_comment":
                 time = $.timeago(new Date(noti.created_at * 1000));
                 h = "<div data-url=\"" + noti.url + "\" data-time=\"" + noti.created_at + "\"><figure data-type=\"avatar-medium\"><img src=\"" + noti.actor_avatar + "\" alt=\"" + noti.actor_name + "\"></figure><p>" + noti.actor_name + "님이 당신의 댓글에 댓글을 남겼습니다. <q>" + noti.body + "</q><time>" + time + "</time></p></div>";
+                break;
+              case "mention":
+                time = $.timeago(new Date(noti.created_at * 1000));
+                h = "<div data-url=\"" + noti.url + "\" data-time=\"" + noti.created_at + "\"><figure data-type=\"avatar-medium\"><img src=\"" + noti.actor_avatar + "\" alt=\"" + noti.actor_name + "\"></figure><p>" + noti.actor_name + "님이 당신을 언급했습니다. <q>" + noti.body + "</q><time>" + time + "</time></p></div>";
             }
             if (idx === 0) {
               this.noti_list.data('time', noti.created_at.toString());
