@@ -246,7 +246,7 @@ Miniwini = (function() {
       if (typeof localStorage !== "undefined" && localStorage !== null) {
         photos = localStorage.uploadedPhoto != null ? JSON.parse(localStorage.uploadedPhoto) : [];
         photos.unshift(res);
-        return localStorage.uploadedPhoto = JSON.stringify(photos.slice(0, 5));
+        return localStorage.uploadedPhoto = JSON.stringify(photos.slice(0, 10));
       }
     }
   };

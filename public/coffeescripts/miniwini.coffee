@@ -230,7 +230,7 @@ class Miniwini
 			if localStorage?
 				photos = if localStorage.uploadedPhoto? then JSON.parse(localStorage.uploadedPhoto) else []
 				photos.unshift(res)
-				localStorage.uploadedPhoto = JSON.stringify(photos.slice(0,5))
+				localStorage.uploadedPhoto = JSON.stringify(photos.slice(0,10))
 		
 window.miniwini
 $(->
