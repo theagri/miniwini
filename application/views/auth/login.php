@@ -28,18 +28,6 @@
 				</div>
 
 				<?=Form::close()?>
-	
-				<? if (Config::get('authly.connections.enabled')): ?>
-	
-				<? foreach (Config::get('authly.connections.services') as $service): ?>
-	
-				<div>
-					<a href="<?=URL::to('auth/connect/' . $service)?>"><?=$service?></a>
-				</div>
-	
-				<? endforeach; ?>
-	
-				<? endif; ?>
 
 
 

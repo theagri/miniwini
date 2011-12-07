@@ -485,3 +485,113 @@
 		background-image:url(/img/layout/icon_board_qna.png);
 	}
 }
+
+
+#uploader
+{
+	background-color:#f3f3f3;
+	height:100%;
+	padding:0 4px 0 10px;
+	
+	input[type=file]
+	{
+		margin-top:4px;
+		width:200px;
+		float:left;
+	}
+	input[type=submit]
+	{
+		background-color:#fd0084;
+		color:#fff;
+		text-shadow:1px 1px 0 rgba(0,0,0,0.4);
+		border-radius:4px;
+		margin-top:4px;
+		padding:2px 6px;
+	}
+}
+
+#upload-waiting
+{
+	height:33px;
+	position:absolute;
+	color:#111;	
+	text-shadow:1px 1px 0 rgba(255,255,255,0.7);
+	padding-top:10px;
+	top:35px;
+	.transition(0.3s);
+	
+	&.active
+	{
+		top:0;
+	}
+}
+#upload-to-flickr
+{
+	background:url(/img/ui/flickr.png) left center no-repeat;
+	
+	padding-left:24px;
+	padding-top:12px;
+	height:24px;
+	
+	small
+	{
+		font-size:0.9em;
+	}
+	
+	a
+	{
+		color:@color-active;
+	}
+}
+
+#upload-frame
+{
+	border:0;
+	height:33px;
+	width:100%;
+	
+}
+
+#uploaded-photos
+{
+	.uploaded-photo
+	{
+		clear:both;
+		img
+		{
+			border:1px solid #fff;
+			float:left;
+			margin:10px;
+			border-radius:6px;
+		}
+		
+		> div
+		{
+			overflow:auto;
+			border-bottom:1px dashed #ccc;
+			padding:5px;
+			padding-top:10px;
+			label
+			{
+				font-size:0.85em;
+				font-weight:bold;
+				color:#999;
+			}
+			input
+			{
+				display:block;
+				border:1px solid rgba(0,0,0,0.1);
+					
+				font-size:1em;
+				width:95%;
+				margin-top:1px;
+				margin-bottom:10px;
+				
+				&:focus
+				{
+					background-color:#f6f1d0;
+				}
+			}
+		}
+	}
+}

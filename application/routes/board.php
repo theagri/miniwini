@@ -348,6 +348,81 @@ return array(
 
 		return Redirect::to_board(array($alias));
 	}),
+	
+	/*
+	 * =====================================================================
+	 *
+	 * 			Upload
+	 *
+	 * =====================================================================
+	 */
+	'GET /board/upload' => array('before' => 'signed', function(){
+		return View::of_blank()->nest('content', 'board/upload');
+	}),
+	
+	'POST /board/upload' => array('before' => 'signed|csrf', function(){
+		
+		require_once LIBRARY_PATH . '/authly/factory.php';
+		
+		$conn = Authly::connection('flickr');
+		
+		if ( ! $conn)
+		{
+			return Response::error(500);
+		}
+
+		$data = array(
+			'oauth_token_secret' => $conn->auth_token_secret,
+			'oauth_token' => $conn->auth_token,
+		);
+		
+		$file = Input::file('photo');
+		$module = \Authly\Factory::create('flickr', $data);
+		$photo_id = $module->upload('@' . $file['tmp_name']);
+		if ($photo_id)
+		{
+			@unlink($file['tmp_name']);
+			
+			$sizes = $module->send_signed_request('http://api.flickr.com/services/rest', 'GET', array(
+				'method' => 'flickr.photos.getSizes',
+				'nojsoncallback' => 1,
+				'photo_id' => $photo_id,
+				'format' => 'json',
+				'api_key' => Config::get('authly.connections.flickr.consumer_key')
+			));
+			
+			$result = json_decode($sizes);
+		
+			$width_limit = 700;
+			$max_width = 0;
+			$max_photo = NULL;
+			
+			foreach ($result->sizes->size as $s)
+			{
+				$width = $s->width;
+				if ($width > $max_width and $width < $width_limit)
+				{
+					$max_width = $width;
+					$max_photo = $s;
+				}
+			}
+			
+			$url = $max_photo->source;
+			$timestamp = time();
+			$result = <<<SCRIPT
+			<script>top.miniwini.photoUploaded({
+				url: '{$url}',
+				created_at: {$timestamp}
+			});
+			location.href = "/board/upload";
+			</script>
+SCRIPT;
+			die($result);
+		}
+		
+		die('<script>top.miniwini.photoUploadFailed();location.href = "/board/upload";</script>');
+	}),
+	
 
 	/*
 	 * =====================================================================

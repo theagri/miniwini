@@ -188,7 +188,39 @@ class Miniwini
 
 		$('#preview-section')[if type == 'post-type-preview' then 'show' else 'hide']()
 		$('#common-controls')[if type == 'post-type-preview' then 'hide' else 'show']()
+	
+	uploadPhoto: (form) ->		
+		return false unless form.elements['photo'].value
 
+		$('input[type=submit]', form).attr('disabled', true).hide()
+		$('#upload-waiting').addClass('active')
+		$('input[type=file]', form).hide()
+		return true
+		
+	loadRecentPhoto: ->
+		try
+			return unless localStorage or localStorage.uploadedPhoto
+			photos = JSON.parse(localStorage.uploadedPhoto)
+			if photos
+				con = $('#uploaded-photos')
+				tpl = $('#tpl-uploaded-photo').template()
+				for photo in photos
+					if $('img[src="' + photo.url + '"]', con).size() == 0
+						con.append($.tmpl(tpl, photo).html())
+		catch err
+
+	photoUploadFailed: ->
+		alert('업로드 실패')
+		
+	photoUploaded: (res) ->
+		if res and res.url
+			tpl = $('#tpl-uploaded-photo').template()
+			$('#uploaded-photos').prepend($.tmpl(tpl, res).html())
+			if localStorage?
+				photos = if localStorage.uploadedPhoto then JSON.parse(localStorage.uploadedPhoto) else []
+				photos.unshift(res)
+				localStorage.uploadedPhoto = JSON.stringify(photos.slice(0,5))
+		
 window.miniwini
 $(->
 	window.miniwini = new Miniwini()

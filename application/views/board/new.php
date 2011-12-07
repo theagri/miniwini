@@ -8,6 +8,7 @@
 				'active_tab' => $active_tab
 			))->render()?>
 			
+
 			<section>
 				
 				<? if ($post and $post->is_draft()): ?>
@@ -57,7 +58,34 @@
 						<div data-panel="text" id="panel-post-type-text"></div>
 						
 						<div data-panel="photo" id="panel-post-type-photo">
-							사진 
+							
+							<? if (($conn = Authly::connection('flickr'))): ?>
+							
+							<p id="upload-to-flickr">Flickr의 <strong><?=$conn->auth_name?></strong> 계정으로 업로드할 수 있습니다.</p>
+							
+							<script>
+							$(function(){
+								if (localStorage && localStorage.uploadedPhoto)
+								{
+									var photos = JSON.parse(localStorage.uploadedPhoto);
+									if (photos && photos.length)
+									{
+										$('#upload-to-flickr').append(' <small>[<a href="#" onclick="return miniwini.loadRecentPhoto()">최근 업로드 사진('+photos.length+'개) 불러오기</a>]</small>')
+									}
+									
+								}
+							})
+							</script>
+							
+							<iframe id="upload-frame" src="<?=URL::to('board/upload')?>"></iframe>
+							
+							<? else: ?>
+							
+							<p id="upload-to-flickr">Flickr 계정을 연결하면 사진을 쉽고 편하게 업로드할 수 있습니다. <small>[<a href="<?=URL::to('auth/edit#connections')?>">계정 연결하러 가기</a>]</small></p>
+							
+							<? endif; ?>
+							
+							<div id="uploaded-photos"></div>
 						</div>
 
 						<div data-panel="link" id="panel-post-type-link">
@@ -188,3 +216,16 @@
 				
 			</section>
 			
+			
+			
+			<script id="tpl-uploaded-photo" type="text/x-jquery-tmpl">
+			<div>
+				<div class="uploaded-photo">
+					<a href="${url}" target="_blank"><img src="${url}" width="100"></a>
+					<div>
+						<label>URL <input onclick="this.select()" type="text" value="${url}"></label>
+						<label>Markdown <input onclick="this.select()" type="text" value="![](${url})"></label>
+					</div>
+				</div>
+			</div>
+			</script>

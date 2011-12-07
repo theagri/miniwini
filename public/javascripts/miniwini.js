@@ -191,6 +191,51 @@ Miniwini = (function() {
     $('#preview-section')[type === 'post-type-preview' ? 'show' : 'hide']();
     return $('#common-controls')[type === 'post-type-preview' ? 'hide' : 'show']();
   };
+  Miniwini.prototype.uploadPhoto = function(form) {
+    if (!form.elements['photo'].value) {
+      return false;
+    }
+    $('input[type=submit]', form).attr('disabled', true).hide();
+    $('#upload-waiting').addClass('active');
+    $('input[type=file]', form).hide();
+    return true;
+  };
+  Miniwini.prototype.loadRecentPhoto = function() {
+    var con, photo, photos, tpl, _i, _len, _results;
+    try {
+      if (!(localStorage || localStorage.uploadedPhoto)) {
+        return;
+      }
+      photos = JSON.parse(localStorage.uploadedPhoto);
+      if (photos) {
+        con = $('#uploaded-photos');
+        tpl = $('#tpl-uploaded-photo').template();
+        _results = [];
+        for (_i = 0, _len = photos.length; _i < _len; _i++) {
+          photo = photos[_i];
+          _results.push($('img[src="' + photo.url + '"]', con).size() === 0 ? con.append($.tmpl(tpl, photo).html()) : void 0);
+        }
+        return _results;
+      }
+    } catch (err) {
+
+    }
+  };
+  Miniwini.prototype.photoUploadFailed = function() {
+    return alert('업로드 실패');
+  };
+  Miniwini.prototype.photoUploaded = function(res) {
+    var photos, tpl;
+    if (res && res.url) {
+      tpl = $('#tpl-uploaded-photo').template();
+      $('#uploaded-photos').prepend($.tmpl(tpl, res).html());
+      if (typeof localStorage !== "undefined" && localStorage !== null) {
+        photos = localStorage.uploadedPhoto ? JSON.parse(localStorage.uploadedPhoto) : [];
+        photos.unshift(res);
+        return localStorage.uploadedPhoto = JSON.stringify(photos.slice(0, 5));
+      }
+    }
+  };
   return Miniwini;
 })();
 window.miniwini;

@@ -21,7 +21,7 @@
 						
 						<div data-ui="control-box-full-vertical">
 							<label>이름 <small>(최소 <?=Config::get('miniwini.user.min_name_size')?>글자, 최대 <?=Config::get('miniwini.user.max_name_size')?>글자)</small></label>
-							<input data-length="short" type="text" name="name" value="<?=e(Input::old('name', Authly::get_name()))?>" required autofocus>
+							<input data-length="short" type="text" name="name" value="<?=e(Input::old('name', Authly::get_name()))?>" required>
 						</div>
 							
 						<div class="actions">
@@ -33,7 +33,25 @@
 					</div>
 					
 					<div data-panel="connections" id="panel-connections">
-						connections
+						
+						<? foreach (Config::get('authly.connections.services') as $service): ?>
+						
+						<a href="<?=URL::to('auth/connect/' . $service)?>"><?=$service?> 연결하기</a>
+						
+						<? endforeach; ?>
+						
+						<hr>
+						
+						
+						<? foreach (Authly::connections() as $conn): ?>
+
+						<div>
+							<figure data-type="avatar-medium"><img src="<?=$conn->auth_avatar_url?>"/></figure>
+							<?=$conn->provider?> 연결됨 - <?=$conn->auth_name?>
+						</div>
+
+						<? endforeach; ?>
+						
 					</div>
 					
 					<div data-panel="avatar" id="panel-avatar">

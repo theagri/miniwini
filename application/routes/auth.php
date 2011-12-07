@@ -303,24 +303,25 @@ EMAIL;
 	
 	// ---------------------------------------------------------------------
 	
-	'GET /auth/connect/(:any)' => function($service){
+	'GET /auth/connect/(:any)' => array('before' => 'signed', function($service){
 		if ( ! Config::get('authly.connections.enabled')) return Response::error(500);
 		
+		$url = Authly::connect($service);
 		return Redirect::to($url);
-	},
+	}),
 	
 	// ---------------------------------------------------------------------
 
-	'POST /auth/connect/(:any)' => function($service){
+	'POST /auth/connect/(:any)' => array('before' => 'signed', function($service){
 		if ( ! Config::get('authly.connections.enabled')) return Response::error(500);
 
 		$url = Authly::connect($service, Input::get('openid_identifier'));
 		return Redirect::to($url);
-	},
+	}),
 
 	// ---------------------------------------------------------------------
 	
-	'GET /auth/connected/(:any)' => function($service){
+	'GET /auth/connected/(:any)' => array('before' => 'signed', function($service){
 		if ( ! Config::get('authly.connections.enabled')) return Response::error(500);
 		
 		$available_services = Config::get('authly.connections.services');
@@ -333,13 +334,14 @@ EMAIL;
 		switch ($service)
 		{
 			case 'twitter':
+			case 'flickr':
 			case 'linkedin':
 			case 'facebook':
 			case 'foursquare':
 			case 'google':
 			case 'openid':
 				Authly::connected($service, Input::get());
-				return Redirect::to_dashboard();
+				return Redirect::to('auth/edit#connections');
 		}
-	}
+	}),
 );
