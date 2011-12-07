@@ -1,6 +1,3 @@
-[submodule "application/libraries/authly"]
-	path = application/libraries/authly
-	url = git@github.com:mywizz/Authly.git
 [submodule "application/libraries/blaze"]
 	path = application/libraries/blaze
 	url = git@github.com:mywizz/Blaze.git
