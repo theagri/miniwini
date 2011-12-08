@@ -40,7 +40,7 @@ class HTML extends \Laravel\HTML {
 	  $www            =       'www\.';
 	  $ip             =       '\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}';
 	  $subdomain      =       '[-a-z0-9_]+\.';
-	  $name           =       '[a-z][-a-z0-9]+\.';
+	  $name           =       '[-a-z0-9]+\.';
 	  $tld            =       '[a-z]+(\.[a-z]{2,2})?';
 	  $the_rest       =       '\/?[:a-z0-9._\/~#&=;%+?-]+[a-z0-9\/#=?]{1,1}';            
 	  $pattern        =       "$scheme?(?(1)($ip|($subdomain)?$name$tld)|($www$name$tld))$the_rest";
