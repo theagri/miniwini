@@ -113,6 +113,11 @@ return array(
 							continue;
 						}
 						
+						if ($mention->id == Authly::get_id())
+						{
+							continue;
+						}
+						
 						$notifications[] = array(
 							'action' => 'mention',				
 							'user_id' => $mention->id,
