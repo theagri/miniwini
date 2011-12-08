@@ -155,10 +155,13 @@
 									</script>
 								</div>
 							</div>
+							
+							</fieldset>
 
 							<? endif; ?> 
-						</fieldset>
-
+						
+						</div>
+						
 						<div id="panel-post-type-preview"></div>
 						
 						<div id="common-controls">
