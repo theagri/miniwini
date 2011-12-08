@@ -118,6 +118,8 @@ class Post extends Blaze {
 
 		}
 		
+		$summary = preg_replace('/(@|\/)(.+?)\1/', '$2', $summary);
+		
 		if (strlen($summary) == 0 and $this->short_title() == '')
 		{
 			return '(Untitled)';
@@ -154,8 +156,10 @@ class Post extends Blaze {
 				$html = HTML::autolink(nl2br($this->body));
 
 		}
+		$html = strip_tags($html, Config::get('miniwini.available_tags'));
+		$html = Miniwini::parse_mentions($html, $this->meta);
 
-		return strip_tags($html, Config::get('miniwini.available_tags'));
+		return $html;
 	}
 	
 	// ---------------------------------------------------------------------

@@ -300,16 +300,73 @@ return array(
 			'user_id' => Authly::get_id(),
 			'title' => Input::get('title'),
 			'body' => Input::get('body'),
+			'meta' => NULL,
 			'state' => Input::get('state'),
 			'format' => Input::get('format')
 		);
 		
+		// meta...
+		if (($mentions = Miniwini::mentions(Input::get('body'))))
+		{
+			$meta = array('mentions' => array());
+			
+			foreach ($mentions as $mention)
+			{
+				$meta['mentions'][] = array(
+					'id' => $mention->id,
+					'userid' => $mention->userid,
+					'name' => $mention->name
+				);
+			}
+			
+			$meta = json_encode($meta);
+		}
+		
+		$data['meta'] = $meta;
 		$post = new Post;
 		$post->fill($data);
 		if ( ! $post->save())
 		{
+			
 			return Redirect::to('board/' . $alias . '/new');
 		}
+		
+		// notification
+		$notifications = array();
+		$body = Notification::summarize(Input::get('body'));
+		
+		if ( ! empty($mentions))
+		{
+			foreach ($mentions as $mention)
+			{
+
+				if ($mention->id == Authly::get_id())
+				{
+					continue;
+				}
+
+				$notifications[] = array(
+					'action' => 'mention',				
+					'user_id' => $mention->id,
+					'actor_id' => Authly::get_id(),
+					'actor_name' => Authly::get_name(),
+					'actor_avatar' => Authly::get_avatar_url(),
+					'body' => $body,
+					'url' => $post->link($alias),
+					'created_at' => time()
+				);
+			}
+
+			if ( ! empty($notifications))
+			{
+				foreach ($notifications as $noti)
+				{
+					Notification::put($noti);
+				}
+			}
+		}
+
+		
 
 		// series
 		$series_type = Input::get('series');
@@ -494,8 +551,28 @@ SCRIPT;
 			'user_id' => Authly::get_id(),
 			'title' => Input::get('title'),
 			'body' => Input::get('body'),
+			'meta' => NULL,
 			'format' => Input::get('format')
 		);
+		
+		// meta...
+		if (($mentions = Miniwini::mentions(Input::get('body'))))
+		{
+			$meta = array('mentions' => array());
+			
+			foreach ($mentions as $mention)
+			{
+				$meta['mentions'][] = array(
+					'id' => $mention->id,
+					'userid' => $mention->userid,
+					'name' => $mention->name
+				);
+			}
+			
+			$meta = json_encode($meta);
+			$data['meta'] = $meta;
+		}
+		
 
 		$post->fill($data);
 
