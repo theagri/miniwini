@@ -70,9 +70,15 @@ class Notification extends Blaze {
 				$rec->new_count = count($remain);
 			}
 			
-			
 			return $rec->save();
 		}
+	}
+	
+	// ---------------------------------------------------------------------
+	
+	public static function summarize($body)
+	{
+		return mb_substr($body, 0, 40, 'UTF-8');
 	}
 	
 	// ---------------------------------------------------------------------

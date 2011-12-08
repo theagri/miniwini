@@ -29,7 +29,7 @@ nav ul li:hover{background:#ffffff;background:-webkit-gradient(linear, left bott
 #links ul li:last-child{border-bottom:0;}
 #links ul li a{display:block;padding:8px 5px 8px 10px;color:#ddd;}
 #links ul li:hover{background-color:#111;}#links ul li:hover a{color:#fff;}
-#notifications{display:none;position:absolute;min-width:400px;max-width:400px;z-index:1000;text-shadow:1px 1px 0 rgba(0, 0, 0, 0.5);border-radius:2px;font-size:0.8em;background-color:#333;margin-top:24px;color:#ccc;border-radius:4px;box-shadow:1px 1px 1px rgba(0, 0, 0, 0.4);}#notifications>div{text-align:left;padding:6px 6px 3px 6px;clear:both;border-top:1px solid rgba(255, 255, 255, 0.05);border-bottom:1px solid rgba(0, 0, 0, 0.3);}#notifications>div:first-child{border-top:0;}
+#notifications{display:none;position:absolute;min-width:450px;max-width:450px;z-index:1000;text-shadow:1px 1px 0 rgba(0, 0, 0, 0.5);border-radius:2px;font-size:0.8em;background-color:#333;margin-top:24px;color:#ccc;border-radius:4px;box-shadow:1px 1px 1px rgba(0, 0, 0, 0.4);}#notifications>div{text-align:left;padding:6px 6px 3px 6px;clear:both;border-top:1px solid rgba(255, 255, 255, 0.05);border-bottom:1px solid rgba(0, 0, 0, 0.3);}#notifications>div:first-child{border-top:0;}
 #notifications>div:last-child{border-bottom:0;}
 #notifications>div>*{cursor:default;}
 #notifications>div:last-child{border-bottom:0;}

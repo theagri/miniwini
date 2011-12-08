@@ -134,6 +134,7 @@ class Commently {
 				'parent_id' => empty($data['parent_id']) ? NULL : $data['parent_id'],
 				'page_id' => $page->id,
 				'body' => $data['body'],
+				'meta' => ! empty($data['meta']) ? $data['meta'] : NULL,
 				'format' => ($data['format'] ? $data['format'] : 'text'),
 				'created_at' => date('Y-m-d H:i:s'),
 				'updated_at' => date('Y-m-d H:i:s'),
@@ -240,7 +241,7 @@ class Commently {
 	{
 		$account = '<figure data-type="avatar-small"><img alt="' . $c->author_name . '" src="'.$c->author_avatar_url.'"></figure>';
 		$time = Time::humanized_html($c->created_at);
-		
+
 		switch ($c->format)
 		{
 			case 'markdown':
@@ -251,14 +252,11 @@ class Commently {
 			default:
 				$body = HTML::autolink(nl2br($c->body));
 		}
-
+		
 
 		$body = strip_tags($body, Config::get('commently.available_tags'));
-		$body = preg_replace(
-			'/\[userlink:(.+?)\](.+?)\[\/userlink\]/',
-			'<a href="'.URL::to('$1').'">$2</a>',
-			$body
-		);
+
+		$body = Miniwini::parse_mentions($body, $c->meta);
 		
 		$today = Time::is_today($c->created_at) ? ' data-today="y"' : '';
 

@@ -106,29 +106,36 @@ class Miniwini
 					@noti_count.data('loading', 'n')
 					html = []
 					$.each(data, (idx, noti) =>
-				
+						time = $.timeago(new Date(noti.created_at * 1000))
+						noti.body = noti.body.replace(/(@|\/)(.+?)\1/, '$2')
 						switch noti.action
 							when "comment_on_topic"
-								time = $.timeago(new Date(noti.created_at * 1000))
-								h = "<div data-url=\"#{noti.url}\" data-time=\"#{noti.created_at}\"><figure data-type=\"avatar-medium\"><img src=\"#{noti.actor_avatar}\" alt=\"#{noti.actor_name}\"></figure><p>#{noti.actor_name}님이 당신의 게시물에 댓글을 남겼습니다. <q>#{noti.body}</q><time>#{time}</time></p></div>"
-					
+								body = "<p>#{noti.actor_name}님이 당신의 게시물에 댓글을 남겼습니다. <q>#{noti.body}</q>"
+								
+							when "comment_and_mention_on_topic"
+								body = "<p>#{noti.actor_name}님이 당신을 언급하면서 당신의 게시물에 댓글을 남겼습니다. <q>#{noti.body}</q>"
+																	
 							when "comment_on_comment"
-								time = $.timeago(new Date(noti.created_at * 1000))
-								h = "<div data-url=\"#{noti.url}\" data-time=\"#{noti.created_at}\"><figure data-type=\"avatar-medium\"><img src=\"#{noti.actor_avatar}\" alt=\"#{noti.actor_name}\"></figure><p>#{noti.actor_name}님이 당신의 댓글에 댓글을 남겼습니다. <q>#{noti.body}</q><time>#{time}</time></p></div>"
-							
+								body = "<p>#{noti.actor_name}님이 당신의 댓글에 댓글을 남겼습니다. <q>#{noti.body}</q>"
+								
+							when "comment_and_mention_on_comment"
+								body = "<p>#{noti.actor_name}님이 당신을 언급하면서 당신의 댓글에 댓글을 남겼습니다. <q>#{noti.body}</q>"
+								
 							when "mention"
-								time = $.timeago(new Date(noti.created_at * 1000))
-								h = "<div data-url=\"#{noti.url}\" data-time=\"#{noti.created_at}\"><figure data-type=\"avatar-medium\"><img src=\"#{noti.actor_avatar}\" alt=\"#{noti.actor_name}\"></figure><p>#{noti.actor_name}님이 당신을 언급했습니다. <q>#{noti.body}</q><time>#{time}</time></p></div>"
+								body = "<p>#{noti.actor_name}님이 당신을 언급했습니다. <q>#{noti.body}</q>"
+								
 						@noti_list.data('time', noti.created_at.toString()) if idx == 0
 						
+						h = "<div data-url=\"#{noti.url}\" data-time=\"#{noti.created_at}\"><figure data-type=\"avatar-medium\"><img src=\"#{noti.actor_avatar}\" alt=\"#{noti.actor_name}\"></figure>#{body}<time>#{time}</time></p></div>"
 						html.push(h)
 					)
 
 					@noti_list.html(html.join('')).toggle()
 					$('#notifications  div[data-url]').click(->
+						
 						time = $(this).data('time')
 						url = $(this).data('url')
-				
+						
 						$.ajax({
 							url:'/notification/read?time=' + time
 							success: (res) ->

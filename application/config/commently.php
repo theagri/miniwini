@@ -59,38 +59,98 @@ return array(
 				$post->last_commented_at = $comment->created_at;
 			}
 			
-			$post->save();		
-			$body = mb_substr($comment->body, 0, 40, 'UTF-8');
+			$post->save();
+			$body = Notification::summarize($comment->body);
+			$to = NULL;
+			$link = $url . '#commently-comment-' . $comment->id;
 			if ($comment->parent_id)
 			{
 				$parent = Commently::comment($comment->parent_id);
 				if ($parent and ($parent->author_id != Authly::get_id()))
 				{
-					Notification::put(array(
-						'action' => 'comment_on_comment',				
-						'user_id' => $parent->author_id,
-						'actor_id' => $comment->author_id,
-						'actor_name' => $comment->author_name,
-						'actor_avatar' => $comment->author_avatar_url,
-						'body' => $body,
-						'url' => $url,
-						'created_at' => time()
-					));
+					$to = $parent->author_id;
+					$action = 'comment_on_comment';
 				}
 			}
 			elseif ($post->user_id != Authly::get_id())
 			{
-				Notification::put(array(
-					'action' => 'comment_on_topic',
-					'user_id' => $post->user_id,
+				$to = $post->user_id;
+				$action = 'comment_on_topic';
+			}
+			
+			$notifications = array();
+			
+			if ($comment->meta)
+			{
+				$meta = json_decode($comment->meta);
+				if ($meta)
+				{
+					$mentions = $meta->mentions;
+					for ($i = 0; $i < count($mentions); $i++)
+					{
+						$mention = $mentions[$i];
+						if ($mention->id == $to)
+						{
+							if ($action == 'comment_on_topic')
+							{
+								$action = 'comment_and_mention_on_topic';
+							}
+							elseif ($action == 'comment_on_comment')
+							{
+								$action = 'comment_and_mention_on_comment';
+							}
+							
+							$notifications[] = array(
+								'action' => $action,				
+								'user_id' => $to,
+								'actor_id' => $comment->author_id,
+								'actor_name' => $comment->author_name,
+								'actor_avatar' => $comment->author_avatar_url,
+								'body' => $body,
+								'url' => $link,
+								'created_at' => time()
+							);
+							continue;
+						}
+						
+						$notifications[] = array(
+							'action' => 'mention',				
+							'user_id' => $mention->id,
+							'actor_id' => $comment->author_id,
+							'actor_name' => $comment->author_name,
+							'actor_avatar' => $comment->author_avatar_url,
+							'body' => $body,
+							'url' => $link,
+							'created_at' => time()
+						);
+					}
+				}
+			}
+			elseif ( ! is_null($to))
+			{
+				$notifications[] = array(
+					'action' => $action,				
+					'user_id' => $to,
 					'actor_id' => $comment->author_id,
 					'actor_name' => $comment->author_name,
 					'actor_avatar' => $comment->author_avatar_url,
 					'body' => $body,
-					'url' => $url,
+					'url' => $link,
 					'created_at' => time()
-				));
+				);
 			}
+			
+
+			
+			if ( ! empty($notifications))
+			{
+				foreach ($notifications as $noti)
+				{
+					Notification::put($noti);
+				}
+				
+			}
+			
 			
 		}
 	},

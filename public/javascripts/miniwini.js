@@ -102,23 +102,29 @@ Miniwini = (function() {
           this.noti_count.data('loading', 'n');
           html = [];
           $.each(data, __bind(function(idx, noti) {
-            var h, time;
+            var body, h, time;
+            time = $.timeago(new Date(noti.created_at * 1000));
+            noti.body = noti.body.replace(/(@|\/)(.+?)\1/, '$2');
             switch (noti.action) {
               case "comment_on_topic":
-                time = $.timeago(new Date(noti.created_at * 1000));
-                h = "<div data-url=\"" + noti.url + "\" data-time=\"" + noti.created_at + "\"><figure data-type=\"avatar-medium\"><img src=\"" + noti.actor_avatar + "\" alt=\"" + noti.actor_name + "\"></figure><p>" + noti.actor_name + "님이 당신의 게시물에 댓글을 남겼습니다. <q>" + noti.body + "</q><time>" + time + "</time></p></div>";
+                body = "<p>" + noti.actor_name + "님이 당신의 게시물에 댓글을 남겼습니다. <q>" + noti.body + "</q>";
+                break;
+              case "comment_and_mention_on_topic":
+                body = "<p>" + noti.actor_name + "님이 당신을 언급하면서 당신의 게시물에 댓글을 남겼습니다. <q>" + noti.body + "</q>";
                 break;
               case "comment_on_comment":
-                time = $.timeago(new Date(noti.created_at * 1000));
-                h = "<div data-url=\"" + noti.url + "\" data-time=\"" + noti.created_at + "\"><figure data-type=\"avatar-medium\"><img src=\"" + noti.actor_avatar + "\" alt=\"" + noti.actor_name + "\"></figure><p>" + noti.actor_name + "님이 당신의 댓글에 댓글을 남겼습니다. <q>" + noti.body + "</q><time>" + time + "</time></p></div>";
+                body = "<p>" + noti.actor_name + "님이 당신의 댓글에 댓글을 남겼습니다. <q>" + noti.body + "</q>";
+                break;
+              case "comment_and_mention_on_comment":
+                body = "<p>" + noti.actor_name + "님이 당신을 언급하면서 당신의 댓글에 댓글을 남겼습니다. <q>" + noti.body + "</q>";
                 break;
               case "mention":
-                time = $.timeago(new Date(noti.created_at * 1000));
-                h = "<div data-url=\"" + noti.url + "\" data-time=\"" + noti.created_at + "\"><figure data-type=\"avatar-medium\"><img src=\"" + noti.actor_avatar + "\" alt=\"" + noti.actor_name + "\"></figure><p>" + noti.actor_name + "님이 당신을 언급했습니다. <q>" + noti.body + "</q><time>" + time + "</time></p></div>";
+                body = "<p>" + noti.actor_name + "님이 당신을 언급했습니다. <q>" + noti.body + "</q>";
             }
             if (idx === 0) {
               this.noti_list.data('time', noti.created_at.toString());
             }
+            h = "<div data-url=\"" + noti.url + "\" data-time=\"" + noti.created_at + "\"><figure data-type=\"avatar-medium\"><img src=\"" + noti.actor_avatar + "\" alt=\"" + noti.actor_name + "\"></figure>" + body + "<time>" + time + "</time></p></div>";
             return html.push(h);
           }, this));
           this.noti_list.html(html.join('')).toggle();

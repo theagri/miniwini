@@ -18,46 +18,27 @@ return array(
 		$val = Validator::make($data, $rules);
 		if ($val->valid())
 		{
-			
-			
 			if (($mentions = Miniwini::mentions(Input::get('body'))))
 			{
 				$body = $data['body'];
 				
+				
+				$meta = array('mentions' => array());
+				
 				foreach ($mentions as $mention)
 				{
-					
-					$body = str_replace(
-						array('@'.$mention->name.'@', '/' . $mention->name .'/'),
-						'[userlink:'.$mention->userid.']' . $mention->name . '[/userlink]',
-						$body);
-
-					$body = str_replace(
-						array('@'.$mention->userid.'@', '/' . $mention->userid .'/'),
-						'[userlink:'.$mention->userid.']' . $mention->userid . '[/userlink]',
-						$body);
-					
-					if ($mention->id != Authly::get_id())
-					{
-						Notification::put(array(
-							'action' => 'mention',
-							'user_id' => $mention->id,
-							'actor_id' => Authly::get_id(),
-							'actor_name' => Authly::get_name(),
-							'actor_avatar' => Authly::get_avatar_url(),
-							'body' => Input::get('body'),
-							'url' => Input::get('url'),
-							'created_at' => time()
-						));
-					}
+					$meta['mentions'][] = array(
+						'id' => $mention->id,
+						'userid' => $mention->userid,
+						'name' => $mention->name
+					);
 				}
 				
+				$data['meta'] = json_encode($meta);
 				$data['body'] = $body;
 			}
 			
-			
 			Commently::add($data);
-			
 			
 			return Redirect::to(Input::get('url'))->with('notification', 'Comment added');
 		}
