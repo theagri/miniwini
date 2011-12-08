@@ -118,7 +118,7 @@ class Post extends Blaze {
 
 		}
 		
-		$summary = preg_replace('/(@|\/)(.+?)\1/', '$2', $summary);
+		//$summary = preg_replace('/(@|\/)(.+?)\1/', '$2', $summary);
 		
 		if (strlen($summary) == 0 and $this->short_title() == '')
 		{
@@ -150,13 +150,13 @@ class Post extends Blaze {
 			case 'markdown':
 				$markdown = new Markdown();
 				$html = $markdown->parse($this->body);
+				$html = strip_tags($html, Config::get('miniwini.available_tags'));
 				break;
 				
 			default:
-				$html = HTML::autolink(nl2br($this->body));
-
+				$html = strip_tags($this->body, Config::get('miniwini.available_tags'));
+				$html = HTML::autolink(nl2br($html));
 		}
-		$html = strip_tags($html, Config::get('miniwini.available_tags'));
 		$html = Miniwini::parse_mentions($html, $this->meta);
 
 		return $html;
