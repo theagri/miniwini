@@ -154,7 +154,6 @@
 									})
 									</script>
 								</div>
-							</div>
 							
 							</fieldset>
 
