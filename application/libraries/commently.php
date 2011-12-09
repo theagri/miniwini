@@ -259,7 +259,7 @@ class Commently {
 		if (empty(static::$user) or $c->depth > Config::get('commently.max_depth') - 1)
 		{
 			$reply = '';
-			$reply = '<a data-type="reply-button" href="javascript:void(0)" onclick="javascript:commently.reply('. $c->id . ')">댓글 ↵</a>';
+//			$reply = '<a data-type="reply-button" href="javascript:void(0)" onclick="javascript:commently.reply('. $c->id . ')">댓글 ↵</a>';
 		}
 		else
 		{
