@@ -29,12 +29,16 @@ class Notification extends Blaze {
 		}
 		
 		$curr = $rec->data ? json_decode($rec->data) : array();
+		$curr_history = $rec->history ? json_decode($rec->history) : array();
 
 		array_unshift($curr, $data);
+		array_unshift($curr_history, $data);
 		
 		$curr = array_slice($curr, 0, 10);
+		$curr_history = array_slice($curr_history, 0, 100);
 		
 		$rec->data = json_encode($curr);
+		$rec->history = json_encode($curr_history);
 		$rec->last_updated_at = time();
 		$rec->new_count = count($curr);
 		
