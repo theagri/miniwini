@@ -34,12 +34,14 @@ Miniwini = (function() {
     }, this));
   }
   Miniwini.prototype.handleHotkey = function(evt) {
-    if (evt.target.nodeName.toLowerCase() !== 'body') {
+    var char, code;
+    if (['html', 'body'].indexOf(evt.target.nodeName.toLowerCase()) === -1) {
       return;
     }
-    console.log("hotkey: " + evt.keyCode);
-    switch (evt.keyCode) {
-      case 81:
+    code = evt.which || evt.keyCode;
+    char = String.fromCharCode(code);
+    switch (char) {
+      case "Q":
         if (!this.logged()) {
           return;
         }
@@ -49,7 +51,7 @@ Miniwini = (function() {
           return this.notifications();
         }
         break;
-      case 82:
+      case "R":
         return location.reload();
     }
   };

@@ -37,14 +37,19 @@ class Miniwini
 		)
 	
 	handleHotkey: (evt) ->
-		return if evt.target.nodeName.toLowerCase() != 'body'
-		console.log("hotkey: " + evt.keyCode)
-		switch evt.keyCode
-			when 81 # Q
+
+		return if ['html', 'body'].indexOf(evt.target.nodeName.toLowerCase()) == -1
+		
+		code = evt.which || evt.keyCode
+		char = String.fromCharCode(code);
+
+		switch char
+			when "Q"
+
 				return unless @logged()
 				if @noti_list.css('display') != 'none' then $('>div:last-child', @noti_list).trigger('click') else @notifications()
 				
-			when 82 # R
+			when "R"
 				location.reload()
 		
 	handleClick: (evt) ->
