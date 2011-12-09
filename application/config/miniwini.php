@@ -27,5 +27,5 @@ return array(
 		'max_name_size'=> 16,
 	),
 	
-	'available_tags' => '<br><strong><em><u><del><img><a><p><ol><ul><li><code><pre><blockquote><q><cite><span><h1><h2><h3><h4><h5><h6><hr>'
+	'available_tags' => '<br><strong><em><del><img><a><p><ol><ul><li><code><pre><blockquote><q><cite><span><h1><h2><h3><h4><h5><h6><hr>'
 );
