@@ -245,16 +245,12 @@ class Commently {
 		switch ($c->format)
 		{
 			case 'markdown':
-				$markdown = new Markdown();
-				$body = $markdown->parse($c->body);
+				$body = Miniwini::sanitized_markdown($c->body);
 				break;
 				
 			default:
-				$body = HTML::autolink(nl2br($c->body));
+				$body = Miniwini::sanitized_text($c->body);
 		}
-		
-
-		$body = strip_tags($body, Config::get('commently.available_tags'));
 
 		$body = Miniwini::parse_mentions($body, $c->meta);
 		
@@ -323,8 +319,9 @@ HTML;
 		
 				<!-- Commently form -->
 				<div data-group="commently" data-type="form-wrapper" data-url="{$this->url}">
-					<div data-group="commently" data-type="form-container" data-url="{$this->url}">
 					
+					<div data-group="commently" data-type="form-container" data-url="{$this->url}">
+						
 						<form action="{$post_url}" class="commently-form" method="POST" accept-charset="UTF-8">
 						
 						<div class="commently-help">
@@ -335,17 +332,18 @@ HTML;
 							</span>
 						</div>
 					
-					
+						
 						<div data-type="controls">
 						
 								<input type="hidden" name="provider" value="default">
 								<input type="hidden" name="url" value="{$this->url}">
 								<input type="hidden" name="parent_id" value="">
-								<textarea name="body"></textarea>
+								<textarea id="commently-body" name="body"></textarea>
+								
 								<div data-type="body" id="commently-preview"></div>
 							
 						</div>
-					
+						<div id="commently-autocomplete"></div>
 						<div data-type="footer">
 							<div data-type="accounts">
 						

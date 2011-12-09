@@ -145,17 +145,15 @@ class Post extends Blaze {
 	
 	public function body_html()
 	{
+		$html = $this->body;
 		switch ($this->format)
 		{
 			case 'markdown':
-				$markdown = new Markdown();
-				$html = $markdown->parse($this->body);
-				$html = strip_tags($html, Config::get('miniwini.available_tags'));
+				$html = Miniwini::sanitized_markdown($html);
 				break;
 				
 			default:
-				$html = strip_tags($this->body, Config::get('miniwini.available_tags'));
-				$html = HTML::autolink(nl2br($html));
+				$html = Miniwini::sanitized_text($html);
 		}
 		$html = Miniwini::parse_mentions($html, $this->meta);
 

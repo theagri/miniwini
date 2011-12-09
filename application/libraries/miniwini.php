@@ -26,6 +26,52 @@ class Miniwini {
 		return FALSE;
 	}
 	
+	// ---------------------------------------------------------------------
+	
+	public static function sanitized_markdown($body)
+	{
+		$markdown = new Markdown();
+		
+		$html = $markdown->parse(($body));
+		$html = str_replace(
+			array('<pre><code>', '</code></pre>', '<code>', '</code>'),
+			array('===PRE_START===', '===PRE_END===', '===CODE_START===', '===CODE_END'),
+			$html
+		);
+		
+		$html = static::strip_attributes(strip_tags($html, Config::get('miniwini.available_tags')));
+		$html = str_replace(
+			
+			array('===PRE_START===', '===PRE_END===', '===CODE_START===', '===CODE_END'),
+			array('<pre><code>', '</code></pre>', '<code>', '</code>'),
+			$html
+		);
+
+		return $html;
+	}
+	
+	// ---------------------------------------------------------------------
+	
+	public static function sanitized_text($body)
+	{
+		return HTML::autolink(nl2br(strip_tags($body)));
+	}
+	
+	// ---------------------------------------------------------------------
+	
+	private static function strip_attributes($str) 
+	{
+	    $reg = '/([^<]*<\s*[a-z](?:[0-9]|[a-z]{0,9}))(?:(?:\s*[a-z\-]{2,14}\s*=\s*(?:"[^"]*"|\'[^\']*\'))*)(\s*\/?>[^<]*)/i';
+	    $chunks = preg_split($reg, $str, -1,  PREG_SPLIT_DELIM_CAPTURE);
+	    $cnt = count($chunks);
+	    $buffer = array();
+	    for ($i = 1; $i < $cnt; $i++) {
+	        $buffer[] = $chunks[$i];
+	    }
+
+	    return implode('', $buffer);
+	}
+	
 	public static function parse_mentions($body, $meta)
 	{
 		if ( ! $meta)
