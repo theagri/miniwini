@@ -352,7 +352,7 @@ HTML;
 							</div>
 					
 							<div data-type="button">
-								<input type="submit" value="등록">
+								<input type="submit" value="등록" accesskey="s">
 							</div>
 						</div>
 					
