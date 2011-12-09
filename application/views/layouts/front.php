@@ -68,7 +68,16 @@
 	<? if (Session::has('exp')): ?>
 	
 	<div data-ui="exp">
+		
+		<? if (Session::has('exp_critical')): ?>
+		
+		<strong class="critical">*+<?=Session::get('exp')?>*</strong>
+		
+		<? else: ?>
+		
 		<strong>+<?=Session::get('exp')?></strong>
+		
+		<? endif; ?>
 	</div>
 	
 	<? endif; ?>

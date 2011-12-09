@@ -37,10 +37,24 @@ return array(
 				$data['body'] = $body;
 			}
 			
+			
+
+			
 			if (Commently::add($data))
 			{
-				Authly::up_exp(1);
-				Session::flash('exp', 1);
+				$rand = mt_rand(0, 1000);
+				if ($rand >= 990)
+				{
+					Authly::up_exp(10);
+					Session::flash('exp', 10);
+					Session::flash('exp_critical', TRUE);
+				}
+				else
+				{
+					Authly::up_exp(1);
+					Session::flash('exp', 1);
+				}
+				
 			}
 			
 			return Redirect::to(Input::get('url'))->with('notification', 'Comment added');

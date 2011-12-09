@@ -361,7 +361,8 @@
 [data-ui=exp]
 {
 	position:absolute;
-	width:450px;
+	width:600px;
+
 	z-index:999999;
 	color:#444;
 	opacity:1;
@@ -373,6 +374,11 @@
 		font-size:10em;
 		font-weight:bold;
 		text-shadow:0 0 5px rgba(0,0,0,0.4), 0 2px 3px rgba(0,0,0,0.5);
+		
+		&.critical
+		{
+			font-size:13em;
+		}
 	}
 	
 	&.active
