@@ -101,6 +101,14 @@ class Notification extends Blaze {
 	
 	// ---------------------------------------------------------------------
 	
+	public static function histories($user_id)
+	{
+		$rec = static::where_user_id($user_id)->first();
+		return $rec->history;
+	}
+	
+	// ---------------------------------------------------------------------
+	
 	public static function count_of($user_id)
 	{
 		$rec = static::where_user_id($user_id)->first();

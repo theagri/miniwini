@@ -120,6 +120,7 @@ Miniwini = (function() {
         return;
       }
       if (!this.noti_count.data('count')) {
+        location.href = '/notifications';
         return;
       }
       if (this.noti_count.data('time') === this.noti_list.data('time')) {

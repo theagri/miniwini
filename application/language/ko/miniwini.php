@@ -13,4 +13,12 @@ return array(
 	'board_newpost_button_submit' => '등록하기',
 	'board_newpost_button_preview' => '미리보기',
 	'board_newpost_button_edit' => '수정하기',
+	
+	'notification_action_comment_on_topic' => ':name님이 당신의 게시물에 댓글을 남겼습니다.',
+	'notification_action_comment_and_mention_on_topic' => ':name님이 당신을 언급하면서 당신의 게시물에 댓글을 남겼습니다.',
+	'notification_action_comment_on_comment' => ':name님이 당신의 댓글에 댓글을 남겼습니다.',
+	'notification_action_comment_and_mention_on_comment' => ':name님이 당신을 언급하면서 당신의 댓글에 댓글을 남겼습니다.',
+	'notification_action_mention' => ':name님이 당신을 언급했습니다',
+	
+					
 );

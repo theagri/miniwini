@@ -29,9 +29,19 @@ class Time {
 		return '<time datetime="' . date('c', $timestamp) .'"'.($is_pubdate ? ' pubdate' : '').'>' . $str . '</time>';
 	}
 	
-	public static function humanized($str)
+	public static function humanized($time)
 	{
-		$ts = strtotime($str);
+		if (is_numeric($time))
+		{
+			$str = date('c', $time);
+			$ts = $time;
+		}
+		else
+		{
+			$ts = strtotime($time);
+			$str = $time;
+		}
+
 		if (self::is_today($str))
 		{
 			return sprintf('오늘 %s %s시 %s분',

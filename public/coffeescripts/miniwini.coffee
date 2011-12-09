@@ -113,12 +113,14 @@ class Miniwini
 		try
 			return unless @logged()
 			
-			return unless @noti_count.data('count')
-			
+			unless @noti_count.data('count')
+				location.href = '/notifications'
+				return
 			
 			if @noti_count.data('time') == @noti_list.data('time')
-					@noti_list.toggle()
-					@noti_count[if @noti_list.css('display') != 'none' then 'addClass' else 'removeClass']('opened')
+				@noti_list.toggle()
+				@noti_count[if @noti_list.css('display') != 'none' then 'addClass' else 'removeClass']('opened')
+
 			
 			else
 				if @noti_count.data('loading') == 'y'

@@ -85,8 +85,6 @@
 	
 	<div id="wrapper">
 	
-		
-	
 		<header>
 			<figure>
 				<a href="/"><img src="/img/layout/miniwini_logo.png" alt="<?=Config::get('miniwini.title')?>"></a>
@@ -102,7 +100,6 @@
 			</nav>
 		</header>
 	
-
 		<? if (Authly::signed()): ?>
 	
 		<div id="mybox">
@@ -121,7 +118,7 @@
 		
 			<a title="메시지" id="messages-count" onclick="miniwini.messages(this)"></a><div id="messages"></div>
 		
-			<a title="알림" id="notifications-count" onclick="miniwini.notifications(this)"></a><div id="notifications"></div>
+			<a title="알림" href="#" id="notifications-count" onclick="return miniwini.notifications(this)"></a><div id="notifications"></div>
 		
 		</div>
 	

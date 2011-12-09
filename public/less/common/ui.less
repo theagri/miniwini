@@ -338,6 +338,55 @@
 /* =============================================================================
    Notification
    ========================================================================== */
+[data-ui=notifications]
+{
+	article
+	{
+		padding:8px;
+		border-bottom:1px dashed #ddd;
+		clear:both;
+		font-size:0.85em;
+		img
+		{
+			float:left;
+			margin-right:7px;
+		}
+		
+		a
+		{
+			display:block;
+			width:100%;
+			strong
+			{
+			}
+
+			q
+			{
+				display:block;
+				padding-top:4px;
+				color:#555;
+			}
+			time
+			{
+				float:right;
+				font-size:0.85em;
+			}
+		}
+		
+		
+		&:hover
+		{
+			background-color:@color-active;
+			
+			*
+			{
+				color:#fff;
+				text-shadow:1px 1px 0 rgba(0,0,0,0.3);
+			}
+		}
+	}
+}
+
 [data-ui=notification]
 {
 	background-color:#c10;

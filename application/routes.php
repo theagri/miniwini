@@ -26,7 +26,7 @@ return array(
 	// ---------------------------------------------------------------------
 	
 	'GET /(:any)' => array('name' => 'user', function($segment){
-		if (in_array($segment, array('m', 'roadmap', 'commently', 'ajax', 'board', 'admin', 'dashboard', 'auth', 'home')))
+		if (in_array($segment, array('m', 'roadmap', 'commently', 'ajax', 'board', 'admin', 'dashboard', 'auth', 'home', 'tweets')))
 		{
 			if (strpos('/', $segment) === FALSE)
 			{
@@ -50,10 +50,52 @@ return array(
 	
 	// ---------------------------------------------------------------------
 	
+	'GET /notifications' => array('before' => 'signed', function(){
+		$data = json_decode(Notification::histories(Authly::get_id()));
+
+		return View::of_front()->nest('content', 'dashboard/notifications', array(
+			'histories' => $data
+		));
+	}),
+	
+	// ---------------------------------------------------------------------
+	
+	'GET /wall' => function(){
+		return View::of_front()->nest('content', 'home/wall');
+	},
+	
+	// ---------------------------------------------------------------------
+	
 	'GET /m' => function(){
 		return Response::error(404);
 		$mobile = Session::get('mobile');
 		Session::put('mobile', ! $mobile);
 		return Redirect::to_home();
+	},
+	
+	// ---------------------------------------------------------------------
+	
+	'GET /tweets' => function()
+	{
+		require_once LIBRARY_PATH . '/authly/factory.php';
+		$data = null;
+		$conn = Authly::connection('twitter');
+		$data = array(
+			'oauth_token_secret' => $conn->auth_token_secret,
+			'oauth_token' => $conn->auth_token,
+		);
+		
+		$module = \Authly\Factory::create('twitter', $data);
+		$tweets = $module->send_signed_request('https://api.twitter.com/1/lists/statuses.json', 'GET', array(
+			'slug' => 'miniwini',
+			'owner_screen_name' => 'miniwini_twt',
+			'per_page' => 50
+			
+		));
+		
+		
+		return View::of_front()->nest('content', 'home/tweets', array(
+			'tweets' => json_decode($tweets)
+		));
 	}
 );
