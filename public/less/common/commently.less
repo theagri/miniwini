@@ -1,6 +1,5 @@
 @import "include.less";
 
-
 [data-group=commently]
 {
 	&[data-type=comments]
@@ -31,7 +30,10 @@
 		&.depth-8 {margin-left:160px;}
 		&.depth-9 {margin-left:180px;}
 		&.depth-10 {margin-left:200px;}
-		
+		&.depth-11 {margin-left:220px;}
+		&.depth-12 {margin-left:240px;}
+		&.depth-13 {margin-left:260px;}
+		&.depth-14 {margin-left:280px;}			
 		header
 		{
 			background-color:#eaeaea;
@@ -43,7 +45,6 @@
 			font-size:0.95em;
 			border-top-right-radius:4px;
 			border-bottom-right-radius:4px;
-			width:100%;
 			text-shadow:1px 1px 0 rgba(255,255,255,0.8);
 			figure
 			{
@@ -147,8 +148,11 @@
 		border:1px solid rgba(0,0,0,0.2);
 		box-shadow:0 1px 1px rgba(0,0,0,0.3);
 		
+		
+		
 		#commently-preview
 		{
+			clear:both;
 			display:none;
 			background-color:#333;
 			border-radius:4px;
@@ -225,6 +229,7 @@
 		
 		[data-type=footer]
 		{
+			clear:both;
 			height:32px;
 			padding-top:8px;
 		}
@@ -249,8 +254,8 @@
 			{
 				width:99%;
 				position:relative;
+				z-index:1;
 				height:28px;
-				
 				&.active
 				{
 					height:250px;
@@ -271,5 +276,53 @@
 				float:right;
 			}
 		}
+	}
+}
+
+
+#commently-autocomplete
+{
+	position:absolute;
+	max-height:50px;
+	margin:5px 0;
+	> div
+	{
+		float:left;
+		height:30px;
+		background-color:#222;
+		border-right:1px solid rgba(255,255,255,0.3);
+		padding:5px;
+		box-shadow:0 0 4px rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.3);
+		
+		img
+		{
+			float:left;
+			border-radius:4px;
+			margin-right:5px;
+		}
+		
+		> div
+		{
+			text-shadow:1px 1px rgba(0,0,0,0.8);
+			text-align:left;
+			font-size:0.8em;
+			color:#ddd;
+			float:left;
+			
+			strong
+			{
+				color:#fff;
+
+				font-size:1.3em;
+			}
+			
+
+		}
+		&.active
+		{
+			background-color:@color-active;
+			
+		}	
+		
 	}
 }
