@@ -551,6 +551,28 @@ class Authly {
 				return static::$user ? static::$user->$key : NULL;
 			}
 		}
+		elseif (preg_match('/^up_(.+)/', $method, $m))
+		{
+			$key = $m[1];
+			$num = $arg[0];
+			$new_val = static::$user->$key + abs($num);
+			return DB::table(static::$table_user)
+				->where('id', '=', static::get_id())
+				->update(array(
+					$key => $new_val
+				));
+		}
+		elseif (preg_match('/^down_(.+)/', $method, $m))
+		{
+			$key = $m[1];
+			$num = $arg[0];
+			$new_val = static::$user->$key - abs($num);
+			return DB::table(static::$table_user)
+				->where('id', '=', static::get_id())
+				->update(array(
+					$key => $new_val
+				));
+		}
 		elseif (in_array($method, array('id', 'name', 'email', 'userid')))
 		{
 			return static::$user ? static::$user->$method : NULL;
