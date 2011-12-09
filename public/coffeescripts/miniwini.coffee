@@ -27,6 +27,19 @@ class Miniwini
 				})
 		})
 		
+		if @logged()
+			exp = $('[data-ui=exp]')
+
+			if exp.size()
+				exp.css({
+					top:(window.innerHeight - exp.height()) / 2,
+					left:(window.innerWidth - exp.width()) / 2
+					})
+		
+				window.setTimeout( ->
+					exp.addClass('active')
+				,10)
+		
 		
 		@doc.bind('click', (evt) =>
 			@handleClick(evt)
@@ -42,15 +55,12 @@ class Miniwini
 		
 		code = evt.which || evt.keyCode
 		char = String.fromCharCode(code);
-
 		switch char
 			when "Q"
 
 				return unless @logged()
 				if @noti_list.css('display') != 'none' then $('>div:last-child', @noti_list).trigger('click') else @notifications()
 				
-			when "R"
-				location.reload()
 		
 	handleClick: (evt) ->
 		if evt.target.id is 'links-trigger'

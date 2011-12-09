@@ -65,6 +65,15 @@
 
 <body data-user="<?=(Authly::signed() ? 'y' : 'n')?>">
 	
+	<? if (Session::has('exp')): ?>
+	
+	<div data-ui="exp">
+		<strong>+<?=Session::get('exp')?></strong>
+	</div>
+	
+	<? endif; ?>
+	
+	
 	<div id="wrapper">
 	
 		
@@ -124,7 +133,9 @@
 		
 	
 		<div id="content">
-		
+			
+			
+			
 			<? if (Session::has('errors')): ?>
 
 			<div data-ui="error">

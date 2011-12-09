@@ -22,7 +22,6 @@ return array(
 			{
 				$body = $data['body'];
 				
-				
 				$meta = array('mentions' => array());
 				
 				foreach ($mentions as $mention)
@@ -38,7 +37,11 @@ return array(
 				$data['body'] = $body;
 			}
 			
-			Commently::add($data);
+			if (Commently::add($data))
+			{
+				Authly::up_exp(1);
+				Session::flash('exp', 1);
+			}
 			
 			return Redirect::to(Input::get('url'))->with('notification', 'Comment added');
 		}

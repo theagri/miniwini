@@ -2,6 +2,7 @@ var Miniwini;
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 Miniwini = (function() {
   function Miniwini() {
+    var exp;
     this.doc = $(document);
     this.notificationCheckInterval = 8000;
     this.checkNotification();
@@ -26,6 +27,18 @@ Miniwini = (function() {
         });
       }, this)
     });
+    if (this.logged()) {
+      exp = $('[data-ui=exp]');
+      if (exp.size()) {
+        exp.css({
+          top: (window.innerHeight - exp.height()) / 2,
+          left: (window.innerWidth - exp.width()) / 2
+        });
+        window.setTimeout(function() {
+          return exp.addClass('active');
+        }, 10);
+      }
+    }
     this.doc.bind('click', __bind(function(evt) {
       return this.handleClick(evt);
     }, this));
@@ -50,9 +63,6 @@ Miniwini = (function() {
         } else {
           return this.notifications();
         }
-        break;
-      case "R":
-        return location.reload();
     }
   };
   Miniwini.prototype.handleClick = function(evt) {

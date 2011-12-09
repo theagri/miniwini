@@ -358,6 +358,33 @@
 }
 
 
+[data-ui=exp]
+{
+	position:absolute;
+	width:450px;
+	z-index:999999;
+	color:#444;
+	opacity:1;
+	text-align:center;
+	strong
+	{
+		color:green;
+		font-family:serif;
+		font-size:10em;
+		font-weight:bold;
+		text-shadow:0 0 5px rgba(0,0,0,0.4), 0 2px 3px rgba(0,0,0,0.5);
+	}
+	
+	&.active
+	{
+		.transition(2.5s);
+		opacity:0;
+		top:-200px !important;
+	}
+}
+
+
+
 /* =============================================================================
    Toolbox
    ========================================================================== */
