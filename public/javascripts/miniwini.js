@@ -29,7 +29,30 @@ Miniwini = (function() {
     this.doc.bind('click', __bind(function(evt) {
       return this.handleClick(evt);
     }, this));
+    this.doc.bind('keyup', __bind(function(evt) {
+      return this.handleHotkey(evt);
+    }, this));
   }
+  Miniwini.prototype.handleHotkey = function(evt) {
+    if (evt.target.nodeName.toLowerCase() !== 'body') {
+      return;
+    }
+    console.log("hotkey: " + evt.keyCode);
+    switch (evt.keyCode) {
+      case 81:
+        if (!this.logged()) {
+          return;
+        }
+        if (this.noti_list.css('display') !== 'none') {
+          return $('>div:last-child', this.noti_list).trigger('click');
+        } else {
+          return this.notifications();
+        }
+        break;
+      case 82:
+        return location.reload();
+    }
+  };
   Miniwini.prototype.handleClick = function(evt) {
     if (evt.target.id === 'links-trigger') {
       this.noti_list.hide();
@@ -79,7 +102,7 @@ Miniwini = (function() {
 
     }
   };
-  Miniwini.prototype.notifications = function(src) {
+  Miniwini.prototype.notifications = function() {
     try {
       if (!this.logged()) {
         return;

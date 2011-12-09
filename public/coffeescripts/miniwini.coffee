@@ -32,7 +32,21 @@ class Miniwini
 			@handleClick(evt)
 		)
 		
+		@doc.bind('keyup', (evt) =>
+			@handleHotkey(evt)
+		)
 	
+	handleHotkey: (evt) ->
+		return if evt.target.nodeName.toLowerCase() != 'body'
+		console.log("hotkey: " + evt.keyCode)
+		switch evt.keyCode
+			when 81 # Q
+				return unless @logged()
+				if @noti_list.css('display') != 'none' then $('>div:last-child', @noti_list).trigger('click') else @notifications()
+				
+			when 82 # R
+				location.reload()
+		
 	handleClick: (evt) ->
 		if evt.target.id is 'links-trigger'
 			@noti_list.hide()
@@ -58,7 +72,6 @@ class Miniwini
 		
 	checkNotification: ->
 		
-		
 		try
 			
 			return unless @logged()
@@ -80,17 +93,15 @@ class Miniwini
 			)
 		catch err
 			
-	notifications: (src) ->
+	notifications: ->
 		
 		try
-			
 			return unless @logged()
 			
 			return unless @noti_count.data('count')
 			
 			
 			if @noti_count.data('time') == @noti_list.data('time')
-					
 					@noti_list.toggle()
 					@noti_count[if @noti_list.css('display') != 'none' then 'addClass' else 'removeClass']('opened')
 			
