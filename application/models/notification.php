@@ -35,7 +35,7 @@ class Notification extends Blaze {
 		array_unshift($curr_history, $data);
 		
 		$curr = array_slice($curr, 0, 10);
-		$curr_history = array_slice($curr_history, 0, 100);
+		$curr_history = array_slice($curr_history, 0, 200);
 		
 		$rec->data = json_encode($curr);
 		$rec->history = json_encode($curr_history);
