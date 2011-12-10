@@ -2,6 +2,8 @@
 			<h1>Notifications</h1>
 			
 			<section data-ui="notifications">
+				
+				<? if ( ! empty($histories)): ?>
 			
 				<? foreach ($histories as $h): ?>
 				
@@ -14,10 +16,10 @@
 						<br>
 						<q><?=$h->body?>…</q>
 					</a>
-					
-					
-					
 				</article>
 				
 				<? endforeach; ?>
+				
+				<? endif; ?>
+				
 			</section>
