@@ -43,14 +43,14 @@
 						
 						<? endif; ?>
 			
-						<?if ($p->comments_count > 0):?>
-			
-						<span data-type="comments-count"><?=number_format($p->comments_count)?></span>
-			
-						<? endif; ?>
+						
 			
 					</h1>
+					<?if ($p->comments_count > 0):?>
 		
+					<span data-type="comments-count"><?=number_format($p->comments_count)?></span>
+		
+					<? endif; ?>
 		
 				</article>
 
