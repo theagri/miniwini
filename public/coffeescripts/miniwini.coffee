@@ -38,7 +38,7 @@ class Miniwini
 		
 				window.setTimeout( ->
 					exp.addClass('active')
-				,10)
+				,100)
 		
 		
 		@doc.bind('click', (evt) =>

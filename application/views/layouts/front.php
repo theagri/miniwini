@@ -78,6 +78,8 @@
 		<strong>+<?=Session::get('exp')?></strong>
 		
 		<? endif; ?>
+		
+		<small>(<?=Authly::get_exp()?>)</small>
 	</div>
 	
 	<? endif; ?>

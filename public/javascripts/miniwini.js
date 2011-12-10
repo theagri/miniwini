@@ -36,7 +36,7 @@ Miniwini = (function() {
         });
         window.setTimeout(function() {
           return exp.addClass('active');
-        }, 10);
+        }, 100);
       }
     }
     this.doc.bind('click', __bind(function(evt) {
