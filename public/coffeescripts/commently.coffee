@@ -260,7 +260,7 @@ class Commently
 			
 		root = @getRoot(article.data('url'))
 		article.addClass('deleting')
-		$('[data-type=body]', article).after('<div class="commently-deleting"><a href="/commently/delete/'+id+'">댓글을 삭제하시면 클릭하세요.</a><small>삭제된 댓글은 되살릴 수 없습니다.</small></div>')
+		$('[data-type=body]', article).after('<div class="commently-deleting"><a href="/commently/delete/'+id+'">댓글을 삭제하려면 클릭하세요.</a><small>삭제된 댓글은 되살릴 수 없습니다.</small></div>')
 		
 		return false
 
