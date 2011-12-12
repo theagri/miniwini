@@ -60,12 +60,6 @@ return array(
 	
 	// ---------------------------------------------------------------------
 	
-	'GET /wall' => function(){
-		return View::of_front()->nest('content', 'home/wall');
-	},
-	
-	// ---------------------------------------------------------------------
-	
 	'GET /m' => function(){
 		return Response::error(404);
 		$mobile = Session::get('mobile');
@@ -77,6 +71,7 @@ return array(
 	
 	'GET /tweets' => function()
 	{
+		return Response::error(404);
 		require_once LIBRARY_PATH . '/authly/factory.php';
 		$data = null;
 		$conn = Authly::connection('twitter');
