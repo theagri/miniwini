@@ -23,6 +23,11 @@
 							<label>이름 <small>(최소 <?=Config::get('miniwini.user.min_name_size')?>글자, 최대 <?=Config::get('miniwini.user.max_name_size')?>글자)</small></label>
 							<input data-length="short" type="text" name="name" value="<?=e(Input::old('name', Authly::get_name()))?>" required>
 						</div>
+						
+						<div data-ui="control-box-full-vertical">
+							<label>홈페이지</label>
+							<input data-length="short" type="text" name="homepage" value="<?=e(Input::old('homepage', Authly::get_homepage()))?>">
+						</div>
 							
 						<div class="actions">
 							<input type="submit" value="수정하기">

@@ -69,14 +69,23 @@ return array(
 	
 	'PUT /auth/edit' => array('before' => 'signed|csrf', function(){
 
-		$val = Validator::make(array('name' => Input::get('name')), array('name' => 'required|min:' . Config::get('miniwini.user.min_name_size') . '|max:' . Config::get('miniwini.user.max_name_size')));
+		$val = Validator::make(
+			array(
+				'name' => Input::get('name'),
+				'homepage' => Input::get('homepage')
+			), 
+			array(
+				'name' => 'required|min:' . Config::get('miniwini.user.min_name_size') . '|max:' . Config::get('miniwini.user.max_name_size'),
+				'homepage' => 'url'
+			));
 		
 		if ($val->valid())
 		{
 			$input = array(
 				'name' => strip_tags(Input::get('name')),
-				
+				'homepage' => strip_tags(Input::get('homepage'))
 			);
+			
 			$file = Input::file('avatar');
 			
 			$val_file = Validator::make(array('avatar' => $file), array('avatar' => 'image|max:' . Config::get('miniwini.avatar.max_size')));
@@ -94,7 +103,7 @@ return array(
 			return Redirect::to('auth/edit')->with('notification', 'Updated!');
 		}
 		
-		return Redirect::to('auth/edit');
+		return Redirect::to('auth/edit')->with('errors', '오류가 있습니다!');
 	}),
 	
 	// ---------------------------------------------------------------------
