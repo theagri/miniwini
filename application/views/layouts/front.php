@@ -19,7 +19,16 @@
 	<meta name="description" content="">
 	
 	<link href="/favicon.png" rel="shortcut icon" type="image/png">
+	
+	<? if ($_SERVER['LARAVEL_ENV'] == 'development'): ?>
+	
 	<link rel="stylesheet" href="/css/miniwini.css" type="text/css">
+	
+	<? else: ?>
+	
+	<link rel="stylesheet" href="/css/desktop.css" type="text/css">
+	
+	<? endif; ?>
 	
 	
 	
@@ -75,7 +84,15 @@
 		
 		<? else: ?>
 		
+		<? if (Session::get('exp') > 0): ?>
+		
 		<strong>+<?=Session::get('exp')?></strong>
+		
+		<? else: ?>
+		
+		<strong class="minus">-<?=abs(Session::get('exp'))?></strong>
+		
+		<? endif; ?>
 		
 		<? endif; ?>
 		
