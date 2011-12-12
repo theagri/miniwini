@@ -2,4 +2,6 @@
 @import url("common/base.css");
 @import url("common/ui.css");
 @import url("common/commently.css");
-@import url("desktop.css");
+@import url("desktop/fonts.css");
+@import url("desktop/layout.css");
+@import url("desktop/board.css");

@@ -21,7 +21,7 @@ nav ul li:hover{background:#ffffff;background:-webkit-gradient(linear, left bott
 #mybox>a#notifications-count.active:hover{color:#ef3801;}
 #mybox>a#notifications-count.loading:before{font-size:1.2em !important;content:"V";}
 #mybox>a#notifications-count.loading span{display:none;}
-#mybox>a#notifications-count span{color:#fff;text-shadow:1px 1px 0 rgba(0, 0, 0, 0.3);font-size:0.8em;text-align:center;display:inline-block;height:21px;width:40px;padding-top:5px;position:relative;top:-21px;font-weight:bold;}
+#mybox>a#notifications-count span{color:#fff;text-shadow:1px 1px 0 rgba(0, 0, 0, 0.3);font-size:0.8em;text-align:center;display:inline-block;height:21px;width:40px;padding-top:5px;position:relative;top:-23px;font-weight:bold;}
 #mybox>a#notifications-count.opened{background-color:#333;border-top-left-radius:4px;border-top-right-radius:4px;box-shadow:1px 1px 1px rgba(0, 0, 0, 0.4);}#mybox>a#notifications-count.opened:before{color:#aaa;opacity:1;text-shadow:1px 1px 0 rgba(0, 0, 0, 0.4);}
 #mybox>a#messages-count:before{content:"@";}
 #mybox>a:hover:before{color:#fff;opacity:1;text-shadow:1px 1px 0 rgba(0, 0, 0, 0.4);}

@@ -27,18 +27,19 @@ class Miniwini
 				})
 		})
 		
+		
+		# exp
 		if @logged()
 			exp = $('[data-ui=exp]')
 
 			if exp.size()
 				exp.css({
-					top:(window.innerHeight - exp.height()) / 2,
-					left:(window.innerWidth - exp.width()) / 2
-					})
-		
+					top:(window.innerHeight - 100) / 2
+				}).show()
+					
 				window.setTimeout( ->
 					exp.addClass('active')
-				,100)
+				,400)
 		
 		
 		@doc.bind('click', (evt) =>

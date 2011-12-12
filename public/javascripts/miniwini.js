@@ -31,12 +31,11 @@ Miniwini = (function() {
       exp = $('[data-ui=exp]');
       if (exp.size()) {
         exp.css({
-          top: (window.innerHeight - exp.height()) / 2,
-          left: (window.innerWidth - exp.width()) / 2
-        });
+          top: (window.innerHeight - 100) / 2
+        }).show();
         window.setTimeout(function() {
           return exp.addClass('active');
-        }, 100);
+        }, 400);
       }
     }
     this.doc.bind('click', __bind(function(evt) {

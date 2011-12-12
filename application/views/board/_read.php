@@ -86,7 +86,7 @@
 
 			<? endif; ?>
 
-			<section data-group="commently" data-type="comments" data-url="<?=URL::to($board->link() . '/' . $post->id)?>">
+			<section id="commently-comments" data-group="commently" data-type="comments" data-url="<?=URL::to($board->link() . '/' . $post->id)?>">
 				
 				<?=Commently::make(URL::to($board->link() . '/' . $post->id))->comments()?>
 				
@@ -95,4 +95,15 @@
 			</section>
 
 
-	
+			<script>
+			$(function(){
+				if (document.location.hash)
+				{
+					var hash = document.location.hash.substring(1);
+					if (hash.indexOf('commently-comment-') === 0)
+					{
+						//$('#' + hash).addClass('highlighted');
+					}
+				}
+			})
+			</script>

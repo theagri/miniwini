@@ -1,5 +1,9 @@
 [data-group=commently][data-type=comments]{margin-bottom:50px;}
-[data-group=commently] [data-type=comment]{margin-bottom:15px;clear:both;}
+[data-group=commently] .commently-edit-title{border:2px solid rgba(0, 0, 0, 0.2);box-shadow:inset 0 0 2px rgba(255, 255, 255, 0.7),0 0 2px rgba(0, 0, 0, 0.2),0 1px 1px rgba(0, 0, 0, 0.1);text-shadow:1px 1px 0 rgba(255, 255, 255, 0.4);border-radius:4px;background-color:#ddf184;margin:10px 0 15px;padding:6px;font-size:1.2em;}[data-group=commently] .commently-edit-title small{cursor:pointer;}[data-group=commently] .commently-edit-title small:hover{color:#ef3801;}
+[data-group=commently] .commently-edit-title>span{padding-top:2px;float:right;text-align:right;font-size:0.8em;color:#555;}
+[data-group=commently] [data-type=comment]{margin-bottom:15px;clear:both;}[data-group=commently] [data-type=comment].deleting header{background-color:#c10 !important;}[data-group=commently] [data-type=comment].deleting header *{color:#eee;text-shadow:1px 1px 0 rgba(0, 0, 0, 0.4);}
+[data-group=commently] [data-type=comment].deleting .commently-deleting{color:#c10;text-align:center;}[data-group=commently] [data-type=comment].deleting .commently-deleting a{font-size:1.2em;text-decoration:underline;}
+[data-group=commently] [data-type=comment].deleting .commently-deleting small{font-size:0.8em;padding-top:5px;display:block;}
 [data-group=commently] [data-type=comment].depth-1{margin-left:20px;}
 [data-group=commently] [data-type=comment].depth-2{margin-left:40px;}
 [data-group=commently] [data-type=comment].depth-3{margin-left:60px;}
@@ -16,8 +20,13 @@
 [data-group=commently] [data-type=comment].depth-14{margin-left:280px;}
 [data-group=commently] [data-type=comment] header{background-color:#eaeaea;border:1px solid #e1e1e1;border-bottom:1px solid #ddd;border-right:1px solid #ddd;height:23px;overflow:hidden;font-size:0.95em;border-top-right-radius:4px;border-bottom-right-radius:4px;text-shadow:1px 1px 0 rgba(255, 255, 255, 0.8);}[data-group=commently] [data-type=comment] header figure{float:left;width:24px;border-right:1px solid rgba(255, 255, 255, 0.8);}[data-group=commently] [data-type=comment] header figure img{border-radius:0;}
 [data-group=commently] [data-type=comment] header [data-type=user]{padding-left:6px;line-height:25px;padding-right:10px;}
-[data-group=commently] [data-type=comment] header time{text-align:right;line-height:25px;font-size:0.8em;color:#999;padding-right:8px;}
+[data-group=commently] [data-type=comment] header time{text-align:right;line-height:25px;font-size:0.8em;color:#888;padding-right:8px;}
 [data-group=commently] [data-type=comment] header [data-type=reply-button]{float:right;width:50px;line-height:25px;font-size:0.8em;text-align:center;}[data-group=commently] [data-type=comment] header [data-type=reply-button] a{color:#555;}
+[data-group=commently] [data-type=comment] header [data-type=tools] a{font-size:0.9em;color:#aaa;}
+[data-group=commently] [data-type=comment] header [data-type=tools] [data-type=delete-link]{padding-left:3px;}[data-group=commently] [data-type=comment] header [data-type=tools] [data-type=delete-link]:before{font-family:WebSymbols;content:"'";}
+[data-group=commently] [data-type=comment] header [data-type=tools] [data-type=delete-link]:hover:before{color:#c10;}
+[data-group=commently] [data-type=comment] header [data-type=tools] [data-type=edit-link]{padding-right:7px;border-right:1px solid #ccc;}[data-group=commently] [data-type=comment] header [data-type=tools] [data-type=edit-link]:before{font-family:WebSymbols;content:"a";}
+[data-group=commently] [data-type=comment] header [data-type=tools] [data-type=edit-link]:hover:before{color:green;}
 [data-group=commently] [data-type=comment][data-today=y] header{background-color:#eee;border:1px solid rgba(0, 0, 0, 0.2);}
 [data-group=commently] [data-type=comment] [data-type=body]{padding:5px 3px 5px 3px;font-size:0.95em;line-height:1.4em;text-shadow:1px 1px 0 rgba(255, 255, 255, 0.8);}
 [data-group=commently] [data-type=comment] [data-type=user]{font-weight:bold;}

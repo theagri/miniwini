@@ -17,15 +17,14 @@ class Commently {
 	protected static $page = NULL;
 	
 	protected static $user = NULL;
-
-	/**
-	 * @constructor
-	 * @param   string  $url
-	 */
+	
+	protected static $comment_data = array();
+	
+	// ---------------------------------------------------------------------
+	
 	public function __construct($url)
 	{
 		$this->url = static::normalize_url($url);
-
 	}
 	
 	// ---------------------------------------------------------------------
@@ -57,7 +56,9 @@ class Commently {
 	
 	public static function comment($id)
 	{
-		return DB::table(static::$table_data)->where_id($id)->first();
+		$rec = DB::table(static::$table_data)->where_id($id)->first();
+		$rec->can_edit_within = Config::get('commently.max_seconds_to_edit') - (time() - strtotime($rec->created_at));
+		return $rec;
 	}
 	
 	// ---------------------------------------------------------------------
@@ -105,6 +106,67 @@ class Commently {
 
 		$rec = DB::table(static::$table_pages)->where_url($url)->first();
 		return (static::$page = $rec);
+	}
+	
+	// ---------------------------------------------------------------------
+	
+	public static function edit($data)
+	{
+		$url = $data['url'];
+		
+		// check account
+		$provider = $data['provider'];
+		
+		$func = Config::get('commently.account_by_provider');
+		if (is_callable($func))
+		{
+			$account = call_user_func($func, $provider);
+			if ( ! $account)
+			{
+				return FALSE;
+			}
+		}
+
+		$page = static::find_or_create_by_url($url);
+		if ($page)
+		{
+			$comment_data = array_merge(array(
+				'body' => $data['body'],
+				'meta' => ! empty($data['meta']) ? $data['meta'] : NULL,
+				'format' => ($data['format'] ? $data['format'] : 'text'),
+				'updated_at' => date('Y-m-d H:i:s'),
+				'ip' => Request::ip()
+			), $account);
+			
+			return DB::table(static::$table_data)->where('id', '=', $data['id'])->update($comment_data);
+		}
+		return FALSE;
+	}
+	
+	// ---------------------------------------------------------------------
+	
+	public static function delete($id)
+	{
+		$rec = static::comment($id);
+		if ( ! $rec)
+		{
+			return FALSE;
+		}
+		
+		$res = DB::table(static::$table_data)->where('id', '=', $id)->delete();
+		if ($res)
+		{
+			// call 'after_hook'
+			$page = DB::table(static::$table_pages)->where('id', '=', $rec->page_id)->first();
+			$hook = Config::get('commently.after_delete_hook');
+			if (is_callable($hook))
+			{
+				call_user_func_array($hook, array($page, $rec));
+			}
+			
+			return TRUE;
+		}
+		return FALSE;
 	}
 	
 	// ---------------------------------------------------------------------
@@ -162,7 +224,11 @@ class Commently {
 	
 	// ---------------------------------------------------------------------
 	
-	
+	/**
+	 * Returns comments
+	 *
+	 * @return   string
+	 */
 	public function comments()
 	{
 		$page = static::find_page_by_url($this->url);
@@ -178,7 +244,7 @@ class Commently {
 		$result = array();
 		$map = array();
 		$parsed = array();
-		$sorted = array();
+
 		for ($i = 0; $i < count($comments); $i++)
 		{
 			$c = $comments[$i];
@@ -220,19 +286,82 @@ class Commently {
 			$seq = ltrim($merged . '-' . str_pad($c->id, static::$MAX_PAD, '0', STR_PAD_LEFT) , '-');
 			$c->depth = substr_count($seq, '-');			
 			
-			$sorted[$seq] = $c;
-
+			static::$comment_data[$seq] = $c;
 		}
 
-		ksort($sorted);
-		
+		ksort(static::$comment_data);
+
 		$h = array();
-		foreach ($sorted as $path => $c)
+		foreach (static::$comment_data as $path => $c)
 		{
 			$h[] = static::comment_to_html($c, $page);
 		}
 		
 		return implode("\n", $h);
+	}
+	
+	protected static function isMine($c)
+	{
+		if ( ! static::$user)
+		{
+			return FALSE;
+		}
+
+		return static::$user['default']['id'] == $c->author_id;
+	}
+	
+	// ---------------------------------------------------------------------
+	
+
+	
+	public static function has_child($c)
+	{
+		if (empty(static::$comment_data))
+		{
+			return (int) DB::table(static::$table_data)->where('parent_id', '=', $c->id)->count() > 0;
+		}
+		foreach (static::$comment_data as $comment)
+		{
+			if ($comment->parent_id == $c->id)
+			{
+				return TRUE;
+			}
+		}
+		
+		return FALSE;
+	}
+	
+	// ---------------------------------------------------------------------
+	
+	public static function can_delete($c)
+	{
+		if (static::has_child($c))
+		{
+			return FALSE;
+		}
+
+		if (abs(time() - strtotime($c->created_at)) > Config::get('commently.max_seconds_to_delete'))
+		{
+			return FALSE;
+		}
+		
+		return TRUE;
+	}
+	
+	// ---------------------------------------------------------------------
+	
+	public static function can_edit($c)
+	{
+		if (static::has_child($c))
+		{
+			return FALSE;
+		}
+		
+		if (abs(time() - strtotime($c->created_at)) > Config::get('commently.max_seconds_to_edit'))
+		{
+			return FALSE;
+		}
+		return TRUE;		
 	}
 	
 	// ---------------------------------------------------------------------
@@ -256,14 +385,30 @@ class Commently {
 		
 		$today = Time::is_today($c->created_at) ? ' data-today="y"' : '';
 
+		// reply
 		if (empty(static::$user) or $c->depth > Config::get('commently.max_depth') - 1)
 		{
 			$reply = '';
-//			$reply = '<a data-type="reply-button" href="javascript:void(0)" onclick="javascript:commently.reply('. $c->id . ')">댓글 ↵</a>';
 		}
 		else
 		{
 			$reply = '<a data-type="reply-button" href="javascript:void(0)" onclick="javascript:commently.reply('. $c->id . ')">댓글 ↵</a>';
+		}
+		$tool_edit = '';		
+		$tool_delete = '';
+		
+		if (static::isMine($c))
+		{
+			if (static::can_delete($c))
+			{
+				$tool_delete = '<a title="삭제하기" data-type="delete-link" href="#commently-comments" onclick="return commently.delete('.$c->id.')"></a>';
+			}
+			
+			if (static::can_edit($c))
+			{
+				$tool_edit = '<a title="수정하기" data-type="edit-link" href="#commently-comments" onclick="commently.edit('.$c->id.')"></a>';
+			}
+			
 		}
 
 		return <<<HTML
@@ -274,6 +419,8 @@ class Commently {
 						<span data-type="user"><a href="{$c->author_url}">{$c->author_name}</a></span>
 
 						{$time}
+						
+						<span data-type="tools">{$tool_edit} {$tool_delete}</span>
 
 						{$reply}
 
@@ -281,6 +428,8 @@ class Commently {
 					<div data-type="body">
 
 					{$body}
+					
+					
 
 					</div>
 					<div id="commently-reply-{$c->id}"></div>
@@ -315,6 +464,8 @@ HTML;
 			$format = ' checked';
 		}
 		
+		$token = Form::token();
+		
 		$html = <<<HTML
 		
 				<!-- Commently form -->
@@ -322,7 +473,7 @@ HTML;
 					
 					<div data-group="commently" data-type="form-container" data-url="{$this->url}">
 						
-						<form action="{$post_url}" class="commently-form" method="POST" accept-charset="UTF-8">
+						<form action="{$post_url}" data-action-url="{$post_url}" class="commently-form" method="POST" accept-charset="UTF-8">
 						
 						<div class="commently-help">
 							<span>HTML은 사용할 수 없습니다.</span>
@@ -337,7 +488,12 @@ HTML;
 						
 								<input type="hidden" name="provider" value="default">
 								<input type="hidden" name="url" value="{$this->url}">
-								<input type="hidden" name="parent_id" value="">
+								<input type="hidden" name="parent_id">
+								
+								<input type="hidden" name="id">
+								
+								{$token}
+								
 								<textarea id="commently-body" name="body"></textarea>
 								
 								<div data-type="body" id="commently-preview"></div>
