@@ -55,7 +55,7 @@ class Miniwini {
 	
 	public static function sanitized_text($body)
 	{
-		return HTML::autolink(nl2br(strip_tags($body)));
+		return HTML::autolink(nl2br(strip_tags(e($body))));
 	}
 	
 	// ---------------------------------------------------------------------
