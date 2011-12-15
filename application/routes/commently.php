@@ -6,13 +6,12 @@ return array(
 		return json_encode($comments);
 	},
 	
+	// ---------------------------------------------------------------------
+	
 	'GET /commently/delete/(:num)' => array('before' => 'signed', function($id){
 		$comment = Commently::comment($id);
 
-		if ( ! $comment)
-		{
-			return Redirect::back()->with('errors', '코멘트를 찾을 수 없습니다.');
-		}
+		if ( ! $comment) return Redirect::back()->with('errors', '코멘트를 찾을 수 없습니다.');
 		
 		if ( 
 			($comment->author_id == Authly::get_id()) and
@@ -27,10 +26,8 @@ return array(
 			
 			return Redirect::back()->with('notification', '코멘트를 삭제하였습니다.');
 		}
-		else
-		{
-			return Redirect::back()->with('errors', '코멘트를 삭제할 수 없습니다.');
-		}
+
+		return Redirect::back()->with('errors', '코멘트를 삭제할 수 없습니다.');
 	}),
 	
 	// ---------------------------------------------------------------------
@@ -41,6 +38,7 @@ return array(
 			'url' => 'required|url',
 			'body' => 'required'
 		);
+		
 		$data = Input::all();
 		$editable = FALSE;
 		
@@ -87,38 +85,27 @@ return array(
 				$data['body'] = $body;
 			}
 			
-
-			
-			if ($editable)
+			if ($editable and Commently::edit($data))
 			{
-
-				if (Commently::edit($data))
+				return Redirect::to(Input::get('url'))->with('notification', 'Comment updated!');
+			}
+			else if (Commently::add($data))
+			{
+				$rand = mt_rand(1, 1000);
+				if ($rand > 990)
 				{
-					return Redirect::to(Input::get('url'))->with('notification', 'Comment updated!');
+					Authly::up_exp(10);
+					Session::flash('exp', 10);
+					Session::flash('exp_critical', TRUE);
+				}
+				else
+				{
+					Authly::up_exp(1);
+					Session::flash('exp', 1);
 				}
 			}
-			else
-			{
-				if (Commently::add($data))
-				{
-					$rand = mt_rand(0, 1000);
-					if ($rand >= 990)
-					{
-						Authly::up_exp(10);
-						Session::flash('exp', 10);
-						Session::flash('exp_critical', TRUE);
-					}
-					else
-					{
-						Authly::up_exp(1);
-						Session::flash('exp', 1);
-					}
-				}
 
-				return Redirect::to(Input::get('url'))->with('notification', 'Comment added');
-			}
-			
-			
+			return Redirect::to(Input::get('url'))->with('notification', 'Comment added');
 		}
 		
 		return Redirect::to(Input::get('url'));
