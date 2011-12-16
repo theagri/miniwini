@@ -1,4 +1,4 @@
-/* generated: Mon Dec 12 11:47:04 +0900 2011 */
+/* generated: Fri Dec 16 14:09:29 +0900 2011 */
 @charset "UTF-8";
 html,body{margin:0;padding:0;}
 h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,cite,code,del,dfn,em,img,q,s,samp,small,strike,strong,sub,sup,tt,var,dd,dl,dt,li,ol,ul,fieldset,form,label,legend,button,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;font-weight:normal;font-style:normal;font-size:100%;line-height:1;font-family:inherit;}
@@ -138,7 +138,7 @@ input[type=submit].alternative:disabled:hover,button.btn.alternative:disabled:ho
 [data-group=commently] [data-type=comment] header [data-type=tools] [data-type=edit-link]{padding-right:7px;border-right:1px solid #ccc;}[data-group=commently] [data-type=comment] header [data-type=tools] [data-type=edit-link]:before{font-family:WebSymbols;content:"a";}
 [data-group=commently] [data-type=comment] header [data-type=tools] [data-type=edit-link]:hover:before{color:green;}
 [data-group=commently] [data-type=comment][data-today=y] header{background-color:#eee;border:1px solid rgba(0, 0, 0, 0.2);}
-[data-group=commently] [data-type=comment] [data-type=body]{padding:5px 3px 5px 3px;font-size:0.95em;line-height:1.4em;text-shadow:1px 1px 0 rgba(255, 255, 255, 0.8);}
+[data-group=commently] [data-type=comment] [data-type=body]{padding:5px 3px 5px 3px;font-size:0.95em;line-height:1.4em;}
 [data-group=commently] [data-type=comment] [data-type=user]{font-weight:bold;}
 [data-group=commently] [data-type=comment].replying header{background-color:#333;}[data-group=commently] [data-type=comment].replying header *{color:#ddd;text-shadow:1px 1px 0 rgba(0, 0, 0, 0.5);}
 [data-group=commently] [data-type=comment] footer time{padding-left:37px !important;}
