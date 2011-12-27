@@ -21,7 +21,7 @@ class Series extends Blaze {
 	
 	public function recent_posts($count = 5)
 	{
-		return $this->has_many('post')->order_by('series_sequence', 'desc')->take($count);
+		return $this->has_many('post')->where('state', '=', 'open')->order_by('series_sequence', 'desc')->take($count);
 	}
 	
 	// ---------------------------------------------------------------------
