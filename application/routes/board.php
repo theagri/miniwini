@@ -80,7 +80,7 @@ return array(
 		if (is_null($board = Board::aliased($alias))) return Response::error(404);
 		
 		return View::of_front()->nest('content', 'board/series_listing', array(
-			'series_list' => $board->with('user', 'posts')->series()->order_by('id', 'desc')->paginate(20),
+			'series_list' => $board->with('user', 'recent_posts')->series()->order_by('updated_at', 'desc')->paginate(20),
 			'active_tab' => 'series',
 			'board' => $board
 		));

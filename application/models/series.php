@@ -19,6 +19,13 @@ class Series extends Blaze {
 	
 	// ---------------------------------------------------------------------
 	
+	public function recent_posts($count = 5)
+	{
+		return $this->has_many('post')->order_by('series_sequence', 'desc')->take($count);
+	}
+	
+	// ---------------------------------------------------------------------
+	
 	public function link($alias)
 	{
 		return Config::get('application.url') . '/board/' . $alias . '/series/' . $this->id;

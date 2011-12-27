@@ -20,6 +20,8 @@
 
 				<? foreach ($series_list->results as $s): ?>
 				
+				<? if (count($s->recent_posts)): ?>
+				
 				<article>
 					
 					<?=$s->user->avatar('medium')?>
@@ -35,11 +37,11 @@
 						
 					</p>
 					
-					<? if (count($s->posts)): ?>
+					<? if (count($s->recent_posts)): ?>
 					
 					<ol>
 						
-						<? foreach ($s->posts as $p): ?>
+						<? foreach ($s->recent_posts as $p): ?>
 						
 						<? if ($p->open()): ?>
 					
@@ -58,6 +60,8 @@
 					<? endif; ?>
 					
 				</article>
+				
+				<? endif; ?>
 				
 				<? endforeach; ?>
 				
