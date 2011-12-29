@@ -37,6 +37,7 @@ class Miniwini
 		@context.mouseleave(=>@hideContext())
 		$('figure[data-type^=avatar-]').mouseenter( ->
 			t = $(this)
+			return if not t.data('userid')
 			c = self.context.hide()
 			p = t.offset()
 			c.html($.tmpl(self.tpl.context, t.data()))
