@@ -54,7 +54,7 @@ class Miniwini
 			self.contextTimer = window.setTimeout(=>
 				c.show()
 				window.setTimeout(=>
-					c.css({top:top-10,opacity:1,zIndex:9999999})
+					c.css({top:Math.max(0, top-10),opacity:1,zIndex:9999999})
 				,1)
 				
 			, 600)
