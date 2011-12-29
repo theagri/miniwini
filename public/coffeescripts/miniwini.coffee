@@ -3,12 +3,17 @@ class Miniwini
 		
 		@doc = $(document)
 		
-		@notificationCheckInterval = 8000
+		@notificationCheckInterval = 7000
 		@checkNotification()
 		@noti_count = $('#notifications-count')
 		@noti_list = $('#notifications')
 		@links_trigger = $('#links-trigger')
 		@links_list = $('#links')
+		@context = $('#user-context')
+		@contextTimer
+		@tpl = {
+			context:$.template('#tpl-user-context')
+		}
 	
 		$('#wrapper').css({left:parseInt($.cookie('x'))})
 		
@@ -26,6 +31,35 @@ class Miniwini
 					path:'/'
 				})
 		})
+		
+		# context
+		self = this
+		@context.mouseleave(=>@hideContext())
+		$('figure[data-type^=avatar-]').mouseenter( ->
+			t = $(this)
+			c = self.context.hide()
+			p = t.offset()
+			c.html($.tmpl(self.tpl.context, t.data()))
+
+			top = p.top - c.height()
+		
+			c.css({
+				left:p.left + t.width()/2 - c.width()/2
+				top:top - 20
+				opacity:0
+				zIndex:-1
+			})
+		
+			self.contextTimer = window.setTimeout(=>
+				c.show()
+				window.setTimeout(=>
+					c.css({top:top-10,opacity:1,zIndex:9999999})
+				,1)
+				
+			, 600)
+		).mouseleave(=>
+			window.clearTimeout(@contextTimer)
+		)
 		
 		
 		# exp
@@ -49,7 +83,10 @@ class Miniwini
 		@doc.bind('keyup', (evt) =>
 			@handleHotkey(evt)
 		)
-	
+	hideContext: ->
+		window.clearTimeout(@contextTimer)
+		@context.css({opacity:0,zIndex:-1}).hide()
+		
 	handleHotkey: (evt) ->
 
 		return if ['html', 'body'].indexOf(evt.target.nodeName.toLowerCase()) == -1
@@ -64,6 +101,7 @@ class Miniwini
 				
 		
 	handleClick: (evt) ->
+		@hideContext()
 		if evt.target.id is 'links-trigger'
 			@noti_list.hide()
 			@noti_count.removeClass('opened')

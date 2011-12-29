@@ -55,8 +55,12 @@
 	</style>
 	
 	
-	
 	<script src="/javascripts/jquery.js"></script>
+	<script src="/javascripts/jquery.ui.js"></script>
+	<script src="/javascripts/jquery.cookie.js"></script>
+	<script src="/javascripts/jquery.templates.js"></script>
+	<script src="/javascripts/jquery.timeago.js"></script>
+
 	<script src="/javascripts/miniwini.js"></script>
 	
 	<? if (Authly::signed()): ?>
@@ -232,6 +236,28 @@
 		<? endif; ?>
 		
 	</div>
+	
+	<div id="user-context"></div>
+	<script id="tpl-user-context" type="text/x-jquery-tmpl">
+		<div>
+		
+		<div data-type="profile">
+			
+			<figure><img data-type="avatar-medium" src="${avatar}"></figure>
+			<div>
+				<em>${name}</em>
+				<br>${userid}
+				<br><span data-type="exp-title">EXP</span><span data-type="exp">${exp}</span>
+			</div>
+		</div>
+		{{if homepage}}
+		<div data-type="homepage">
+			<a href="${homepage}">Homepage</a>
+		</div>
+		{{/if}}
+		
+		</div>
+	</script>
 
 </body>
 </html>
