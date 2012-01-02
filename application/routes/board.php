@@ -21,6 +21,7 @@ return array(
 			'board' => $board,
 			'active_tab' => 'all',
 			'posts' => $board->posts()->with('series', 'user', 'last_commenter')->where('state', '=', 'open')->order_by('id', 'desc')->paginate($board->posts_per_page),
+			'paging_url_base' => 'board/' . $alias
 		));
 	}),
 	
@@ -49,6 +50,7 @@ return array(
 			'board' => $board,
 			'active_tab' => $active_tab,
 			'posts' => $board->posts()->with('user')->where_user_id($author->id)->order_by('id', 'desc')->paginate($board->posts_per_page),
+			'paging_base_url' => 'board/' . $alias . '/' . $by 
 		));
 	},
 	
@@ -62,7 +64,8 @@ return array(
 		return View::of_front()->nest('content', 'board/listing', array(
 			'board' => $board,
 			'active_tab' => 'draft',
-			'posts' => $board->posts()->with('user')->where_user_id(Authly::get_id())->where_in( 'state' , array('draft', 'unpublished'))->order_by('id', 'desc')->paginate(100)
+			'posts' => $board->posts()->with('user')->where_user_id(Authly::get_id())->where_in( 'state' , array('draft', 'unpublished'))->order_by('id', 'desc')->paginate(100),
+			'paging_url_base' => 'board/' . $alias . '/drafts'
 		));
 	},
 	
@@ -80,7 +83,7 @@ return array(
 		if (is_null($board = Board::aliased($alias))) return Response::error(404);
 		
 		return View::of_front()->nest('content', 'board/series_listing', array(
-			'series_list' => $board->with('user', 'recent_posts')->series()->order_by('updated_at', 'desc')->paginate(20),
+			'series_list' => $board->with('user', 'recent_posts')->series()->order_by('updated_at', 'desc')->paginate(50),
 			'active_tab' => 'series',
 			'board' => $board
 		));
@@ -176,7 +179,8 @@ return array(
 			'board' => $board,
 			'active_tab' => $active_tab,
 			'post' => $post,
-			'posts' => $board->posts()->with('series', 'user', 'last_commenter')->where('state', '=', 'open')->order_by('id', 'desc')->paginate($board->posts_per_page)
+			'posts' => $board->posts()->with('series', 'user', 'last_commenter')->where('state', '=', 'open')->order_by('id', 'desc')->paginate($board->posts_per_page),
+			'paging_url_base' => 'board/' . $alias
 		));
 	}),
 	

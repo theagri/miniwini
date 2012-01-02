@@ -103,6 +103,6 @@
 			<? endif; ?>
 
 
-			<?=$posts->from($board->link())->links()?>
+			<?=$posts->from($paging_url_base)->links()?>
 	
 			</section>
