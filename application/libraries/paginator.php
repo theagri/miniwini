@@ -1,4 +1,5 @@
 <?php
+use Laravel\URI;
 class Paginator extends Laravel\Paginator {
 	
 	/**
