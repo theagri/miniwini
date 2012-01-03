@@ -1,4 +1,4 @@
-/* generated: Thu Dec 29 17:35:38 +0900 2011 */
+/* generated: Tue Jan 03 23:40:16 +0900 2012 */
 @charset "UTF-8";
 html,body{margin:0;padding:0;}
 h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,cite,code,del,dfn,em,img,q,s,samp,small,strike,strong,sub,sup,tt,var,dd,dl,dt,li,ol,ul,fieldset,form,label,legend,button,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;font-weight:normal;font-style:normal;font-size:100%;line-height:1;font-family:inherit;}
@@ -38,7 +38,7 @@ input[type=submit]:disabled,button.btn:disabled{box-shadow:0 0 0;opacity:0.6;bor
 input[type=submit]:disabled:active,button.btn:disabled:active{top:0;}
 input[type=submit].alternative,button.btn.alternative{background-color:#444;margin-right:10px;}input[type=submit].alternative:hover,button.btn.alternative:hover{background-color:#222;}
 input[type=submit].alternative:disabled:hover,button.btn.alternative:disabled:hover{background-color:#444;}
-[data-type=body]{line-height:1.5em;text-shadow:1px 1px 0 rgba(0, 0, 0, 0.06);}[data-type=body] p{line-height:1.5em;margin-bottom:15px;}
+[data-type=body]{line-height:1.5em;text-shadow:1px 1px 0 rgba(0, 0, 0, 0.06);word-wrap:break-word;}[data-type=body] p{line-height:1.5em;margin-bottom:15px;}
 [data-type=body] ul{list-style-type:disc;list-style-position:inside;}
 [data-type=body] ol{list-style-type:decimal;list-style-position:inside;}
 [data-type=body] ul,[data-type=body] ol{padding-left:15px;}[data-type=body] ul li,[data-type=body] ol li{padding:5px;}
